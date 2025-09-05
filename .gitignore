@@ -1,0 +1,5 @@
+# Ignore SAM model checkpoint files
+*.pth
+
+# Ignore video files
+*.mp4
