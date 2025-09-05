@@ -10,7 +10,7 @@ import torch, torchvision, numpy as np, cv2
 
 CHECKPOINT = "sam_vit_b_01ec64.pth"
 CHECKPOINT_URL = "https://dl.fbaipublicfiles.com/segment_anything/sam_vit_b_01ec64.pth"  # official
-IMAGE_PATH = "Capture.PNG"  # put your image in the Colab working dir or update path
+IMAGE_PATH = "clip_teste.png"  # put your image in the Colab working dir or update path
 MODEL_TYPE = "vit_b"
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 
