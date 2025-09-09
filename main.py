@@ -1,26 +1,220 @@
-import google.generativeai as genai
+from langchain_google_genai import ChatGoogleGenerativeAI
+from langchain_core.messages import HumanMessage, SystemMessage
+from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
+from langchain_core.tools import BaseTool, tool
+from langchain_core.output_parsers import StrOutputParser
+from langchain.agents import AgentExecutor, create_tool_calling_agent
+from langchain.schema import BaseMessage
+from pydantic import BaseModel, Field
 import os
 from dotenv import load_dotenv
 import subprocess
-import tempfile
 from pathlib import Path
 from PIL import Image
-import json
 import re
+import base64
+from typing import List, Dict, Any, Optional, Tuple
+import io
 
-class GeminiVisionToPDDL:
-    def __init__(self, api_key, model_name="gemini-2.5-flash"):
+class PDDLGenerationResult(BaseModel):
+    """Result model for PDDL generation."""
+    domain_pddl: str = Field(description="Generated PDDL domain file content")
+    problem_pddl: str = Field(description="Generated PDDL problem file content")
+    reasoning: str = Field(description="Reasoning behind the PDDL generation")
+
+class PlanningResult(BaseModel):
+    """Result model for planning execution."""
+    status: str = Field(description="Planning status: success, failed, timeout, or error")
+    return_code: int = Field(description="Return code from planner")
+    stdout: str = Field(description="Standard output from planner")
+    stderr: str = Field(description="Standard error from planner")
+    plan: Optional[str] = Field(description="Generated plan if successful")
+    plan_length: int = Field(description="Number of steps in the plan")
+    search_time: Optional[float] = Field(description="Search time in seconds")
+
+class LangChainGeminiVisionToPDDL:
+    def __init__(self, api_key: str, model_name: str = "gemini-2.5-flash", temperature: float = 0):
         """
-        Initialize the Gemini Vision to PDDL converter.
+        Initialize the LangChain-based Gemini Vision to PDDL converter.
         
         Args:
             api_key (str): Google Gemini API key
             model_name (str): Gemini model to use
+            temperature (float): Temperature for LLM responses
         """
-        genai.configure(api_key=api_key)
-        self.model = genai.GenerativeModel(model_name)
+        self.api_key = api_key
+        self.model_name = model_name
+        self.temperature = temperature
         
-    def describe_image(self, image_path, custom_prompt=None):
+        # Initialize vision model for image description
+        self.vision_llm = ChatGoogleGenerativeAI(
+            model=model_name,
+            google_api_key=api_key,
+            temperature=temperature
+        )
+        
+        # Initialize text model for PDDL generation (with tool calling capabilities)
+        self.pddl_llm = ChatGoogleGenerativeAI(
+            model=model_name,
+            google_api_key=api_key,
+            temperature=temperature
+        )
+        
+        # Initialize tools for PDDL generation
+        self.tools = self._initialize_tools()
+        
+        # Create agent for PDDL generation with tool calling
+        self.pddl_agent = self._create_pddl_agent()
+    
+    def _initialize_tools(self) -> List[BaseTool]:
+        """Initialize tools that the PDDL generation LLM can use."""
+        
+        @tool
+        def clarify_object_properties(object_name: str, property_type: str) -> str:
+            """
+            Request clarification about object properties from the user.
+            
+            Args:
+                object_name: Name of the object to clarify
+                property_type: Type of property (e.g., 'color', 'size', 'material', 'position')
+            
+            Returns:
+                Clarification about the object property
+            """
+            print(f"\n🤖 TOOL CALL: Requesting clarification about {object_name}'s {property_type}")
+            response = input(f"Please clarify the {property_type} of {object_name}: ")
+            return f"The {property_type} of {object_name} is: {response}"
+        
+        @tool
+        def get_spatial_relationships(object1: str, object2: str) -> str:
+            """
+            Get detailed spatial relationship between two objects.
+            
+            Args:
+                object1: First object
+                object2: Second object
+            
+            Returns:
+                Detailed spatial relationship description
+            """
+            print(f"\n🤖 TOOL CALL: Requesting spatial relationship between {object1} and {object2}")
+            response = input(f"Describe the spatial relationship between {object1} and {object2}: ")
+            return f"Spatial relationship: {response}"
+        
+        @tool
+        def clarify_instructions(instruction_part: str) -> str:
+            """
+            Request clarification about ambiguous instructions.
+            
+            Args:
+                instruction_part: The part of instructions that needs clarification
+            
+            Returns:
+                Clarified instruction
+            """
+            print(f"\n🤖 TOOL CALL: Requesting clarification about instruction")
+            print(f"Ambiguous instruction: {instruction_part}")
+            response = input("Please clarify this instruction: ")
+            return f"Clarified instruction: {response}"
+        
+        @tool
+        def validate_pddl_syntax(pddl_content: str, file_type: str) -> str:
+            """
+            Validate PDDL syntax for domain or problem files.
+            
+            Args:
+                pddl_content: PDDL file content to validate
+                file_type: Either 'domain' or 'problem'
+            
+            Returns:
+                Validation result and suggestions
+            """
+            # Basic PDDL syntax validation
+            required_keywords = {
+                'domain': ['define', 'domain', ':requirements', ':types', ':predicates', ':action'],
+                'problem': ['define', 'problem', ':domain', ':objects', ':init', ':goal']
+            }
+            
+            missing_keywords = []
+            for keyword in required_keywords[file_type]:
+                if keyword not in pddl_content.lower():
+                    missing_keywords.append(keyword)
+            
+            if missing_keywords:
+                return f"VALIDATION FAILED: Missing required keywords: {', '.join(missing_keywords)}"
+            else:
+                return "VALIDATION PASSED: Basic PDDL syntax appears correct"
+        
+        @tool
+        def get_domain_specific_actions(domain: str) -> str:
+            """
+            Get suggestions for domain-specific actions based on the task domain.
+            
+            Args:
+                domain: The domain type (e.g., 'blocks_world', 'logistics', 'kitchen', 'tabletop')
+            
+            Returns:
+                List of suggested actions for the domain
+            """
+            domain_actions = {
+                'blocks_world': ['pick-up', 'put-down', 'stack', 'unstack'],
+                'logistics': ['load', 'unload', 'drive', 'fly'],
+                'kitchen': ['pick', 'place', 'open', 'close', 'pour', 'mix'],
+                'tabletop': ['grasp', 'release', 'move', 'push', 'pull'],
+                'general': ['pick', 'place', 'move', 'push', 'pull', 'grasp', 'release']
+            }
+            
+            actions = domain_actions.get(domain.lower(), domain_actions['general'])
+            return f"Suggested actions for {domain}: {', '.join(actions)}"
+        
+        return [
+            clarify_object_properties,
+            get_spatial_relationships,
+            clarify_instructions,
+            validate_pddl_syntax,
+            # get_domain_specific_actions
+        ]
+    
+    def _create_pddl_agent(self) -> AgentExecutor:
+        """Create an agent with tool calling capabilities for PDDL generation."""
+        
+        system_message = """You are an expert in PDDL (Planning Domain Definition Language) generation. 
+        Your task is to analyze image descriptions and task instructions to generate valid PDDL domain and problem files.
+
+        When generating PDDL:
+        1. Use standard PDDL syntax
+        2. Include relevant object types (object, location, robot, etc.)
+        3. Define predicates for object properties and relationships
+        4. Include appropriate actions (pick, place, move, etc.)
+        5. Set up initial state based on image description
+        6. Define goal state based on instructions
+
+        You have access to tools to:
+        - Clarify ambiguous object properties
+        - Get spatial relationships between objects
+        - Clarify ambiguous instructions
+        - Validate PDDL syntax
+
+        Use these tools when you need more information or want to validate your output.
+        Always provide both domain and problem files in your final response.
+        """
+        
+        prompt = ChatPromptTemplate.from_messages([
+            ("system", system_message),
+            MessagesPlaceholder(variable_name="chat_history", optional=True),
+            ("human", "{input}"),
+            MessagesPlaceholder(variable_name="agent_scratchpad"),
+        ])
+        
+        agent = create_tool_calling_agent(self.pddl_llm, self.tools, prompt)
+        return AgentExecutor(agent=agent, tools=self.tools, verbose=True, max_iterations=10)
+    
+    def _encode_image(self, image_path: str) -> str:
+        """Encode image to base64 for Gemini Vision."""
+        with open(image_path, "rb") as image_file:
+            return base64.b64encode(image_file.read()).decode('utf-8')
+    
+    def describe_image(self, image_path: str, custom_prompt: Optional[str] = None) -> str:
         """
         Use Gemini Vision to describe an image in detail.
         
@@ -33,32 +227,50 @@ class GeminiVisionToPDDL:
         """
         if custom_prompt is None:
             custom_prompt = """Describe this image with the most detail possible. Include:
-            - All objects present and their positions
-            - Spatial relationships between objects
-            - Colors, shapes, and sizes
+            - All objects present and their positions (be specific about locations)
+            - Spatial relationships between objects (on, next to, behind, etc.)
+            - Colors, shapes, and sizes of objects
             - Any text or labels visible
-            - The overall scene and context
-            Focus on objects that could be manipulated or moved."""
+            - The overall scene and context (table, floor, workspace, etc.)
+            - Object properties that would be relevant for manipulation (graspable, stackable, etc.)
+            
+            Focus on objects that could be manipulated or moved in a robotic task.
+            Use precise spatial language and mention any containers, surfaces, or boundaries."""
         
         try:
-            image = Image.open(image_path)
-            response = self.model.generate_content([custom_prompt, image])
-            return response.text
+            # Create message with image
+            message = HumanMessage(
+                content=[
+                    {"type": "text", "text": custom_prompt},
+                    {
+                        "type": "image_url",
+                        "image_url": {
+                            "url": f"data:image/jpeg;base64,{self._encode_image(image_path)}"
+                        }
+                    }
+                ]
+            )
+            
+            response = self.vision_llm.invoke([message])
+            return response.content
         except Exception as e:
             raise Exception(f"Error describing image: {str(e)}")
     
-    def generate_pddl_from_description(self, image_description, instructions):
+    def generate_pddl_from_description(self, image_description: str, instructions: str, 
+                                     interactive: bool = False) -> PDDLGenerationResult:
         """
-        Generate PDDL domain and problem files from image description and instructions.
+        Generate PDDL domain and problem files using the agent with tool calling.
         
         Args:
             image_description (str): Detailed image description from Gemini
             instructions (str): Task instructions
+            interactive (bool): Whether to enable interactive tool calling
             
         Returns:
-            tuple: (domain_pddl, problem_pddl)
+            PDDLGenerationResult: Generated PDDL files and reasoning
         """
-        pddl_prompt = f"""
+        
+        pddl_input = f"""
         Based on the following image description and task instructions, generate PDDL domain and problem files.
 
         IMAGE DESCRIPTION:
@@ -67,11 +279,17 @@ class GeminiVisionToPDDL:
         TASK INSTRUCTIONS:
         {instructions}
 
-        Please generate:
+        Please analyze the scene and generate:
         1. A PDDL domain file that defines the types, predicates, and actions needed
         2. A PDDL problem file that defines the initial state and goal
 
-        Format your response as follows:
+        If you need clarification about objects, their properties, spatial relationships, or instructions, 
+        use the available tools to get more information.
+
+        Format your final response as follows:
+        REASONING:
+        [Explain your reasoning for the PDDL design]
+
         DOMAIN:
         ```pddl
         [domain file content here]
@@ -81,25 +299,28 @@ class GeminiVisionToPDDL:
         ```pddl
         [problem file content here]
         ```
-
-        Guidelines:
-        - Use standard PDDL syntax
-        - Include relevant object types (e.g., object, location, robot, etc.)
-        - Define predicates for object properties and relationships
-        - Include actions like pick, place, move, etc.
-        - Set up initial state based on image description
-        - Define goal state based on instructions
-        - Use clear, descriptive names for objects and predicates
         """
         
         try:
-            response = self.model.generate_content(pddl_prompt)
-            return self._parse_pddl_response(response.text)
+            if interactive:
+                print("\nStarting PDDL generation with interactive tools...")
+                print("The AI may ask for clarifications during generation.\n")
+            
+            response = self.pddl_agent.invoke({"input": pddl_input})
+            response_text = response["output"]
+            
+            return self._parse_pddl_response(response_text)
         except Exception as e:
             raise Exception(f"Error generating PDDL: {str(e)}")
     
-    def _parse_pddl_response(self, response_text):
+    def _parse_pddl_response(self, response_text: str) -> PDDLGenerationResult:
         """Parse the PDDL response to extract domain and problem files."""
+        
+        # Extract reasoning
+        reasoning_match = re.search(r'REASONING:\s*(.*?)(?=DOMAIN:|$)', response_text, re.DOTALL | re.IGNORECASE)
+        reasoning = reasoning_match.group(1).strip() if reasoning_match else "No reasoning provided"
+        
+        # Extract PDDL files
         domain_match = re.search(r'DOMAIN:\s*```pddl\s*(.*?)\s*```', response_text, re.DOTALL | re.IGNORECASE)
         problem_match = re.search(r'PROBLEM:\s*```pddl\s*(.*?)\s*```', response_text, re.DOTALL | re.IGNORECASE)
         
@@ -109,15 +330,18 @@ class GeminiVisionToPDDL:
         domain_pddl = domain_match.group(1).strip()
         problem_pddl = problem_match.group(1).strip()
         
-        return domain_pddl, problem_pddl
+        return PDDLGenerationResult(
+            domain_pddl=domain_pddl,
+            problem_pddl=problem_pddl,
+            reasoning=reasoning
+        )
     
-    def save_pddl_files(self, domain_pddl, problem_pddl, output_dir="."):
+    def save_pddl_files(self, pddl_result: PDDLGenerationResult, output_dir: str = ".") -> Tuple[str, str]:
         """
         Save PDDL files to disk.
         
         Args:
-            domain_pddl (str): Domain PDDL content
-            problem_pddl (str): Problem PDDL content
+            pddl_result (PDDLGenerationResult): PDDL generation result
             output_dir (str): Directory to save files
             
         Returns:
@@ -128,16 +352,21 @@ class GeminiVisionToPDDL:
         
         domain_file = output_path / "domain.pddl"
         problem_file = output_path / "problem.pddl"
+        reasoning_file = output_path / "reasoning.txt"
         
         with open(domain_file, 'w') as f:
-            f.write(domain_pddl)
+            f.write(pddl_result.domain_pddl)
         
         with open(problem_file, 'w') as f:
-            f.write(problem_pddl)
+            f.write(pddl_result.problem_pddl)
+        
+        with open(reasoning_file, 'w') as f:
+            f.write(pddl_result.reasoning)
         
         return str(domain_file), str(problem_file)
     
-    def run_fast_downward(self, domain_file, problem_file, output_dir=".", search_algorithm="astar(lmcut())"):
+    def run_fast_downward(self, domain_file: str, problem_file: str, output_dir: str = ".", 
+                         search_algorithm: str = "astar(lmcut())") -> PlanningResult:
         """
         Execute Fast Downward planner on the PDDL files.
         
@@ -148,14 +377,12 @@ class GeminiVisionToPDDL:
             search_algorithm (str): Search algorithm for Fast Downward
             
         Returns:
-            dict: Planning results including plan, statistics, and status
+            PlanningResult: Planning results including plan, statistics, and status
         """
-        output_path = Path(output_dir)
-        plan_file = output_path / "plan.txt"
-        log_file = output_path / "planner.log"
+        output_path = Path(".")
+        plan_file = output_path / "sas_plan"
         
         # Fast Downward command
-        # Note: Adjust the path to fast-downward.py based on your installation
         cmd = [
             "uv", "run", "./fast-downward/fast-downward.py",  # Adjust path as needed
             domain_file,
@@ -173,66 +400,67 @@ class GeminiVisionToPDDL:
             )
             
             # Parse results
-            planning_result = {
-                "status": "success" if result.returncode == 0 else "failed",
-                "return_code": result.returncode,
-                "stdout": result.stdout,
-                "stderr": result.stderr,
-                "plan": None,
-                "plan_length": 0,
-                "search_time": None
-            }
+            planning_result = PlanningResult(
+                status="success" if result.returncode == 0 else "failed",
+                return_code=result.returncode,
+                stdout=result.stdout,
+                stderr=result.stderr,
+                plan=None,
+                plan_length=0,
+                search_time=None
+            )
             
             # Read plan if it exists
             if plan_file.exists():
                 with open(plan_file, 'r') as f:
                     plan_content = f.read().strip()
-                    planning_result["plan"] = plan_content
+                    planning_result.plan = plan_content
                     # Count plan steps (excluding comments and empty lines)
                     plan_steps = [line for line in plan_content.split('\n') 
                                 if line.strip() and not line.startswith(';')]
-                    planning_result["plan_length"] = len(plan_steps)
+                    planning_result.plan_length = len(plan_steps)
             
             # Extract search time from output
             time_match = re.search(r'Search time: ([\d.]+)s', result.stdout)
             if time_match:
-                planning_result["search_time"] = float(time_match.group(1))
+                planning_result.search_time = float(time_match.group(1))
             
             return planning_result
             
         except subprocess.TimeoutExpired:
-            return {
-                "status": "timeout",
-                "return_code": -1,
-                "stdout": "",
-                "stderr": "Planning timed out after 5 minutes",
-                "plan": None,
-                "plan_length": 0,
-                "search_time": None
-            }
+            return PlanningResult(
+                status="timeout",
+                return_code=-1,
+                stdout="",
+                stderr="Planning timed out after 5 minutes",
+                plan=None,
+                plan_length=0,
+                search_time=None
+            )
         except FileNotFoundError:
-            return {
-                "status": "error",
-                "return_code": -1,
-                "stdout": "",
-                "stderr": "Fast Downward not found. Please ensure it's installed and in PATH.",
-                "plan": None,
-                "plan_length": 0,
-                "search_time": None
-            }
+            return PlanningResult(
+                status="error",
+                return_code=-1,
+                stdout="",
+                stderr="Fast Downward not found. Please ensure it's installed and in PATH.",
+                plan=None,
+                plan_length=0,
+                search_time=None
+            )
         except Exception as e:
-            return {
-                "status": "error",
-                "return_code": -1,
-                "stdout": "",
-                "stderr": f"Error running planner: {str(e)}",
-                "plan": None,
-                "plan_length": 0,
-                "search_time": None
-            }
+            return PlanningResult(
+                status="error",
+                return_code=-1,
+                stdout="",
+                stderr=f"Error running planner: {str(e)}",
+                plan=None,
+                plan_length=0,
+                search_time=None
+            )
     
-    def process_image_to_plan(self, image_path, instructions, output_dir="output", 
-                            custom_prompt=None, search_algorithm="astar(lmcut())"):
+    def process_image_to_plan(self, image_path: str, instructions: str, output_dir: str = "output", 
+                            custom_prompt: Optional[str] = None, search_algorithm: str = "astar(lmcut())",
+                            interactive: bool = False) -> Dict[str, Any]:
         """
         Complete pipeline: image description -> PDDL generation -> planning.
         
@@ -242,69 +470,73 @@ class GeminiVisionToPDDL:
             output_dir (str): Output directory for all files
             custom_prompt (str): Custom prompt for image description
             search_algorithm (str): Search algorithm for Fast Downward
+            interactive (bool): Enable interactive tool calling for PDDL generation
             
         Returns:
             dict: Complete results including description, PDDL, and plan
         """
-        print("Step 1: Analyzing image...")
+        print("Step 1: Analyzing image with Gemini Vision...")
         description = self.describe_image(image_path, custom_prompt)
         
-        print("Step 2: Generating PDDL files...")
-        domain_pddl, problem_pddl = self.generate_pddl_from_description(description, instructions)
+        print("\nStep 2: Generating PDDL files with LangChain agent...")
+        pddl_result = self.generate_pddl_from_description(description, instructions, interactive)
         
-        print("Step 3: Saving PDDL files...")
-        domain_file, problem_file = self.save_pddl_files(domain_pddl, problem_pddl, output_dir)
+        print("\nStep 3: Saving PDDL files...")
+        domain_file, problem_file = self.save_pddl_files(pddl_result, output_dir)
         
-        print("Step 4: Running planner...")
+        print("\nStep 4: Running Fast Downward planner...")
         planning_result = self.run_fast_downward(domain_file, problem_file, output_dir, search_algorithm)
         
         return {
             "image_description": description,
-            "domain_pddl": domain_pddl,
-            "problem_pddl": problem_pddl,
+            "pddl_result": pddl_result,
             "domain_file": domain_file,
             "problem_file": problem_file,
             "planning_result": planning_result
         }
 
 def main():
-    """Example usage of the GeminiVisionToPDDL class."""
+    """Example usage of the LangChain-based Gemini Vision to PDDL converter."""
     
     load_dotenv()
     # Initialize with your Gemini API key
-    api_key = os.getenv("GEMINI_API_KEY")  # Set this environment variable
+    api_key = os.getenv("GEMINI_API_KEY")
     if not api_key:
         print("Please set GEMINI_API_KEY environment variable")
         return
     
-    converter = GeminiVisionToPDDL(api_key)
+    converter = LangChainGeminiVisionToPDDL(api_key)
     
     # Example usage
-    image_path = "example_image.jpg"  # Replace with your image path
+    image_path = "./images/example_image.jpg"
     instructions = """
-    I want a stack consisting of block A on top of B on top of D.
-    Block C is place on the side.
+    Not sure what I want actually
     """
     
     try:
+        # Run with interactive tool calling enabled
         results = converter.process_image_to_plan(
             image_path=image_path,
             instructions=instructions,
-            output_dir="planning_output"
+            output_dir="planning_output",
+            interactive=True  # Enable interactive clarifications
         )
         
-        print("\n=== RESULTS ===")
-        print(f"Image Description Length: {len(results['image_description'])} characters")
-        print(f"")
-        print(f"Planning Status: {results['planning_result']['status']}")
+        print("\n" + "="*50)
+        print("RESULTS SUMMARY")
+        print("="*50)
+        # print(f"Image Description: {results['image_description']}")
+        # print(f"PDDL Reasoning: {results['pddl_result'].reasoning}")
+        print(f"Planning Status: {results['planning_result'].status}")
         
-        if results['planning_result']['plan']:
-            print(f"Plan Length: {results['planning_result']['plan_length']} steps")
+        if results['planning_result'].plan:
+            print(f"Plan Length: {results['planning_result'].plan_length} steps")
+            print(f"Search Time: {results['planning_result'].search_time}s")
             print("\nGenerated Plan:")
-            print(results['planning_result']['plan'])
+            print(results['planning_result'].plan)
         else:
             print("No plan generated")
-            print(f"Error: {results['planning_result']['stderr']}")
+            print(f"Error: {results['planning_result'].stderr}")
             
     except Exception as e:
         print(f"Error: {str(e)}")

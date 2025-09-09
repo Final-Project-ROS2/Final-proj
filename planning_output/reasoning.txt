@@ -1,0 +1,10 @@
+The PDDL domain defines the types of objects involved (blocks, surface, robot), predicates to describe their states and relationships (on, on-table, clear, holding, arm-empty), and actions that can be performed (pick-up, stack, unstack, put-down). The actions are designed to allow a robot to manipulate blocks, moving them between the table and other blocks.
+
+The PDDL problem file sets up the initial state based on the image description:
+- Blocks A, B, C are initially on the table.
+- Block D is initially on Block C.
+- The top surfaces of Block A, Block B, and Block D are clear.
+- The top surface of Block C is not clear because Block D is on it.
+- The robot's arm is initially empty.
+
+The goal state is derived from the clarified instruction: "stack the blocks in alphabetical order, early letter should be at the bottom". This translates to a stack where Block A is on the table, Block B is on Block A, Block C is on Block B, and Block D is on Block C, with Block D being clear.
