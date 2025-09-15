@@ -1,0 +1,72 @@
+# Robotic Vision Pipeline Requirements
+# Core dependencies for object detection, classification, grasp synthesis, and scene understanding
+
+# Computer Vision and Image Processing
+opencv-python==4.8.1.78
+opencv-contrib-python==4.8.1.78
+Pillow==10.0.1
+
+# Deep Learning Frameworks
+torch==2.0.1
+torchvision==0.15.2
+torchaudio==2.0.2
+
+# Segment Anything Model (SAM)
+segment-anything @ git+https://github.com/facebookresearch/segment-anything.git
+
+# Scientific Computing
+numpy==1.24.3
+scipy==1.11.3
+
+# Data Manipulation and Analysis
+pandas==2.0.3
+
+# Visualization
+matplotlib==3.7.2
+seaborn==0.12.2
+
+# Image Processing and Computer Vision Extensions
+scikit-image==0.21.0
+imageio==2.31.3
+
+# Machine Learning
+scikit-learn==1.3.0
+
+# Progress Bars and Utilities
+tqdm==4.66.1
+
+# JSON and Data Handling
+jsonschema==4.19.0
+
+# Path and File Handling
+pathlib2==2.3.7.post1
+
+# Testing
+pytest==7.4.2
+pytest-cov==4.1.0
+
+# Optional: CLIP for object classification (if using real CLIP model)
+# clip-by-openai @ git+https://github.com/openai/CLIP.git
+
+# Optional: Grasp synthesis libraries
+# graspnetAPI @ git+https://github.com/graspnet/graspnetAPI.git
+
+# Optional: VLM libraries (if using real VLM models)
+# transformers==4.33.2
+# tokenizers==0.13.3
+
+# Optional: 3D processing (for depth and point clouds)
+# open3d==0.17.0
+# trimesh==3.23.5
+
+# Optional: Robot simulation (for future integration)
+# pybullet==3.2.5
+# robotics-toolbox-python==1.0.2
+
+# Development and Debugging
+ipython==8.14.0
+jupyter==1.0.0
+notebook==7.0.3
+
+# System and Environment
+psutil==5.9.5
