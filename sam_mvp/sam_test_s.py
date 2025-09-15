@@ -12,7 +12,7 @@ MODEL_TYPE = "vit_b"  # Match the actual checkpoint you have
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 
 # If you want to use ViT-H, download the correct checkpoint:
-# https://dl.fbaipublicfiles.com/segment_anything/sam_vit_h_4b8939.pth
+# https://dl.fbaipublicfiles.com/segment_anything/sam_vit_b_01ec64.pth
 
 print(f"Using device: {DEVICE}")
 print(f"Loading model: {MODEL_TYPE}")
