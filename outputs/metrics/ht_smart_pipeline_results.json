@@ -1,0 +1,38 @@
+{
+  "pipeline": "Configurable Smart Ensemble: WBF + YOLOv11-Seg + SAM",
+  "image": "ht",
+  "sam_model": "sam_vit_l",
+  "yolo_models": [
+    "yolov8n",
+    "yolo11s",
+    "yolo11m"
+  ],
+  "model_weights": [
+    1.0,
+    1.2,
+    1.5
+  ],
+  "initial_detections": 5,
+  "wbf_fused": 4,
+  "yolo_seg_masks": 4,
+  "sam_refined": 4,
+  "final_objects": 4,
+  "final_masks": 4,
+  "fused_labels": [
+    "knife",
+    "knife",
+    "knife",
+    "knife"
+  ],
+  "confidence_scores": [
+    0.8812249898910522,
+    0.556954026222229,
+    0.42550408840179443,
+    0.3503274619579315
+  ],
+  "config": {
+    "yolo_conf_threshold": 0.25,
+    "wbf_iou_threshold": 0.55,
+    "mask_merge_iou_threshold": 0.7
+  }
+}
