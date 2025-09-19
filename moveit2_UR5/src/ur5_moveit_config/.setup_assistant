@@ -1,0 +1,25 @@
+moveit_setup_assistant_config:
+  urdf:
+    package: robot_description
+    relative_path: urdf/ur5_robotiq85_gripper.xacro
+  srdf:
+    relative_path: config/ur5.srdf
+  package_settings:
+    author_name: Kanisorn-S
+    author_email: karamahati@gmail.com
+    generated_timestamp: 1758189521
+  control_xacro:
+    command:
+      - position
+    state:
+      - position
+      - velocity
+  modified_urdf:
+    xacros:
+      - control_xacro
+  control_xacro:
+    command:
+      - position
+    state:
+      - position
+      - velocity
