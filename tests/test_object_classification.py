@@ -1,12 +1,12 @@
 """
-Unit Test for Object Classification Module
+Unit Test for Object Classification Module with CLIP and DINOv2
 Tests if the classification module can properly identify tools from segmented objects.
 
 Expected Output Format:
 [
-  { "id": 1, "label": "wrench", "confidence": 0.94 },
-  { "id": 2, "label": "screwdriver", "confidence": 0.89 },
-  { "id": 3, "label": "box cutter", "confidence": 0.81 }
+  { "id": 1, "label": "wrench", "confidence": 0.94, "method": "clip+dino" },
+  { "id": 2, "label": "screwdriver", "confidence": 0.89, "method": "clip+dino" },
+  { "id": 3, "label": "knife", "confidence": 0.81, "method": "clip+dino" }
 ]
 """
 
@@ -16,6 +16,7 @@ import json
 import sys
 import os
 from pathlib import Path
+import matplotlib.pyplot as plt
 
 # Add parent directory to path for imports
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -30,13 +31,14 @@ def load_detection_results():
     if not results_path.exists():
         print("❌ Detection results not found. Please run object detection test first.")
         print("   Expected file: test_outputs/detection_results.json")
+        print("   Run: python test_object_detection_only.py")
         return None, None, None
     
     with open(results_path, 'r') as f:
         detection_data = json.load(f)
     
     # Load original image
-    image_path = Path("../src/tools.png")
+    image_path = Path("../src/arrange.jpg")
     image = cv2.imread(str(image_path))
     
     if image is None:
@@ -63,15 +65,15 @@ def load_detection_results():
 
 def test_object_classification():
     """
-    Test Object Classification Module
+    Test Object Classification Module with CLIP and DINOv2
     
     Expected behavior:
     - Load segmented objects from detection results
-    - Classify each object into tool categories
-    - Return structured results with id, label, and confidence
+    - Classify each object into tool categories using CLIP and DINOv2
+    - Return structured results with id, label, confidence, and method
     """
-    print("🏷️  Testing Object Classification Module")
-    print("=" * 50)
+    print("🏷️  Testing Object Classification Module - CLIP + DINOv2")
+    print("=" * 60)
     
     # Load detection results
     image, masks, boxes = load_detection_results()
@@ -79,13 +81,13 @@ def test_object_classification():
         return
     
     try:
-        # Initialize classifier
-        print("Initializing Object Classification module...")
-        classifier = ObjectClassification()
+        # Initialize classifier with CLIP and DINOv2
+        print("🤖 Initializing CLIP + DINOv2 classification module...")
+        classifier = ObjectClassification(device="auto", use_dino=True)
         
         # Run classification
-        print("Classifying detected objects...")
-        labels, confidences = classifier.classify_objects(image, masks)
+        print("🔍 Classifying detected objects...")
+        labels, confidences, details = classifier.classify_objects(image, masks, boxes)
         
         # Format results in expected structure
         classification_results = []
