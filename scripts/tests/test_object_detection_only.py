@@ -103,18 +103,33 @@ class ObjectDetectionTest:
         print(f"      - Total objects: {len(masks)}")
         print(f"      - Total segmented pixels: {total_pixels:,.0f}")
         print(f"      - Average object area: {avg_area:,.0f} pixels")
+        print(f"      - Mask merging: Applied for elongated objects (pliers, etc.)")
+        
+        # Analyze object shapes for elongated detection
+        elongated_objects = 0
+        for i, bbox in enumerate(boxes):
+            x, y, w, h = bbox
+            aspect_ratio = max(w, h) / min(w, h)
+            if aspect_ratio > 2.0:
+                elongated_objects += 1
+        
+        print(f"      - Elongated objects detected: {elongated_objects}")
         
         # Print bounding box details
         print(f"\n   📦 Bounding Boxes:")
         for i, bbox in enumerate(boxes):
             x, y, w, h = bbox
             area = w * h
-            print(f"      Object {i+1}: x={x:>4.0f}, y={y:>4.0f}, w={w:>4.0f}, h={h:>4.0f}, area={area:>7.0f}")
+            aspect_ratio = max(w, h) / min(w, h)
+            shape_type = "elongated" if aspect_ratio > 2.0 else "compact"
+            print(f"      Object {i+1}: x={x:>4.0f}, y={y:>4.0f}, w={w:>4.0f}, h={h:>4.0f}, area={area:>7.0f}, {shape_type}")
         
         return {
             "num_objects": len(masks),
             "total_pixels": int(total_pixels),
             "average_area": float(avg_area),
+            "elongated_objects": elongated_objects,
+            "mask_merging_applied": True,
             "bounding_boxes": boxes
         }
     
@@ -191,41 +206,51 @@ class ObjectDetectionTest:
         plt.close()
     
     def _create_matplotlib_plot(self, image, masks, boxes):
-        """Create detailed matplotlib visualization"""
+        """Create detailed matplotlib visualization with improved mask and box visibility"""
         fig, axes = plt.subplots(1, 3, figsize=(15, 5))
-        
+
         # Original image
         axes[0].imshow(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
         axes[0].set_title('Original Image')
         axes[0].axis('off')
-        
-        # All masks overlay
-        overlay = image.copy()
+
+        # All masks overlay - improved visibility
+        overlay = image.copy().astype(np.float32)
+        # Make the background a bit lighter for better contrast
+        overlay = overlay * 0.8 + 50
+        overlay = np.clip(overlay, 0, 255)
+
+        # Use a visually distinct color palette
+        color_palette = plt.cm.get_cmap('tab20', max(10, len(masks)))
+
+        mask_alpha = 0.35  # More transparent mask overlay
         for i, mask in enumerate(masks):
-            color = plt.cm.tab10(i % 10)[:3]  # Get color from colormap
-            color_bgr = [int(c * 255) for c in color]
-            mask_img = np.zeros_like(image)
-            mask_img[mask > 0] = color_bgr
-            overlay = cv2.addWeighted(overlay, 0.8, mask_img, 0.2, 0)
-        
+            color = color_palette(i)[:3]  # RGB tuple, 0-1
+            color_bgr = np.array([color[2], color[1], color[0]]) * 255
+            mask_overlay = np.zeros_like(image, dtype=np.float32)
+            mask_overlay[mask > 0] = color_bgr
+            # Blend mask with higher transparency
+            overlay[mask > 0] = overlay[mask > 0] * (1 - mask_alpha) + mask_overlay[mask > 0] * mask_alpha
+
+        overlay = np.clip(overlay, 0, 255).astype(np.uint8)
         axes[1].imshow(cv2.cvtColor(overlay, cv2.COLOR_BGR2RGB))
         axes[1].set_title(f'All Masks ({len(masks)} objects)')
         axes[1].axis('off')
-        
-        # Bounding boxes only
+
+        # Bounding boxes only (thinner, more distinct)
         bbox_image = image.copy()
         for i, bbox in enumerate(boxes):
             x, y, w, h = bbox
-            color = plt.cm.tab10(i % 10)[:3]
-            color_bgr = [int(c * 255) for c in color]
-            cv2.rectangle(bbox_image, (int(x), int(y)), (int(x+w), int(y+h)), color_bgr, 3)
+            color = color_palette(i)[:3]
+            color_bgr = [int(color[2] * 255), int(color[1] * 255), int(color[0] * 255)]
+            cv2.rectangle(bbox_image, (int(x), int(y)), (int(x+w), int(y+h)), color_bgr, 2)
             cv2.putText(bbox_image, f'{i+1}', (int(x+5), int(y+25)), 
                        cv2.FONT_HERSHEY_SIMPLEX, 0.8, color_bgr, 2)
-        
+
         axes[2].imshow(cv2.cvtColor(bbox_image, cv2.COLOR_BGR2RGB))
         axes[2].set_title('Bounding Boxes')
         axes[2].axis('off')
-        
+
         plt.tight_layout()
         plt.savefig(self.output_dir / "4_matplotlib_plot.png", dpi=150, bbox_inches='tight')
         plt.close()
