@@ -55,9 +55,12 @@ class ObjectDetectionSegmentation:
         min_area = image.shape[0] * image.shape[1] * 0.001
         filtered_masks = [mask for mask in sam_masks if mask['area'] > min_area]
         
+        # Apply mask merging strategy for elongated objects
+        merged_masks = self._merge_fragmented_masks(filtered_masks, image.shape[:2])
+        
         # Extract masks and boxes
-        masks = [mask['segmentation'] for mask in filtered_masks]
-        boxes = [mask['bbox'] for mask in filtered_masks]
+        masks = [mask['segmentation'] for mask in merged_masks]
+        boxes = [mask['bbox'] for mask in merged_masks]
         
         return masks, boxes
     
@@ -82,6 +85,158 @@ class ObjectDetectionSegmentation:
                     filtered_masks.append(mask)
         
         return filtered_masks
+    
+    def _merge_fragmented_masks(self, masks: List[Dict], image_shape: Tuple[int, int]) -> List[Dict]:
+        """
+        Merge fragmented masks from elongated objects using bounding box overlap 
+        and mask adjacency analysis.
+        
+        Args:
+            masks: List of mask dictionaries from SAM
+            image_shape: (height, width) of the original image
+            
+        Returns:
+            List of merged mask dictionaries
+        """
+        if len(masks) <= 1:
+            return masks
+            
+        merged_masks = []
+        used_indices = set()
+        
+        for i, mask_a in enumerate(masks):
+            if i in used_indices:
+                continue
+                
+            # Start with current mask
+            merged_mask = mask_a.copy()
+            merge_candidates = [i]
+            
+            # Find masks to merge with current mask
+            for j, mask_b in enumerate(masks[i+1:], start=i+1):
+                if j in used_indices:
+                    continue
+                    
+                # Check if masks should be merged
+                if self._should_merge_masks(mask_a, mask_b, image_shape):
+                    merge_candidates.append(j)
+                    used_indices.add(j)
+            
+            # If we have masks to merge, combine them
+            if len(merge_candidates) > 1:
+                merged_mask = self._combine_masks([masks[idx] for idx in merge_candidates], image_shape)
+            
+            merged_masks.append(merged_mask)
+            used_indices.add(i)
+        
+        return merged_masks
+    
+    def _should_merge_masks(self, mask_a: Dict, mask_b: Dict, image_shape: Tuple[int, int]) -> bool:
+        """
+        Determine if two masks should be merged based on:
+        1. Bounding box overlap
+        2. Mask adjacency
+        3. Aspect ratio similarity (for elongated objects)
+        """
+        bbox_a = mask_a['bbox']  # [x, y, w, h]
+        bbox_b = mask_b['bbox']
+        
+        # Calculate bounding box overlap (IoU)
+        overlap_ratio = self._calculate_bbox_overlap(bbox_a, bbox_b)
+        
+        # Check mask adjacency
+        adjacency_score = self._calculate_mask_adjacency(
+            mask_a['segmentation'], mask_b['segmentation']
+        )
+        
+        # Check aspect ratio similarity for elongated objects
+        aspect_ratio_a = max(bbox_a[2], bbox_a[3]) / min(bbox_a[2], bbox_a[3])
+        aspect_ratio_b = max(bbox_b[2], bbox_b[3]) / min(bbox_b[2], bbox_b[3])
+        aspect_similarity = min(aspect_ratio_a, aspect_ratio_b) / max(aspect_ratio_a, aspect_ratio_b)
+        
+        # Merge criteria (tuned for elongated objects like pliers)
+        merge_conditions = [
+            overlap_ratio > 0.1,  # Some bounding box overlap
+            adjacency_score > 0.05,  # Masks are close/adjacent
+            aspect_ratio_a > 2.0 or aspect_ratio_b > 2.0,  # At least one is elongated
+            aspect_similarity > 0.5,  # Similar elongation
+            abs(mask_a['area'] - mask_b['area']) / max(mask_a['area'], mask_b['area']) < 0.8  # Similar sizes
+        ]
+        
+        # Need at least 3 conditions for merging
+        return sum(merge_conditions) >= 3
+    
+    def _calculate_bbox_overlap(self, bbox_a: List[float], bbox_b: List[float]) -> float:
+        """Calculate intersection over union (IoU) of two bounding boxes"""
+        x1_a, y1_a, w_a, h_a = bbox_a
+        x2_a, y2_a = x1_a + w_a, y1_a + h_a
+        
+        x1_b, y1_b, w_b, h_b = bbox_b
+        x2_b, y2_b = x1_b + w_b, y1_b + h_b
+        
+        # Calculate intersection
+        x1_inter = max(x1_a, x1_b)
+        y1_inter = max(y1_a, y1_b)
+        x2_inter = min(x2_a, x2_b)
+        y2_inter = min(y2_a, y2_b)
+        
+        if x2_inter <= x1_inter or y2_inter <= y1_inter:
+            return 0.0
+        
+        intersection = (x2_inter - x1_inter) * (y2_inter - y1_inter)
+        area_a = w_a * h_a
+        area_b = w_b * h_b
+        union = area_a + area_b - intersection
+        
+        return intersection / union if union > 0 else 0.0
+    
+    def _calculate_mask_adjacency(self, mask_a: np.ndarray, mask_b: np.ndarray) -> float:
+        """Calculate how adjacent two masks are (higher score = more adjacent)"""
+        # Dilate masks slightly to check for near-adjacency
+        kernel = np.ones((5, 5), np.uint8)
+        dilated_a = cv2.dilate(mask_a.astype(np.uint8), kernel, iterations=1)
+        dilated_b = cv2.dilate(mask_b.astype(np.uint8), kernel, iterations=1)
+        
+        # Check overlap between dilated masks
+        intersection = np.logical_and(dilated_a, mask_b).sum()
+        intersection += np.logical_and(dilated_b, mask_a).sum()
+        
+        # Normalize by smaller mask size
+        smaller_mask_size = min(mask_a.sum(), mask_b.sum())
+        
+        return intersection / smaller_mask_size if smaller_mask_size > 0 else 0.0
+    
+    def _combine_masks(self, masks: List[Dict], image_shape: Tuple[int, int]) -> Dict:
+        """Combine multiple masks into a single mask"""
+        # Combine segmentations
+        combined_segmentation = np.zeros(image_shape, dtype=bool)
+        total_area = 0
+        
+        for mask in masks:
+            combined_segmentation = np.logical_or(combined_segmentation, mask['segmentation'])
+            total_area += mask['area']
+        
+        # Calculate new bounding box
+        coords = np.where(combined_segmentation)
+        if len(coords[0]) == 0:
+            # Fallback to first mask if combination failed
+            return masks[0]
+        
+        y_min, y_max = coords[0].min(), coords[0].max()
+        x_min, x_max = coords[1].min(), coords[1].max()
+        
+        new_bbox = [float(x_min), float(y_min), float(x_max - x_min), float(y_max - y_min)]
+        
+        # Create combined mask dictionary
+        combined_mask = {
+            'segmentation': combined_segmentation,
+            'bbox': new_bbox,
+            'area': combined_segmentation.sum(),
+            'predicted_iou': max(mask.get('predicted_iou', 0.5) for mask in masks),
+            'stability_score': np.mean([mask.get('stability_score', 0.5) for mask in masks])
+        }
+        
+        return combined_mask
     
     def visualize_detections(self, image: np.ndarray, masks: List[np.ndarray], boxes: List[List[float]], 
                            save_path: str = None) -> np.ndarray:
