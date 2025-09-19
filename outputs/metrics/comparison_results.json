@@ -1,0 +1,35 @@
+{
+  "yolov8_detections": 4,
+  "yolov11_detections": 4,
+  "merged_boxes": 6,
+  "sam_masks": 6,
+  "final_objects": 6,
+  "final_labels": [
+    "scissors/scissors (IoU:0.90) (overlap:1.00)",
+    "scissors/scissors (IoU:0.96) (overlap:1.00)",
+    "scissors (YOLOv8 only) (overlap:1.00)",
+    "knife (YOLOv8 only) (overlap:1.00)",
+    "scissors (YOLOv11 only) (overlap:1.00)",
+    "toothbrush (YOLOv11 only) (overlap:1.00)"
+  ],
+  "yolo8_labels": [
+    "scissors",
+    "scissors",
+    "scissors",
+    "knife"
+  ],
+  "yolo11_labels": [
+    "scissors",
+    "scissors",
+    "toothbrush",
+    "scissors"
+  ],
+  "merged_labels": [
+    "scissors/scissors (IoU:0.90)",
+    "scissors/scissors (IoU:0.96)",
+    "scissors (YOLOv8 only)",
+    "knife (YOLOv8 only)",
+    "scissors (YOLOv11 only)",
+    "toothbrush (YOLOv11 only)"
+  ]
+}

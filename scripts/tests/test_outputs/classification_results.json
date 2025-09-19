@@ -1,0 +1,315 @@
+{
+  "classification_results": [
+    {
+      "id": 1,
+      "label": "clamp",
+      "confidence": 0.55
+    },
+    {
+      "id": 2,
+      "label": "wrench",
+      "confidence": 0.54
+    },
+    {
+      "id": 3,
+      "label": "pliers",
+      "confidence": 0.54
+    },
+    {
+      "id": 4,
+      "label": "unknown",
+      "confidence": 0.53
+    },
+    {
+      "id": 5,
+      "label": "hammer",
+      "confidence": 0.53
+    },
+    {
+      "id": 6,
+      "label": "knife",
+      "confidence": 0.54
+    },
+    {
+      "id": 7,
+      "label": "drill",
+      "confidence": 0.53
+    },
+    {
+      "id": 8,
+      "label": "pliers",
+      "confidence": 0.54
+    },
+    {
+      "id": 9,
+      "label": "drill",
+      "confidence": 0.52
+    },
+    {
+      "id": 10,
+      "label": "unknown",
+      "confidence": 0.55
+    },
+    {
+      "id": 11,
+      "label": "pliers",
+      "confidence": 0.54
+    },
+    {
+      "id": 12,
+      "label": "clamp",
+      "confidence": 0.55
+    },
+    {
+      "id": 13,
+      "label": "wrench",
+      "confidence": 0.54
+    },
+    {
+      "id": 14,
+      "label": "scissors",
+      "confidence": 0.56
+    },
+    {
+      "id": 15,
+      "label": "pliers",
+      "confidence": 0.55
+    },
+    {
+      "id": 16,
+      "label": "allen_key",
+      "confidence": 0.55
+    },
+    {
+      "id": 17,
+      "label": "wrench",
+      "confidence": 0.54
+    },
+    {
+      "id": 18,
+      "label": "chisel",
+      "confidence": 0.53
+    },
+    {
+      "id": 19,
+      "label": "allen_key",
+      "confidence": 0.54
+    },
+    {
+      "id": 20,
+      "label": "allen_key",
+      "confidence": 0.56
+    },
+    {
+      "id": 21,
+      "label": "saw",
+      "confidence": 0.53
+    },
+    {
+      "id": 22,
+      "label": "clamp",
+      "confidence": 0.53
+    },
+    {
+      "id": 23,
+      "label": "scissors",
+      "confidence": 0.56
+    },
+    {
+      "id": 24,
+      "label": "drill",
+      "confidence": 0.55
+    },
+    {
+      "id": 25,
+      "label": "wrench",
+      "confidence": 0.54
+    },
+    {
+      "id": 26,
+      "label": "saw",
+      "confidence": 0.54
+    },
+    {
+      "id": 27,
+      "label": "clamp",
+      "confidence": 0.54
+    },
+    {
+      "id": 28,
+      "label": "measuring_tape",
+      "confidence": 0.55
+    },
+    {
+      "id": 29,
+      "label": "scissors",
+      "confidence": 0.54
+    },
+    {
+      "id": 30,
+      "label": "knife",
+      "confidence": 0.53
+    },
+    {
+      "id": 31,
+      "label": "saw",
+      "confidence": 0.55
+    },
+    {
+      "id": 32,
+      "label": "wrench",
+      "confidence": 0.58
+    },
+    {
+      "id": 33,
+      "label": "screwdriver",
+      "confidence": 0.54
+    },
+    {
+      "id": 34,
+      "label": "scissors",
+      "confidence": 0.53
+    },
+    {
+      "id": 35,
+      "label": "unknown",
+      "confidence": 0.54
+    },
+    {
+      "id": 36,
+      "label": "screwdriver",
+      "confidence": 0.53
+    },
+    {
+      "id": 37,
+      "label": "wrench",
+      "confidence": 0.54
+    },
+    {
+      "id": 38,
+      "label": "chisel",
+      "confidence": 0.53
+    },
+    {
+      "id": 39,
+      "label": "screwdriver",
+      "confidence": 0.54
+    },
+    {
+      "id": 40,
+      "label": "allen_key",
+      "confidence": 0.54
+    },
+    {
+      "id": 41,
+      "label": "knife",
+      "confidence": 0.55
+    },
+    {
+      "id": 42,
+      "label": "socket",
+      "confidence": 0.54
+    },
+    {
+      "id": 43,
+      "label": "scissors",
+      "confidence": 0.54
+    },
+    {
+      "id": 44,
+      "label": "screwdriver",
+      "confidence": 0.53
+    },
+    {
+      "id": 45,
+      "label": "saw",
+      "confidence": 0.53
+    },
+    {
+      "id": 46,
+      "label": "chisel",
+      "confidence": 0.53
+    },
+    {
+      "id": 47,
+      "label": "measuring_tape",
+      "confidence": 0.55
+    },
+    {
+      "id": 48,
+      "label": "file",
+      "confidence": 0.53
+    },
+    {
+      "id": 49,
+      "label": "unknown",
+      "confidence": 0.56
+    },
+    {
+      "id": 50,
+      "label": "measuring_tape",
+      "confidence": 0.54
+    },
+    {
+      "id": 51,
+      "label": "allen_key",
+      "confidence": 0.53
+    },
+    {
+      "id": 52,
+      "label": "drill",
+      "confidence": 0.55
+    },
+    {
+      "id": 53,
+      "label": "scissors",
+      "confidence": 0.53
+    },
+    {
+      "id": 54,
+      "label": "allen_key",
+      "confidence": 0.57
+    },
+    {
+      "id": 55,
+      "label": "allen_key",
+      "confidence": 0.54
+    },
+    {
+      "id": 56,
+      "label": "drill",
+      "confidence": 0.53
+    },
+    {
+      "id": 57,
+      "label": "measuring_tape",
+      "confidence": 0.52
+    },
+    {
+      "id": 58,
+      "label": "saw",
+      "confidence": 0.54
+    }
+  ],
+  "summary": {
+    "total_objects": 58,
+    "tool_types_detected": [
+      "file",
+      "screwdriver",
+      "scissors",
+      "unknown",
+      "clamp",
+      "drill",
+      "saw",
+      "hammer",
+      "allen_key",
+      "chisel",
+      "wrench",
+      "measuring_tape",
+      "knife",
+      "socket",
+      "pliers"
+    ],
+    "average_confidence": 0.54
+  }
+}
