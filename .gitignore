@@ -3,5 +3,51 @@
 
 # Ignore video files
 *.mp4
-# Ienv if any
+
+# Environment files
 *.env
+
+# Large output files and directories
+outputs/
+**/pipeline_results.json
+**/test_outputs/
+**/*_results.json
+
+# Large model files
+*.pt
+yolo*.pt
+sam_*.pth
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+
+# Virtual environments
+venv/
+env/
+ENV/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Large data files over 50MB
+*.bin
+*.h5
+*.pkl
+*.pickle
+
+# Temporary files
+*.tmp
+*.temp
+*~
