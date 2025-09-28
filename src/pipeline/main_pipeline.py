@@ -13,7 +13,7 @@ from typing import Dict, List, Tuple
 from .object_detection_segmentation import ObjectDetectionSegmentation
 from .object_classification import ObjectClassification  
 from .grasp_synthesis import GraspSynthesis
-from pipeline.scene_understanding_vlm import SceneUnderstandingVLM
+from .scene_understanding_vlm import SceneUnderstandingVLM
 
 
 class RoboticVisionPipeline:
@@ -21,12 +21,36 @@ class RoboticVisionPipeline:
     Research-oriented robotic vision pipeline for tool manipulation
     """
     
-    def __init__(self, sam_checkpoint: str, model_type: str = "vit_b", device: str = "auto"):
+    def __init__(self, sam_checkpoint: str = None, model_type: str = "vit_b", device: str = "auto", 
+                 yolo_model: str = "yolo11s.pt", use_yolo: bool = True):
         """Initialize the complete pipeline"""
-        self.detection = ObjectDetectionSegmentation(sam_checkpoint, model_type, device)
-        self.classification = ObjectClassification()
+        # Try to find SAM checkpoint if not provided
+        if sam_checkpoint is None:
+            sam_checkpoint = self._find_sam_checkpoint()
+            
+        self.detection = ObjectDetectionSegmentation(sam_checkpoint, model_type, device, yolo_model, use_yolo)
+        self.classification = ObjectClassification(device)
         self.grasp_synthesis = GraspSynthesis()
         self.scene_understanding = SceneUnderstandingVLM()
+        
+    def _find_sam_checkpoint(self):
+        """Try to find SAM checkpoint in common locations"""
+        possible_paths = [
+            "sam_vit_b_01ec64.pth",
+            "models/sam_vit_b_01ec64.pth", 
+            "../sam_vit_b_01ec64.pth",
+            "../../sam_vit_b_01ec64.pth"
+        ]
+        
+        for path in possible_paths:
+            if Path(path).exists():
+                return str(path)
+        
+        # If no checkpoint found, provide instructions
+        raise FileNotFoundError(
+            "SAM checkpoint not found. Please download from: "
+            "https://dl.fbaipublicfiles.com/segment_anything/sam_vit_b_01ec64.pth"
+        )
         
     def run(self, image: np.ndarray, depth: np.ndarray = None) -> Dict:
         """
@@ -45,7 +69,12 @@ class RoboticVisionPipeline:
         
         # Stage 2: Object Classification using CLIP embeddings
         print("Stage 2: Object Classification...")
-        labels, confidences = self.classification.classify_objects(image, masks)
+        classification_result = self.classification.classify_objects(image, masks, boxes)
+        if len(classification_result) == 3:
+            labels, confidences, details = classification_result
+        else:
+            labels, confidences = classification_result
+            details = []
         
         # Stage 3: Grasp Synthesis with collision checking
         print("Stage 3: Grasp Synthesis...")
@@ -58,6 +87,7 @@ class RoboticVisionPipeline:
         return {
             "labels": labels,
             "confidences": confidences,
+            "classification_details": details if 'details' in locals() else [],
             "boxes": boxes,
             "masks": masks,
             "grasps": grasps,

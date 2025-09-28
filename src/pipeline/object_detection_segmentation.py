@@ -3,27 +3,51 @@ import numpy as np
 import torch
 from segment_anything import sam_model_registry, SamAutomaticMaskGenerator, SamPredictor
 from typing import List, Dict, Tuple
+import os
+
+# Try to import YOLO - fallback if not available
+try:
+    from ultralytics import YOLO
+    YOLO_AVAILABLE = True
+except ImportError:
+    YOLO_AVAILABLE = False
+    print("⚠️ YOLO (ultralytics) not available - using SAM-only detection")
 
 class ObjectDetectionSegmentation:
     """
-    Stage 1: Object Detection and Segmentation using Grounding-SAM or Mask R-CNN
-    Combines RGB + depth for better segmentation
+    Stage 1: Object Detection and Segmentation using YOLO + SAM
+    Combines YOLO detection with SAM segmentation and optional depth processing
     """
-    def __init__(self, checkpoint_path: str, model_type: str = "vit_b", device: str = "auto"):
+    def __init__(self, checkpoint_path: str, model_type: str = "vit_b", device: str = "auto", 
+                 yolo_model: str = "yolo11s.pt", use_yolo: bool = True):
         if device == "auto":
             self.device = "cuda" if torch.cuda.is_available() else "cpu"
         else:
             self.device = device
-        # Initialize SAM (can be replaced with Grounding-SAM)
+            
+        # Initialize SAM
         sam = sam_model_registry[model_type](checkpoint=checkpoint_path)
         sam.to(self.device)
         sam.eval()
         self.mask_generator = SamAutomaticMaskGenerator(sam)
         self.predictor = SamPredictor(sam)  # For box-prompted segmentation
         
+        # Initialize YOLO if available and requested
+        self.use_yolo = use_yolo and YOLO_AVAILABLE
+        self.yolo_model = None
+        if self.use_yolo:
+            try:
+                self.yolo_model = YOLO(yolo_model)
+                print(f"✅ YOLO model loaded: {yolo_model}")
+            except Exception as e:
+                print(f"⚠️ Could not load YOLO model: {e}")
+                self.use_yolo = False
+        
+        print(f"Detection mode: {'YOLO+SAM' if self.use_yolo else 'SAM-only'}")
+        
     def detect_and_segment(self, image: np.ndarray, depth: np.ndarray = None) -> Tuple[List[np.ndarray], List[List[float]]]:
         """
-        Use SAM / Grounding-SAM with RGB + depth fusion
+        Use YOLO + SAM for object detection and segmentation
         
         Args:
             image: RGB image
@@ -33,6 +57,57 @@ class ObjectDetectionSegmentation:
             masks: List of binary masks
             boxes: List of bounding boxes [x, y, w, h]
         """
+        if self.use_yolo:
+            return self._yolo_sam_detection(image, depth)
+        else:
+            return self._sam_only_detection(image, depth)
+    
+    def _yolo_sam_detection(self, image: np.ndarray, depth: np.ndarray = None) -> Tuple[List[np.ndarray], List[List[float]]]:
+        """YOLO detection followed by SAM segmentation refinement"""
+        # Step 1: YOLO Detection
+        yolo_results = self.yolo_model(image)
+        
+        # Extract bounding boxes
+        boxes = []
+        confidences = []
+        for result in yolo_results:
+            if hasattr(result.boxes, 'xyxy'):
+                for i, box in enumerate(result.boxes.xyxy.cpu().numpy()):
+                    x1, y1, x2, y2 = box[:4]
+                    w, h = x2 - x1, y2 - y1
+                    boxes.append([int(x1), int(y1), int(w), int(h)])
+                    
+                    # Get confidence if available
+                    if hasattr(result.boxes, 'conf') and len(result.boxes.conf) > i:
+                        confidences.append(float(result.boxes.conf[i].cpu().numpy()))
+                    else:
+                        confidences.append(1.0)
+        
+        # Step 2: SAM Segmentation using YOLO boxes as prompts
+        masks = []
+        if boxes:
+            # Set image for SAM predictor
+            self.predictor.set_image(image)
+            
+            for box in boxes:
+                x, y, w, h = box
+                # Convert to xyxy format for SAM
+                input_box = np.array([x, y, x + w, y + h])
+                
+                # Generate mask using box prompt
+                mask, _, _ = self.predictor.predict(
+                    point_coords=None,
+                    point_labels=None,
+                    box=input_box[None, :],
+                    multimask_output=False,
+                )
+                masks.append(mask[0])  # Take first mask
+        
+        print(f"   ✅ YOLO+SAM: Detected {len(boxes)} objects with refined segmentation")
+        return masks, boxes
+    
+    def _sam_only_detection(self, image: np.ndarray, depth: np.ndarray = None) -> Tuple[List[np.ndarray], List[List[float]]]:
+        """SAM-only automatic segmentation (fallback method)"""
         # If depth is provided, use it for better segmentation
         if depth is not None:
             # Normalize depth for better fusion

@@ -1,0 +1,22 @@
+{
+  "timestamp": "20250929_010632",
+  "pipeline_config": {
+    "yolo_model": "yolo11s.pt",
+    "use_sam": true,
+    "use_clip": true
+  },
+  "results": {
+    "tools": {
+      "error": "too many values to unpack (expected 2)"
+    },
+    "clip_test": {
+      "error": "too many values to unpack (expected 2)"
+    },
+    "eng_tool": {
+      "error": "too many values to unpack (expected 2)"
+    },
+    "ht": {
+      "error": "too many values to unpack (expected 2)"
+    }
+  }
+}
