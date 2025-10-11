@@ -15,6 +15,7 @@ import re
 import base64
 from typing import List, Dict, Any, Optional, Tuple
 import io
+from instructions import instructions
 
 class PDDLGenerationResult(BaseModel):
     """Result model for PDDL generation."""
@@ -508,16 +509,13 @@ def main():
     converter = LangChainGeminiVisionToPDDL(api_key)
     
     # Example usage
-    image_path = "./images/example_image.jpg"
-    instructions = """
-    Not sure what I want actually
-    """
+    image_path = "./images/example_image_1.jpg"
     
     try:
         # Run with interactive tool calling enabled
         results = converter.process_image_to_plan(
             image_path=image_path,
-            instructions=instructions,
+            instructions=instructions[1][1],
             output_dir="planning_output",
             interactive=True  # Enable interactive clarifications
         )

@@ -1,39 +1,37 @@
 (define (domain blocksworld)
     (:requirements :strips :typing)
     (:types
-        block object
-        surface object
-        robot object
+        block surface
     )
     (:predicates
         (on ?b1 - block ?b2 - block)
         (on-table ?b - block)
-        (clear ?o - object)
+        (clear ?b - block)
+        (handempty)
         (holding ?b - block)
-        (arm-empty)
     )
 
-    (:action pick-up
+    (:action pick-up-from-table
         :parameters (?b - block ?s - surface)
-        :precondition (and (clear ?b) (on-table ?b) (arm-empty))
-        :effect (and (not (on-table ?b)) (not (clear ?b)) (not (arm-empty)) (holding ?b))
+        :precondition (and (clear ?b) (on-table ?b) (handempty))
+        :effect (and (not (on-table ?b)) (not (clear ?b)) (not (handempty)) (holding ?b))
     )
 
-    (:action stack
-        :parameters (?b1 - block ?b2 - block)
-        :precondition (and (holding ?b1) (clear ?b2))
-        :effect (and (not (holding ?b1)) (not (clear ?b2)) (clear ?b1) (on ?b1 ?b2) (arm-empty))
+    (:action pick-up-from-block
+        :parameters (?b - block ?b_under - block)
+        :precondition (and (clear ?b) (on ?b ?b_under) (handempty))
+        :effect (and (not (on ?b ?b_under)) (not (clear ?b)) (not (handempty)) (holding ?b) (clear ?b_under))
     )
 
-    (:action unstack
-        :parameters (?b1 - block ?b2 - block)
-        :precondition (and (on ?b1 ?b2) (clear ?b1) (arm-empty))
-        :effect (and (not (on ?b1 ?b2)) (not (clear ?b1)) (not (arm-empty)) (holding ?b1) (clear ?b2))
-    )
-
-    (:action put-down
+    (:action put-down-on-table
         :parameters (?b - block ?s - surface)
-        :precondition (and (holding ?b))
-        :effect (and (not (holding ?b)) (on-table ?b) (clear ?b) (arm-empty))
+        :precondition (holding ?b)
+        :effect (and (not (holding ?b)) (handempty) (on-table ?b) (clear ?b))
+    )
+
+    (:action stack-on-block
+        :parameters (?b - block ?b_under - block)
+        :precondition (and (holding ?b) (clear ?b_under))
+        :effect (and (not (holding ?b)) (handempty) (on ?b ?b_under) (not (clear ?b_under)) (clear ?b))
     )
 )

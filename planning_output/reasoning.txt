@@ -1,10 +1,27 @@
-The PDDL domain defines the types of objects involved (blocks, surface, robot), predicates to describe their states and relationships (on, on-table, clear, holding, arm-empty), and actions that can be performed (pick-up, stack, unstack, put-down). The actions are designed to allow a robot to manipulate blocks, moving them between the table and other blocks.
+The image describes a classic block-stacking scenario with a flat base and four distinct blocks (A, B, C, D). Block D is initially stacked on Block C, while A, B, and C are on the base. The task is to move Block D from Block C to Block B.
 
-The PDDL problem file sets up the initial state based on the image description:
-- Blocks A, B, C are initially on the table.
-- Block D is initially on Block C.
-- The top surfaces of Block A, Block B, and Block D are clear.
-- The top surface of Block C is not clear because Block D is on it.
-- The robot's arm is initially empty.
+**Domain Design:**
+*   **Types:** I've defined `block` for the movable objects and `surface` for the static base.
+*   **Predicates:**
+    *   `(on ?b1 - block ?b2 - block)`: Represents `b1` being directly on top of `b2`.
+    *   `(on-table ?b - block)`: Represents `b` being directly on the main supporting surface (the table/base).
+    *   `(clear ?b - block)`: Indicates that the top surface of `b` is free, meaning no other block is on it.
+    *   `(handempty)`: Signifies that the robot's gripper is not holding any block.
+    *   `(holding ?b - block)`: Signifies that the robot's gripper is currently holding `b`.
+*   **Actions:**
+    *   `pick-up-from-table`: Allows the robot to pick up a `clear` block that is `on-table` when its `handempty`.
+    *   `pick-up-from-block`: Allows the robot to pick up a `clear` block that is `on` another block when its `handempty`. This action also makes the block it was on `clear`.
+    *   `put-down-on-table`: Allows the robot to place a `holding` block onto the table, making the block `on-table` and `clear`.
+    *   `stack-on-block`: Allows the robot to place a `holding` block onto a `clear` target block, making the target block no longer `clear` and the placed block `clear`.
 
-The goal state is derived from the clarified instruction: "stack the blocks in alphabetical order, early letter should be at the bottom". This translates to a stack where Block A is on the table, Block B is on Block A, Block C is on Block B, and Block D is on Block C, with Block D being clear.
+**Problem Design:**
+*   **Objects:** All blocks (a, b, c, d) are declared as `block` type, and the base is declared as `table` of `surface` type.
+*   **Initial State:**
+    *   Blocks A, B, and C are `on-table`.
+    *   Block D is `on` Block C.
+    *   Blocks A, B, and D are `clear` (nothing on top of them). Block C is not `clear` because D is on it.
+    *   The robot's `handempty`.
+*   **Goal State:**
+    *   Block D is `on` Block B.
+
+This setup provides the necessary elements for a planner to find a sequence of actions to achieve the goal.

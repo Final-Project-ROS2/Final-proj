@@ -1,9 +1,8 @@
-(define (problem blocksworld-problem)
+(define (problem move-block-d)
     (:domain blocksworld)
     (:objects
         a b c d - block
         table - surface
-        robot1 - robot
     )
     (:init
         (on-table a)
@@ -13,14 +12,8 @@
         (clear a)
         (clear b)
         (clear d)
-        (arm-empty)
-        (clear table)
+        (handempty)
+    )    (:goal
+        (on d b)
     )
-    (:goal (and
-        (on b a)
-        (on c b)
-        (on d c)
-        (on-table a)
-        (clear d)
-    ))
 )
