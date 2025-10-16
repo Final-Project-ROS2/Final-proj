@@ -1,0 +1,4656 @@
+{
+  "metadata": {
+    "timestamp": "20251003_070121",
+    "rgb_path": "src/img.PNG",
+    "depth_path": "src/img-d.PNG",
+    "output_directory": "outputs\\dino_pipeline_20251003_070121"
+  },
+  "stage_1_detection": {
+    "num_detections": 9,
+    "detections": [
+      {
+        "instance_id": "obj_1",
+        "label": "elongated_large_object",
+        "semantic_category": null,
+        "affordances": [],
+        "confidence": 0.95,
+        "bbox": [
+          15.0,
+          108.0,
+          645.0,
+          213.0
+        ],
+        "bbox_xyxy": [
+          15.0,
+          108.0,
+          660.0,
+          321.0
+        ],
+        "mask_area": 26023
+      },
+      {
+        "instance_id": "obj_2",
+        "label": "large_object",
+        "semantic_category": null,
+        "affordances": [],
+        "confidence": 0.5,
+        "bbox": [
+          0.0,
+          0.0,
+          223.0,
+          321.0
+        ],
+        "bbox_xyxy": [
+          0.0,
+          0.0,
+          223.0,
+          321.0
+        ],
+        "mask_area": 58926
+      },
+      {
+        "instance_id": "obj_3",
+        "label": "large_object",
+        "semantic_category": null,
+        "affordances": [],
+        "confidence": 0.6048590341348687,
+        "bbox": [
+          171.0,
+          122.0,
+          192.0,
+          199.0
+        ],
+        "bbox_xyxy": [
+          171.0,
+          122.0,
+          363.0,
+          321.0
+        ],
+        "mask_area": 23424
+      },
+      {
+        "instance_id": "obj_4",
+        "label": "elongated_large_object",
+        "semantic_category": null,
+        "affordances": [],
+        "confidence": 0.95,
+        "bbox": [
+          211.0,
+          0.0,
+          449.0,
+          121.0
+        ],
+        "bbox_xyxy": [
+          211.0,
+          0.0,
+          660.0,
+          121.0
+        ],
+        "mask_area": 37040
+      },
+      {
+        "instance_id": "obj_5",
+        "label": "small_object",
+        "semantic_category": null,
+        "affordances": [],
+        "confidence": 0.514914391122177,
+        "bbox": [
+          309.0,
+          92.0,
+          127.0,
+          62.0
+        ],
+        "bbox_xyxy": [
+          309.0,
+          92.0,
+          436.0,
+          154.0
+        ],
+        "mask_area": 4975
+      },
+      {
+        "instance_id": "obj_6",
+        "label": "large_object",
+        "semantic_category": null,
+        "affordances": [],
+        "confidence": 0.95,
+        "bbox": [
+          250.0,
+          0.0,
+          410.0,
+          279.0
+        ],
+        "bbox_xyxy": [
+          250.0,
+          0.0,
+          660.0,
+          279.0
+        ],
+        "mask_area": 14241
+      },
+      {
+        "instance_id": "obj_7",
+        "label": "elongated_large_object",
+        "semantic_category": null,
+        "affordances": [],
+        "confidence": 0.95,
+        "bbox": [
+          178.0,
+          116.0,
+          482.0,
+          128.0
+        ],
+        "bbox_xyxy": [
+          178.0,
+          116.0,
+          660.0,
+          244.0
+        ],
+        "mask_area": 3910
+      },
+      {
+        "instance_id": "obj_8",
+        "label": "medium_object",
+        "semantic_category": null,
+        "affordances": [],
+        "confidence": 0.95,
+        "bbox": [
+          479.0,
+          127.0,
+          108.0,
+          154.0
+        ],
+        "bbox_xyxy": [
+          479.0,
+          127.0,
+          587.0,
+          281.0
+        ],
+        "mask_area": 8473
+      },
+      {
+        "instance_id": "obj_9",
+        "label": "small_object",
+        "semantic_category": null,
+        "affordances": [],
+        "confidence": 0.6295712671458643,
+        "bbox": [
+          111,
+          160,
+          69,
+          83
+        ],
+        "bbox_xyxy": [
+          111,
+          160,
+          180,
+          243
+        ],
+        "mask_area": 3749
+      }
+    ]
+  },
+  "stage_2_semantic": {
+    "num_enhanced": 9,
+    "enhanced_detections": [
+      {
+        "instance_id": "obj_1",
+        "label": "elongated_large_object",
+        "semantic_category": "document",
+        "affordances": [
+          "readable",
+          "openable",
+          "portable"
+        ],
+        "confidence": 0.95,
+        "bbox": [
+          15.0,
+          108.0,
+          645.0,
+          213.0
+        ],
+        "bbox_xyxy": [
+          15.0,
+          108.0,
+          660.0,
+          321.0
+        ],
+        "mask_area": 26023,
+        "description": "printed publication",
+        "semantic_confidence": 0.85,
+        "clip_scores": {}
+      },
+      {
+        "instance_id": "obj_2",
+        "label": "large_object",
+        "semantic_category": "container",
+        "affordances": [
+          "graspable",
+          "holdable",
+          "drinkable"
+        ],
+        "confidence": 0.5,
+        "bbox": [
+          0.0,
+          0.0,
+          223.0,
+          321.0
+        ],
+        "bbox_xyxy": [
+          0.0,
+          0.0,
+          223.0,
+          321.0
+        ],
+        "mask_area": 58926,
+        "description": "drinking vessel",
+        "semantic_confidence": 0.85,
+        "clip_scores": {}
+      },
+      {
+        "instance_id": "obj_3",
+        "label": "large_object",
+        "semantic_category": "container",
+        "affordances": [
+          "graspable",
+          "holdable",
+          "drinkable"
+        ],
+        "confidence": 0.6048590341348687,
+        "bbox": [
+          171.0,
+          122.0,
+          192.0,
+          199.0
+        ],
+        "bbox_xyxy": [
+          171.0,
+          122.0,
+          363.0,
+          321.0
+        ],
+        "mask_area": 23424,
+        "description": "drinking vessel",
+        "semantic_confidence": 0.85,
+        "clip_scores": {}
+      },
+      {
+        "instance_id": "obj_4",
+        "label": "elongated_large_object",
+        "semantic_category": "document",
+        "affordances": [
+          "readable",
+          "openable",
+          "portable"
+        ],
+        "confidence": 0.95,
+        "bbox": [
+          211.0,
+          0.0,
+          449.0,
+          121.0
+        ],
+        "bbox_xyxy": [
+          211.0,
+          0.0,
+          660.0,
+          121.0
+        ],
+        "mask_area": 37040,
+        "description": "printed publication",
+        "semantic_confidence": 0.85,
+        "clip_scores": {}
+      },
+      {
+        "instance_id": "obj_5",
+        "label": "small_object",
+        "semantic_category": "electronics",
+        "affordances": [
+          "usable",
+          "pressable",
+          "typing"
+        ],
+        "confidence": 0.514914391122177,
+        "bbox": [
+          309.0,
+          92.0,
+          127.0,
+          62.0
+        ],
+        "bbox_xyxy": [
+          309.0,
+          92.0,
+          436.0,
+          154.0
+        ],
+        "mask_area": 4975,
+        "description": "computer input device",
+        "semantic_confidence": 0.85,
+        "clip_scores": {}
+      },
+      {
+        "instance_id": "obj_6",
+        "label": "large_object",
+        "semantic_category": "container",
+        "affordances": [
+          "graspable",
+          "holdable",
+          "drinkable"
+        ],
+        "confidence": 0.95,
+        "bbox": [
+          250.0,
+          0.0,
+          410.0,
+          279.0
+        ],
+        "bbox_xyxy": [
+          250.0,
+          0.0,
+          660.0,
+          279.0
+        ],
+        "mask_area": 14241,
+        "description": "drinking vessel",
+        "semantic_confidence": 0.85,
+        "clip_scores": {}
+      },
+      {
+        "instance_id": "obj_7",
+        "label": "elongated_large_object",
+        "semantic_category": "document",
+        "affordances": [
+          "readable",
+          "openable",
+          "portable"
+        ],
+        "confidence": 0.95,
+        "bbox": [
+          178.0,
+          116.0,
+          482.0,
+          128.0
+        ],
+        "bbox_xyxy": [
+          178.0,
+          116.0,
+          660.0,
+          244.0
+        ],
+        "mask_area": 3910,
+        "description": "printed publication",
+        "semantic_confidence": 0.85,
+        "clip_scores": {}
+      },
+      {
+        "instance_id": "obj_8",
+        "label": "medium_object",
+        "semantic_category": "container",
+        "affordances": [
+          "graspable",
+          "holdable",
+          "drinkable"
+        ],
+        "confidence": 0.95,
+        "bbox": [
+          479.0,
+          127.0,
+          108.0,
+          154.0
+        ],
+        "bbox_xyxy": [
+          479.0,
+          127.0,
+          587.0,
+          281.0
+        ],
+        "mask_area": 8473,
+        "description": "drinking vessel",
+        "semantic_confidence": 0.85,
+        "clip_scores": {}
+      },
+      {
+        "instance_id": "obj_9",
+        "label": "small_object",
+        "semantic_category": "electronics",
+        "affordances": [
+          "usable",
+          "pressable",
+          "typing"
+        ],
+        "confidence": 0.6295712671458643,
+        "bbox": [
+          111,
+          160,
+          69,
+          83
+        ],
+        "bbox_xyxy": [
+          111,
+          160,
+          180,
+          243
+        ],
+        "mask_area": 3749,
+        "description": "computer input device",
+        "semantic_confidence": 0.85,
+        "clip_scores": {}
+      }
+    ]
+  },
+  "stage_3_grasps": {
+    "num_grasps": 45,
+    "grasps": [
+      {
+        "object_id": 3,
+        "object_label": "elongated_large_object",
+        "pose": {
+          "position": [
+            "0.047104254",
+            "0.011698933",
+            "0.5549001"
+          ],
+          "approach_vector": [
+            0.5763708598541113,
+            0.7933064309896235,
+            -0.19611613513818407
+          ],
+          "rotation_matrix": "[[   -0.80902     0.58779           0]\n [   -0.58779    -0.80902           0]\n [          0           0           1]]",
+          "angle": 3.7699111843077517,
+          "quaternion": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "quality_score": 0.6840211303259031,
+        "gripper_width": 0.08,
+        "approach_vector": [
+          0.5763708598541113,
+          0.7933064309896235,
+          -0.19611613513818407
+        ],
+        "grasp_center": [
+          "0.018285714",
+          "-0.02796639",
+          "0.5647059"
+        ],
+        "confidence": 0.6498200738096078
+      },
+      {
+        "object_id": 1,
+        "object_label": "elongated_large_object",
+        "pose": {
+          "position": [
+            "-0.028343666",
+            "-0.043117195",
+            "0.5549001"
+          ],
+          "approach_vector": [
+            -0.9325876413689544,
+            -0.3030160931441633,
+            -0.19611613513818407
+          ],
+          "rotation_matrix": "[[    0.30902    -0.95106           0]\n [    0.95106     0.30902           0]\n [          0           0           1]]",
+          "angle": 1.2566370614359172,
+          "quaternion": [
+            0.8090169943749475,
+            0.0,
+            0.0,
+            0.5877852522924731
+          ]
+        },
+        "quality_score": 0.6767557050458495,
+        "gripper_width": 0.08,
+        "approach_vector": [
+          -0.9325876413689544,
+          -0.3030160931441633,
+          -0.19611613513818407
+        ],
+        "grasp_center": [
+          "0.018285714",
+          "-0.02796639",
+          "0.5647059"
+        ],
+        "confidence": 0.642917919793557
+      },
+      {
+        "object_id": 0,
+        "object_label": "elongated_large_object",
+        "pose": {
+          "position": [
+            "0.018285714",
+            "-0.076995425",
+            "0.5549001"
+          ],
+          "approach_vector": [
+            -0.0,
+            -0.9805806756909201,
+            -0.19611613513818402
+          ],
+          "rotation_matrix": "[[          1          -0           0]\n [          0           1           0]\n [          0           0           1]]",
+          "angle": 0.0,
+          "quaternion": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "quality_score": 0.665,
+        "gripper_width": 0.08,
+        "approach_vector": [
+          -0.0,
+          -0.9805806756909201,
+          -0.19611613513818402
+        ],
+        "grasp_center": [
+          "0.018285714",
+          "-0.02796639",
+          "0.5647059"
+        ],
+        "confidence": 0.63175
+      },
+      {
+        "object_id": 4,
+        "object_label": "elongated_large_object",
+        "pose": {
+          "position": [
+            "0.06491509",
+            "-0.043117195",
+            "0.5549001"
+          ],
+          "approach_vector": [
+            0.9325876413689543,
+            -0.303016093144163,
+            -0.19611613513818402
+          ],
+          "rotation_matrix": "[[    0.30902     0.95106           0]\n [   -0.95106     0.30902           0]\n [          0           0           1]]",
+          "angle": 5.026548245743669,
+          "quaternion": [
+            0.8090169943749473,
+            0.0,
+            0.0,
+            -0.5877852522924732
+          ]
+        },
+        "quality_score": 0.6532442949541505,
+        "gripper_width": 0.08,
+        "approach_vector": [
+          0.9325876413689543,
+          -0.303016093144163,
+          -0.19611613513818402
+        ],
+        "grasp_center": [
+          "0.018285714",
+          "-0.02796639",
+          "0.5647059"
+        ],
+        "confidence": 0.6205820802064429
+      },
+      {
+        "object_id": 2,
+        "object_label": "elongated_large_object",
+        "pose": {
+          "position": [
+            "-0.010532828",
+            "0.011698933",
+            "0.5549001"
+          ],
+          "approach_vector": [
+            -0.5763708598541114,
+            0.7933064309896232,
+            -0.19611613513818402
+          ],
+          "rotation_matrix": "[[   -0.80902    -0.58779           0]\n [    0.58779    -0.80902           0]\n [          0           0           1]]",
+          "angle": 2.5132741228718345,
+          "quaternion": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "quality_score": 0.6459788696740969,
+        "gripper_width": 0.08,
+        "approach_vector": [
+          -0.5763708598541114,
+          0.7933064309896232,
+          -0.19611613513818402
+        ],
+        "grasp_center": [
+          "0.018285714",
+          "-0.02796639",
+          "0.5647059"
+        ],
+        "confidence": 0.613679926190392
+      },
+      {
+        "object_id": 3,
+        "object_label": "large_object",
+        "pose": {
+          "position": [
+            "-0.108563356",
+            "-0.012921046",
+            "0.33529225"
+          ],
+          "approach_vector": [
+            0.5763708598541113,
+            0.7933064309896235,
+            -0.19611613513818407
+          ],
+          "rotation_matrix": "[[   -0.80902     0.58779           0]\n [   -0.58779    -0.80902           0]\n [          0           0           1]]",
+          "angle": 3.7699111843077517,
+          "quaternion": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "quality_score": 0.549021130325903,
+        "gripper_width": 0.08,
+        "approach_vector": [
+          0.5763708598541113,
+          0.7933064309896235,
+          -0.19611613513818407
+        ],
+        "grasp_center": [
+          "-0.1373819",
+          "-0.05258637",
+          "0.34509805"
+        ],
+        "confidence": 0.2745105651629515
+      },
+      {
+        "object_id": 1,
+        "object_label": "large_object",
+        "pose": {
+          "position": [
+            "-0.18401128",
+            "-0.06773718",
+            "0.33529225"
+          ],
+          "approach_vector": [
+            -0.9325876413689544,
+            -0.3030160931441633,
+            -0.19611613513818407
+          ],
+          "rotation_matrix": "[[    0.30902    -0.95106           0]\n [    0.95106     0.30902           0]\n [          0           0           1]]",
+          "angle": 1.2566370614359172,
+          "quaternion": [
+            0.8090169943749475,
+            0.0,
+            0.0,
+            0.5877852522924731
+          ]
+        },
+        "quality_score": 0.5417557050458495,
+        "gripper_width": 0.08,
+        "approach_vector": [
+          -0.9325876413689544,
+          -0.3030160931441633,
+          -0.19611613513818407
+        ],
+        "grasp_center": [
+          "-0.1373819",
+          "-0.05258637",
+          "0.34509805"
+        ],
+        "confidence": 0.27087785252292473
+      },
+      {
+        "object_id": 0,
+        "object_label": "large_object",
+        "pose": {
+          "position": [
+            "-0.1373819",
+            "-0.1016154",
+            "0.33529225"
+          ],
+          "approach_vector": [
+            -0.0,
+            -0.9805806756909201,
+            -0.19611613513818402
+          ],
+          "rotation_matrix": "[[          1          -0           0]\n [          0           1           0]\n [          0           0           1]]",
+          "angle": 0.0,
+          "quaternion": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "quality_score": 0.53,
+        "gripper_width": 0.08,
+        "approach_vector": [
+          -0.0,
+          -0.9805806756909201,
+          -0.19611613513818402
+        ],
+        "grasp_center": [
+          "-0.1373819",
+          "-0.05258637",
+          "0.34509805"
+        ],
+        "confidence": 0.265
+      },
+      {
+        "object_id": 4,
+        "object_label": "large_object",
+        "pose": {
+          "position": [
+            "-0.09075251",
+            "-0.06773718",
+            "0.33529225"
+          ],
+          "approach_vector": [
+            0.9325876413689543,
+            -0.303016093144163,
+            -0.19611613513818402
+          ],
+          "rotation_matrix": "[[    0.30902     0.95106           0]\n [   -0.95106     0.30902           0]\n [          0           0           1]]",
+          "angle": 5.026548245743669,
+          "quaternion": [
+            0.8090169943749473,
+            0.0,
+            0.0,
+            -0.5877852522924732
+          ]
+        },
+        "quality_score": 0.5182442949541505,
+        "gripper_width": 0.08,
+        "approach_vector": [
+          0.9325876413689543,
+          -0.303016093144163,
+          -0.19611613513818402
+        ],
+        "grasp_center": [
+          "-0.1373819",
+          "-0.05258637",
+          "0.34509805"
+        ],
+        "confidence": 0.25912214747707524
+      },
+      {
+        "object_id": 2,
+        "object_label": "large_object",
+        "pose": {
+          "position": [
+            "-0.16620044",
+            "-0.012921046",
+            "0.33529225"
+          ],
+          "approach_vector": [
+            -0.5763708598541114,
+            0.7933064309896232,
+            -0.19611613513818402
+          ],
+          "rotation_matrix": "[[   -0.80902    -0.58779           0]\n [    0.58779    -0.80902           0]\n [          0           0           1]]",
+          "angle": 2.5132741228718345,
+          "quaternion": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "quality_score": 0.5109788696740969,
+        "gripper_width": 0.08,
+        "approach_vector": [
+          -0.5763708598541114,
+          0.7933064309896232,
+          -0.19611613513818402
+        ],
+        "grasp_center": [
+          "-0.1373819",
+          "-0.05258637",
+          "0.34509805"
+        ],
+        "confidence": 0.25548943483704845
+      },
+      {
+        "object_id": 3,
+        "object_label": "large_object",
+        "pose": {
+          "position": [
+            "-0.071737945",
+            "0.0036167726",
+            "0.98627263"
+          ],
+          "approach_vector": [
+            0.5763708598541113,
+            0.7933064309896235,
+            -0.19611613513818407
+          ],
+          "rotation_matrix": "[[   -0.80902     0.58779           0]\n [   -0.58779    -0.80902           0]\n [          0           0           1]]",
+          "angle": 3.7699111843077517,
+          "quaternion": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "quality_score": 0.5804788405663637,
+        "gripper_width": 0.08,
+        "approach_vector": [
+          0.5763708598541113,
+          0.7933064309896235,
+          -0.19611613513818407
+        ],
+        "grasp_center": [
+          "-0.100556485",
+          "-0.03604855",
+          "0.99607843"
+        ],
+        "confidence": 0.3511078708406992
+      },
+      {
+        "object_id": 1,
+        "object_label": "large_object",
+        "pose": {
+          "position": [
+            "-0.14718586",
+            "-0.051199354",
+            "0.98627263"
+          ],
+          "approach_vector": [
+            -0.9325876413689544,
+            -0.3030160931441633,
+            -0.19611613513818407
+          ],
+          "rotation_matrix": "[[    0.30902    -0.95106           0]\n [    0.95106     0.30902           0]\n [          0           0           1]]",
+          "angle": 1.2566370614359172,
+          "quaternion": [
+            0.8090169943749475,
+            0.0,
+            0.0,
+            0.5877852522924731
+          ]
+        },
+        "quality_score": 0.5732134152863101,
+        "gripper_width": 0.08,
+        "approach_vector": [
+          -0.9325876413689544,
+          -0.3030160931441633,
+          -0.19611613513818407
+        ],
+        "grasp_center": [
+          "-0.100556485",
+          "-0.03604855",
+          "0.99607843"
+        ],
+        "confidence": 0.3467133127232269
+      },
+      {
+        "object_id": 0,
+        "object_label": "large_object",
+        "pose": {
+          "position": [
+            "-0.100556485",
+            "-0.085077584",
+            "0.98627263"
+          ],
+          "approach_vector": [
+            -0.0,
+            -0.9805806756909201,
+            -0.19611613513818402
+          ],
+          "rotation_matrix": "[[          1          -0           0]\n [          0           1           0]\n [          0           0           1]]",
+          "angle": 0.0,
+          "quaternion": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "quality_score": 0.5614577102404605,
+        "gripper_width": 0.08,
+        "approach_vector": [
+          -0.0,
+          -0.9805806756909201,
+          -0.19611613513818402
+        ],
+        "grasp_center": [
+          "-0.100556485",
+          "-0.03604855",
+          "0.99607843"
+        ],
+        "confidence": 0.33960276832361996
+      },
+      {
+        "object_id": 4,
+        "object_label": "large_object",
+        "pose": {
+          "position": [
+            "-0.053927105",
+            "-0.051199354",
+            "0.98627263"
+          ],
+          "approach_vector": [
+            0.9325876413689543,
+            -0.303016093144163,
+            -0.19611613513818402
+          ],
+          "rotation_matrix": "[[    0.30902     0.95106           0]\n [   -0.95106     0.30902           0]\n [          0           0           1]]",
+          "angle": 5.026548245743669,
+          "quaternion": [
+            0.8090169943749473,
+            0.0,
+            0.0,
+            -0.5877852522924732
+          ]
+        },
+        "quality_score": 0.5497020051946111,
+        "gripper_width": 0.08,
+        "approach_vector": [
+          0.9325876413689543,
+          -0.303016093144163,
+          -0.19611613513818402
+        ],
+        "grasp_center": [
+          "-0.100556485",
+          "-0.03604855",
+          "0.99607843"
+        ],
+        "confidence": 0.33249222392401306
+      },
+      {
+        "object_id": 2,
+        "object_label": "large_object",
+        "pose": {
+          "position": [
+            "-0.12937503",
+            "0.0036167726",
+            "0.98627263"
+          ],
+          "approach_vector": [
+            -0.5763708598541114,
+            0.7933064309896232,
+            -0.19611613513818402
+          ],
+          "rotation_matrix": "[[   -0.80902    -0.58779           0]\n [    0.58779    -0.80902           0]\n [          0           0           1]]",
+          "angle": 2.5132741228718345,
+          "quaternion": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "quality_score": 0.5424365799145575,
+        "gripper_width": 0.08,
+        "approach_vector": [
+          -0.5763708598541114,
+          0.7933064309896232,
+          -0.19611613513818402
+        ],
+        "grasp_center": [
+          "-0.100556485",
+          "-0.03604855",
+          "0.99607843"
+        ],
+        "confidence": 0.3280976658065408
+      },
+      {
+        "object_id": 3,
+        "object_label": "elongated_large_object",
+        "pose": {
+          "position": [
+            "0.36383256",
+            "-0.48470446",
+            "1.519606"
+          ],
+          "approach_vector": [
+            0.5763708598541113,
+            0.7933064309896235,
+            -0.19611613513818407
+          ],
+          "rotation_matrix": "[[   -0.80902     0.58779           0]\n [   -0.58779    -0.80902           0]\n [          0           0           1]]",
+          "angle": 3.7699111843077517,
+          "quaternion": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "quality_score": 0.6840211303259031,
+        "gripper_width": 0.08,
+        "approach_vector": [
+          0.5763708598541113,
+          0.7933064309896235,
+          -0.19611613513818407
+        ],
+        "grasp_center": [
+          "0.33501402",
+          "-0.5243698",
+          "1.5294118"
+        ],
+        "confidence": 0.6498200738096078
+      },
+      {
+        "object_id": 1,
+        "object_label": "elongated_large_object",
+        "pose": {
+          "position": [
+            "0.28838465",
+            "-0.53952056",
+            "1.519606"
+          ],
+          "approach_vector": [
+            -0.9325876413689544,
+            -0.3030160931441633,
+            -0.19611613513818407
+          ],
+          "rotation_matrix": "[[    0.30902    -0.95106           0]\n [    0.95106     0.30902           0]\n [          0           0           1]]",
+          "angle": 1.2566370614359172,
+          "quaternion": [
+            0.8090169943749475,
+            0.0,
+            0.0,
+            0.5877852522924731
+          ]
+        },
+        "quality_score": 0.6767557050458495,
+        "gripper_width": 0.08,
+        "approach_vector": [
+          -0.9325876413689544,
+          -0.3030160931441633,
+          -0.19611613513818407
+        ],
+        "grasp_center": [
+          "0.33501402",
+          "-0.5243698",
+          "1.5294118"
+        ],
+        "confidence": 0.642917919793557
+      },
+      {
+        "object_id": 0,
+        "object_label": "elongated_large_object",
+        "pose": {
+          "position": [
+            "0.33501402",
+            "-0.5733988",
+            "1.519606"
+          ],
+          "approach_vector": [
+            -0.0,
+            -0.9805806756909201,
+            -0.19611613513818402
+          ],
+          "rotation_matrix": "[[          1          -0           0]\n [          0           1           0]\n [          0           0           1]]",
+          "angle": 0.0,
+          "quaternion": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "quality_score": 0.665,
+        "gripper_width": 0.08,
+        "approach_vector": [
+          -0.0,
+          -0.9805806756909201,
+          -0.19611613513818402
+        ],
+        "grasp_center": [
+          "0.33501402",
+          "-0.5243698",
+          "1.5294118"
+        ],
+        "confidence": 0.63175
+      },
+      {
+        "object_id": 4,
+        "object_label": "elongated_large_object",
+        "pose": {
+          "position": [
+            "0.38164338",
+            "-0.53952056",
+            "1.519606"
+          ],
+          "approach_vector": [
+            0.9325876413689543,
+            -0.303016093144163,
+            -0.19611613513818402
+          ],
+          "rotation_matrix": "[[    0.30902     0.95106           0]\n [   -0.95106     0.30902           0]\n [          0           0           1]]",
+          "angle": 5.026548245743669,
+          "quaternion": [
+            0.8090169943749473,
+            0.0,
+            0.0,
+            -0.5877852522924732
+          ]
+        },
+        "quality_score": 0.6532442949541505,
+        "gripper_width": 0.08,
+        "approach_vector": [
+          0.9325876413689543,
+          -0.303016093144163,
+          -0.19611613513818402
+        ],
+        "grasp_center": [
+          "0.33501402",
+          "-0.5243698",
+          "1.5294118"
+        ],
+        "confidence": 0.6205820802064429
+      },
+      {
+        "object_id": 2,
+        "object_label": "elongated_large_object",
+        "pose": {
+          "position": [
+            "0.30619547",
+            "-0.48470446",
+            "1.519606"
+          ],
+          "approach_vector": [
+            -0.5763708598541114,
+            0.7933064309896232,
+            -0.19611613513818402
+          ],
+          "rotation_matrix": "[[   -0.80902    -0.58779           0]\n [    0.58779    -0.80902           0]\n [          0           0           1]]",
+          "angle": 2.5132741228718345,
+          "quaternion": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "quality_score": 0.6459788696740969,
+        "gripper_width": 0.08,
+        "approach_vector": [
+          -0.5763708598541114,
+          0.7933064309896232,
+          -0.19611613513818402
+        ],
+        "grasp_center": [
+          "0.33501402",
+          "-0.5243698",
+          "1.5294118"
+        ],
+        "confidence": 0.613679926190392
+      },
+      {
+        "object_id": 3,
+        "object_label": "small_object",
+        "pose": {
+          "position": [
+            "0.14922938",
+            "-0.23125906",
+            "1.2058805"
+          ],
+          "approach_vector": [
+            0.5763708598541113,
+            0.7933064309896235,
+            -0.19611613513818407
+          ],
+          "rotation_matrix": "[[   -0.80902     0.58779           0]\n [   -0.58779    -0.80902           0]\n [          0           0           1]]",
+          "angle": 3.7699111843077517,
+          "quaternion": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "quality_score": 0.3644791820758769,
+        "gripper_width": 0.08,
+        "approach_vector": [
+          0.5763708598541113,
+          0.7933064309896235,
+          -0.19611613513818407
+        ],
+        "grasp_center": [
+          "0.12041084",
+          "-0.2709244",
+          "1.2156863"
+        ],
+        "confidence": 0.18767557611530922
+      },
+      {
+        "object_id": 1,
+        "object_label": "small_object",
+        "pose": {
+          "position": [
+            "0.07378146",
+            "-0.2860752",
+            "1.2058805"
+          ],
+          "approach_vector": [
+            -0.9325876413689544,
+            -0.3030160931441633,
+            -0.19611613513818407
+          ],
+          "rotation_matrix": "[[    0.30902    -0.95106           0]\n [    0.95106     0.30902           0]\n [          0           0           1]]",
+          "angle": 1.2566370614359172,
+          "quaternion": [
+            0.8090169943749475,
+            0.0,
+            0.0,
+            0.5877852522924731
+          ]
+        },
+        "quality_score": 0.35721375679582323,
+        "gripper_width": 0.08,
+        "approach_vector": [
+          -0.9325876413689544,
+          -0.3030160931441633,
+          -0.19611613513818407
+        ],
+        "grasp_center": [
+          "0.12041084",
+          "-0.2709244",
+          "1.2156863"
+        ],
+        "confidence": 0.18393450408098672
+      },
+      {
+        "object_id": 0,
+        "object_label": "small_object",
+        "pose": {
+          "position": [
+            "0.12041084",
+            "-0.3199534",
+            "1.2058805"
+          ],
+          "approach_vector": [
+            -0.0,
+            -0.9805806756909201,
+            -0.19611613513818402
+          ],
+          "rotation_matrix": "[[          1          -0           0]\n [          0           1           0]\n [          0           0           1]]",
+          "angle": 0.0,
+          "quaternion": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "quality_score": 0.3454580517499738,
+        "gripper_width": 0.08,
+        "approach_vector": [
+          -0.0,
+          -0.9805806756909201,
+          -0.19611613513818402
+        ],
+        "grasp_center": [
+          "0.12041084",
+          "-0.2709244",
+          "1.2156863"
+        ],
+        "confidence": 0.17788132237509124
+      },
+      {
+        "object_id": 4,
+        "object_label": "small_object",
+        "pose": {
+          "position": [
+            "0.16704021",
+            "-0.2860752",
+            "1.2058805"
+          ],
+          "approach_vector": [
+            0.9325876413689543,
+            -0.303016093144163,
+            -0.19611613513818402
+          ],
+          "rotation_matrix": "[[    0.30902     0.95106           0]\n [   -0.95106     0.30902           0]\n [          0           0           1]]",
+          "angle": 5.026548245743669,
+          "quaternion": [
+            0.8090169943749473,
+            0.0,
+            0.0,
+            -0.5877852522924732
+          ]
+        },
+        "quality_score": 0.33370234670412435,
+        "gripper_width": 0.08,
+        "approach_vector": [
+          0.9325876413689543,
+          -0.303016093144163,
+          -0.19611613513818402
+        ],
+        "grasp_center": [
+          "0.12041084",
+          "-0.2709244",
+          "1.2156863"
+        ],
+        "confidence": 0.1718281406691958
+      },
+      {
+        "object_id": 2,
+        "object_label": "small_object",
+        "pose": {
+          "position": [
+            "0.0915923",
+            "-0.23125906",
+            "1.2058805"
+          ],
+          "approach_vector": [
+            -0.5763708598541114,
+            0.7933064309896232,
+            -0.19611613513818402
+          ],
+          "rotation_matrix": "[[   -0.80902    -0.58779           0]\n [    0.58779    -0.80902           0]\n [          0           0           1]]",
+          "angle": 2.5132741228718345,
+          "quaternion": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "quality_score": 0.3264369214240707,
+        "gripper_width": 0.08,
+        "approach_vector": [
+          -0.5763708598541114,
+          0.7933064309896232,
+          -0.19611613513818402
+        ],
+        "grasp_center": [
+          "0.12041084",
+          "-0.2709244",
+          "1.2156863"
+        ],
+        "confidence": 0.1680870686348733
+      },
+      {
+        "object_id": 3,
+        "object_label": "large_object",
+        "pose": {
+          "position": [
+            "0.3696589",
+            "-0.21533374",
+            "1.3156844"
+          ],
+          "approach_vector": [
+            0.5763708598541113,
+            0.7933064309896235,
+            -0.19611613513818407
+          ],
+          "rotation_matrix": "[[   -0.80902     0.58779           0]\n [   -0.58779    -0.80902           0]\n [          0           0           1]]",
+          "angle": 3.7699111843077517,
+          "quaternion": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "quality_score": 0.6840211303259031,
+        "gripper_width": 0.08,
+        "approach_vector": [
+          0.5763708598541113,
+          0.7933064309896235,
+          -0.19611613513818407
+        ],
+        "grasp_center": [
+          "0.34084034",
+          "-0.25499907",
+          "1.3254902"
+        ],
+        "confidence": 0.6498200738096078
+      },
+      {
+        "object_id": 1,
+        "object_label": "large_object",
+        "pose": {
+          "position": [
+            "0.29421097",
+            "-0.2701499",
+            "1.3156844"
+          ],
+          "approach_vector": [
+            -0.9325876413689544,
+            -0.3030160931441633,
+            -0.19611613513818407
+          ],
+          "rotation_matrix": "[[    0.30902    -0.95106           0]\n [    0.95106     0.30902           0]\n [          0           0           1]]",
+          "angle": 1.2566370614359172,
+          "quaternion": [
+            0.8090169943749475,
+            0.0,
+            0.0,
+            0.5877852522924731
+          ]
+        },
+        "quality_score": 0.6767557050458495,
+        "gripper_width": 0.08,
+        "approach_vector": [
+          -0.9325876413689544,
+          -0.3030160931441633,
+          -0.19611613513818407
+        ],
+        "grasp_center": [
+          "0.34084034",
+          "-0.25499907",
+          "1.3254902"
+        ],
+        "confidence": 0.642917919793557
+      },
+      {
+        "object_id": 0,
+        "object_label": "large_object",
+        "pose": {
+          "position": [
+            "0.34084034",
+            "-0.3040281",
+            "1.3156844"
+          ],
+          "approach_vector": [
+            -0.0,
+            -0.9805806756909201,
+            -0.19611613513818402
+          ],
+          "rotation_matrix": "[[          1          -0           0]\n [          0           1           0]\n [          0           0           1]]",
+          "angle": 0.0,
+          "quaternion": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "quality_score": 0.665,
+        "gripper_width": 0.08,
+        "approach_vector": [
+          -0.0,
+          -0.9805806756909201,
+          -0.19611613513818402
+        ],
+        "grasp_center": [
+          "0.34084034",
+          "-0.25499907",
+          "1.3254902"
+        ],
+        "confidence": 0.63175
+      },
+      {
+        "object_id": 4,
+        "object_label": "large_object",
+        "pose": {
+          "position": [
+            "0.3874697",
+            "-0.2701499",
+            "1.3156844"
+          ],
+          "approach_vector": [
+            0.9325876413689543,
+            -0.303016093144163,
+            -0.19611613513818402
+          ],
+          "rotation_matrix": "[[    0.30902     0.95106           0]\n [   -0.95106     0.30902           0]\n [          0           0           1]]",
+          "angle": 5.026548245743669,
+          "quaternion": [
+            0.8090169943749473,
+            0.0,
+            0.0,
+            -0.5877852522924732
+          ]
+        },
+        "quality_score": 0.6532442949541505,
+        "gripper_width": 0.08,
+        "approach_vector": [
+          0.9325876413689543,
+          -0.303016093144163,
+          -0.19611613513818402
+        ],
+        "grasp_center": [
+          "0.34084034",
+          "-0.25499907",
+          "1.3254902"
+        ],
+        "confidence": 0.6205820802064429
+      },
+      {
+        "object_id": 2,
+        "object_label": "large_object",
+        "pose": {
+          "position": [
+            "0.3120218",
+            "-0.21533374",
+            "1.3156844"
+          ],
+          "approach_vector": [
+            -0.5763708598541114,
+            0.7933064309896232,
+            -0.19611613513818402
+          ],
+          "rotation_matrix": "[[   -0.80902    -0.58779           0]\n [    0.58779    -0.80902           0]\n [          0           0           1]]",
+          "angle": 2.5132741228718345,
+          "quaternion": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "quality_score": 0.6459788696740969,
+        "gripper_width": 0.08,
+        "approach_vector": [
+          -0.5763708598541114,
+          0.7933064309896232,
+          -0.19611613513818402
+        ],
+        "grasp_center": [
+          "0.34084034",
+          "-0.25499907",
+          "1.3254902"
+        ],
+        "confidence": 0.613679926190392
+      },
+      {
+        "object_id": 3,
+        "object_label": "elongated_large_object",
+        "pose": {
+          "position": [
+            "0.20925552",
+            "-0.06969042",
+            "0.94705695"
+          ],
+          "approach_vector": [
+            0.5763708598541113,
+            0.7933064309896235,
+            -0.19611613513818407
+          ],
+          "rotation_matrix": "[[   -0.80902     0.58779           0]\n [   -0.58779    -0.80902           0]\n [          0           0           1]]",
+          "angle": 3.7699111843077517,
+          "quaternion": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "quality_score": 0.6840211303259031,
+        "gripper_width": 0.08,
+        "approach_vector": [
+          0.5763708598541113,
+          0.7933064309896235,
+          -0.19611613513818407
+        ],
+        "grasp_center": [
+          "0.18043697",
+          "-0.10935575",
+          "0.95686275"
+        ],
+        "confidence": 0.6498200738096078
+      },
+      {
+        "object_id": 1,
+        "object_label": "elongated_large_object",
+        "pose": {
+          "position": [
+            "0.13380758",
+            "-0.124506555",
+            "0.94705695"
+          ],
+          "approach_vector": [
+            -0.9325876413689544,
+            -0.3030160931441633,
+            -0.19611613513818407
+          ],
+          "rotation_matrix": "[[    0.30902    -0.95106           0]\n [    0.95106     0.30902           0]\n [          0           0           1]]",
+          "angle": 1.2566370614359172,
+          "quaternion": [
+            0.8090169943749475,
+            0.0,
+            0.0,
+            0.5877852522924731
+          ]
+        },
+        "quality_score": 0.6767557050458495,
+        "gripper_width": 0.08,
+        "approach_vector": [
+          -0.9325876413689544,
+          -0.3030160931441633,
+          -0.19611613513818407
+        ],
+        "grasp_center": [
+          "0.18043697",
+          "-0.10935575",
+          "0.95686275"
+        ],
+        "confidence": 0.642917919793557
+      },
+      {
+        "object_id": 0,
+        "object_label": "elongated_large_object",
+        "pose": {
+          "position": [
+            "0.18043697",
+            "-0.15838479",
+            "0.94705695"
+          ],
+          "approach_vector": [
+            -0.0,
+            -0.9805806756909201,
+            -0.19611613513818402
+          ],
+          "rotation_matrix": "[[          1          -0           0]\n [          0           1           0]\n [          0           0           1]]",
+          "angle": 0.0,
+          "quaternion": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "quality_score": 0.665,
+        "gripper_width": 0.08,
+        "approach_vector": [
+          -0.0,
+          -0.9805806756909201,
+          -0.19611613513818402
+        ],
+        "grasp_center": [
+          "0.18043697",
+          "-0.10935575",
+          "0.95686275"
+        ],
+        "confidence": 0.63175
+      },
+      {
+        "object_id": 4,
+        "object_label": "elongated_large_object",
+        "pose": {
+          "position": [
+            "0.22706635",
+            "-0.124506555",
+            "0.94705695"
+          ],
+          "approach_vector": [
+            0.9325876413689543,
+            -0.303016093144163,
+            -0.19611613513818402
+          ],
+          "rotation_matrix": "[[    0.30902     0.95106           0]\n [   -0.95106     0.30902           0]\n [          0           0           1]]",
+          "angle": 5.026548245743669,
+          "quaternion": [
+            0.8090169943749473,
+            0.0,
+            0.0,
+            -0.5877852522924732
+          ]
+        },
+        "quality_score": 0.6532442949541505,
+        "gripper_width": 0.08,
+        "approach_vector": [
+          0.9325876413689543,
+          -0.303016093144163,
+          -0.19611613513818402
+        ],
+        "grasp_center": [
+          "0.18043697",
+          "-0.10935575",
+          "0.95686275"
+        ],
+        "confidence": 0.6205820802064429
+      },
+      {
+        "object_id": 2,
+        "object_label": "elongated_large_object",
+        "pose": {
+          "position": [
+            "0.15161842",
+            "-0.06969042",
+            "0.94705695"
+          ],
+          "approach_vector": [
+            -0.5763708598541114,
+            0.7933064309896232,
+            -0.19611613513818402
+          ],
+          "rotation_matrix": "[[   -0.80902    -0.58779           0]\n [    0.58779    -0.80902           0]\n [          0           0           1]]",
+          "angle": 2.5132741228718345,
+          "quaternion": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "quality_score": 0.6459788696740969,
+        "gripper_width": 0.08,
+        "approach_vector": [
+          -0.5763708598541114,
+          0.7933064309896232,
+          -0.19611613513818402
+        ],
+        "grasp_center": [
+          "0.18043697",
+          "-0.10935575",
+          "0.95686275"
+        ],
+        "confidence": 0.613679926190392
+      },
+      {
+        "object_id": 3,
+        "object_label": "medium_object",
+        "pose": {
+          "position": [
+            "0.1974684",
+            "0.011161121",
+            "0.40588048"
+          ],
+          "approach_vector": [
+            0.5763708598541113,
+            0.7933064309896235,
+            -0.19611613513818407
+          ],
+          "rotation_matrix": "[[   -0.80902     0.58779           0]\n [   -0.58779    -0.80902           0]\n [          0           0           1]]",
+          "angle": 3.7699111843077517,
+          "quaternion": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "quality_score": 0.6184485459675527,
+        "gripper_width": 0.08,
+        "approach_vector": [
+          0.5763708598541113,
+          0.7933064309896235,
+          -0.19611613513818407
+        ],
+        "grasp_center": [
+          "0.16864985",
+          "-0.028504202",
+          "0.41568628"
+        ],
+        "confidence": 0.587526118669175
+      },
+      {
+        "object_id": 1,
+        "object_label": "medium_object",
+        "pose": {
+          "position": [
+            "0.12202047",
+            "-0.043655008",
+            "0.40588048"
+          ],
+          "approach_vector": [
+            -0.9325876413689544,
+            -0.3030160931441633,
+            -0.19611613513818407
+          ],
+          "rotation_matrix": "[[    0.30902    -0.95106           0]\n [    0.95106     0.30902           0]\n [          0           0           1]]",
+          "angle": 1.2566370614359172,
+          "quaternion": [
+            0.8090169943749475,
+            0.0,
+            0.0,
+            0.5877852522924731
+          ]
+        },
+        "quality_score": 0.6111831206874991,
+        "gripper_width": 0.08,
+        "approach_vector": [
+          -0.9325876413689544,
+          -0.3030160931441633,
+          -0.19611613513818407
+        ],
+        "grasp_center": [
+          "0.16864985",
+          "-0.028504202",
+          "0.41568628"
+        ],
+        "confidence": 0.5806239646531242
+      },
+      {
+        "object_id": 0,
+        "object_label": "medium_object",
+        "pose": {
+          "position": [
+            "0.16864985",
+            "-0.07753324",
+            "0.40588048"
+          ],
+          "approach_vector": [
+            -0.0,
+            -0.9805806756909201,
+            -0.19611613513818402
+          ],
+          "rotation_matrix": "[[          1          -0           0]\n [          0           1           0]\n [          0           0           1]]",
+          "angle": 0.0,
+          "quaternion": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "quality_score": 0.5994274156416497,
+        "gripper_width": 0.08,
+        "approach_vector": [
+          -0.0,
+          -0.9805806756909201,
+          -0.19611613513818402
+        ],
+        "grasp_center": [
+          "0.16864985",
+          "-0.028504202",
+          "0.41568628"
+        ],
+        "confidence": 0.5694560448595671
+      },
+      {
+        "object_id": 4,
+        "object_label": "medium_object",
+        "pose": {
+          "position": [
+            "0.21527924",
+            "-0.043655008",
+            "0.40588048"
+          ],
+          "approach_vector": [
+            0.9325876413689543,
+            -0.303016093144163,
+            -0.19611613513818402
+          ],
+          "rotation_matrix": "[[    0.30902     0.95106           0]\n [   -0.95106     0.30902           0]\n [          0           0           1]]",
+          "angle": 5.026548245743669,
+          "quaternion": [
+            0.8090169943749473,
+            0.0,
+            0.0,
+            -0.5877852522924732
+          ]
+        },
+        "quality_score": 0.5876717105958001,
+        "gripper_width": 0.08,
+        "approach_vector": [
+          0.9325876413689543,
+          -0.303016093144163,
+          -0.19611613513818402
+        ],
+        "grasp_center": [
+          "0.16864985",
+          "-0.028504202",
+          "0.41568628"
+        ],
+        "confidence": 0.5582881250660101
+      },
+      {
+        "object_id": 2,
+        "object_label": "medium_object",
+        "pose": {
+          "position": [
+            "0.1398313",
+            "0.011161121",
+            "0.40588048"
+          ],
+          "approach_vector": [
+            -0.5763708598541114,
+            0.7933064309896232,
+            -0.19611613513818402
+          ],
+          "rotation_matrix": "[[   -0.80902    -0.58779           0]\n [    0.58779    -0.80902           0]\n [          0           0           1]]",
+          "angle": 2.5132741228718345,
+          "quaternion": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "quality_score": 0.5804062853157466,
+        "gripper_width": 0.08,
+        "approach_vector": [
+          -0.5763708598541114,
+          0.7933064309896232,
+          -0.19611613513818402
+        ],
+        "grasp_center": [
+          "0.16864985",
+          "-0.028504202",
+          "0.41568628"
+        ],
+        "confidence": 0.5513859710499592
+      },
+      {
+        "object_id": 3,
+        "object_label": "small_object",
+        "pose": {
+          "position": [
+            "-0.1907893",
+            "-0.009275854",
+            "0.64901775"
+          ],
+          "approach_vector": [
+            0.5763708598541113,
+            0.7933064309896235,
+            -0.19611613513818407
+          ],
+          "rotation_matrix": "[[   -0.80902     0.58779           0]\n [   -0.58779    -0.80902           0]\n [          0           0           1]]",
+          "angle": 3.7699111843077517,
+          "quaternion": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "quality_score": 0.4040490959842078,
+        "gripper_width": 0.08,
+        "approach_vector": [
+          0.5763708598541113,
+          0.7933064309896235,
+          -0.19611613513818407
+        ],
+        "grasp_center": [
+          "-0.21960784",
+          "-0.048941176",
+          "0.65882355"
+        ],
+        "confidence": 0.25437770134791865
+      },
+      {
+        "object_id": 1,
+        "object_label": "small_object",
+        "pose": {
+          "position": [
+            "-0.26623723",
+            "-0.06409198",
+            "0.64901775"
+          ],
+          "approach_vector": [
+            -0.9325876413689544,
+            -0.3030160931441633,
+            -0.19611613513818407
+          ],
+          "rotation_matrix": "[[    0.30902    -0.95106           0]\n [    0.95106     0.30902           0]\n [          0           0           1]]",
+          "angle": 1.2566370614359172,
+          "quaternion": [
+            0.8090169943749475,
+            0.0,
+            0.0,
+            0.5877852522924731
+          ]
+        },
+        "quality_score": 0.39678367070415416,
+        "gripper_width": 0.08,
+        "approach_vector": [
+          -0.9325876413689544,
+          -0.3030160931441633,
+          -0.19611613513818407
+        ],
+        "grasp_center": [
+          "-0.21960784",
+          "-0.048941176",
+          "0.65882355"
+        ],
+        "confidence": 0.2498035983480017
+      },
+      {
+        "object_id": 0,
+        "object_label": "small_object",
+        "pose": {
+          "position": [
+            "-0.21960784",
+            "-0.09797021",
+            "0.64901775"
+          ],
+          "approach_vector": [
+            -0.0,
+            -0.9805806756909201,
+            -0.19611613513818402
+          ],
+          "rotation_matrix": "[[          1          -0           0]\n [          0           1           0]\n [          0           0           1]]",
+          "angle": 0.0,
+          "quaternion": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "quality_score": 0.3850279656583047,
+        "gripper_width": 0.08,
+        "approach_vector": [
+          -0.0,
+          -0.9805806756909201,
+          -0.19611613513818402
+        ],
+        "grasp_center": [
+          "-0.21960784",
+          "-0.048941176",
+          "0.65882355"
+        ],
+        "confidence": 0.24240254422609323
+      },
+      {
+        "object_id": 4,
+        "object_label": "small_object",
+        "pose": {
+          "position": [
+            "-0.17297846",
+            "-0.06409198",
+            "0.64901775"
+          ],
+          "approach_vector": [
+            0.9325876413689543,
+            -0.303016093144163,
+            -0.19611613513818402
+          ],
+          "rotation_matrix": "[[    0.30902     0.95106           0]\n [   -0.95106     0.30902           0]\n [          0           0           1]]",
+          "angle": 5.026548245743669,
+          "quaternion": [
+            0.8090169943749473,
+            0.0,
+            0.0,
+            -0.5877852522924732
+          ]
+        },
+        "quality_score": 0.3732722606124552,
+        "gripper_width": 0.08,
+        "approach_vector": [
+          0.9325876413689543,
+          -0.303016093144163,
+          -0.19611613513818402
+        ],
+        "grasp_center": [
+          "-0.21960784",
+          "-0.048941176",
+          "0.65882355"
+        ],
+        "confidence": 0.23500149010418472
+      },
+      {
+        "object_id": 2,
+        "object_label": "small_object",
+        "pose": {
+          "position": [
+            "-0.2484264",
+            "-0.009275854",
+            "0.64901775"
+          ],
+          "approach_vector": [
+            -0.5763708598541114,
+            0.7933064309896232,
+            -0.19611613513818402
+          ],
+          "rotation_matrix": "[[   -0.80902    -0.58779           0]\n [    0.58779    -0.80902           0]\n [          0           0           1]]",
+          "angle": 2.5132741228718345,
+          "quaternion": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "quality_score": 0.36600683533240164,
+        "gripper_width": 0.08,
+        "approach_vector": [
+          -0.5763708598541114,
+          0.7933064309896232,
+          -0.19611613513818402
+        ],
+        "grasp_center": [
+          "-0.21960784",
+          "-0.048941176",
+          "0.65882355"
+        ],
+        "confidence": 0.2304273871042678
+      }
+    ]
+  },
+  "stage_4_scene_graph": {
+    "metadata": {
+      "timestamp": "2025-10-03T07:01:47.500395",
+      "image_dimensions": {
+        "width": 661,
+        "height": 322
+      },
+      "num_objects": 9,
+      "num_relations": 95,
+      "num_grasps": 45
+    },
+    "nodes": [
+      {
+        "id": "obj_0",
+        "label": "elongated_large_object",
+        "semantic_category": "document",
+        "confidence": 0.95,
+        "semantic_confidence": 0.85,
+        "bbox_2d": [
+          15.0,
+          108.0,
+          645.0,
+          213.0
+        ],
+        "bbox_3d": {
+          "center": [
+            337.5,
+            214.5,
+            1.0
+          ],
+          "dimensions": [
+            0.645,
+            0.213,
+            0.1
+          ],
+          "min_bounds": [
+            15.0,
+            108.0,
+            0.95
+          ],
+          "max_bounds": [
+            660.0,
+            321.0,
+            1.05
+          ]
+        },
+        "center_2d": [
+          337.0,
+          214.0
+        ],
+        "center_3d": [
+          337.5,
+          214.5,
+          1.0
+        ],
+        "affordances": [
+          "readable",
+          "openable",
+          "portable"
+        ],
+        "description": "printed publication",
+        "num_grasps": 15,
+        "best_grasp_quality": 0.6840211303259031,
+        "graspable": true,
+        "best_grasp": {
+          "object_id": 3,
+          "object_label": "elongated_large_object",
+          "pose": {
+            "position": [
+              "0.047104254",
+              "0.011698933",
+              "0.5549001"
+            ],
+            "approach_vector": [
+              0.5763708598541113,
+              0.7933064309896235,
+              -0.19611613513818407
+            ],
+            "rotation_matrix": "[[   -0.80902     0.58779           0]\n [   -0.58779    -0.80902           0]\n [          0           0           1]]",
+            "angle": 3.7699111843077517,
+            "quaternion": [
+              1.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "quality_score": 0.6840211303259031,
+          "gripper_width": 0.08,
+          "approach_vector": [
+            0.5763708598541113,
+            0.7933064309896235,
+            -0.19611613513818407
+          ],
+          "grasp_center": [
+            "0.018285714",
+            "-0.02796639",
+            "0.5647059"
+          ],
+          "confidence": 0.6498200738096078
+        },
+        "estimated_size": 1.0,
+        "estimated_weight": "medium",
+        "fragility": "moderate"
+      },
+      {
+        "id": "obj_1",
+        "label": "large_object",
+        "semantic_category": "container",
+        "confidence": 0.5,
+        "semantic_confidence": 0.85,
+        "bbox_2d": [
+          0.0,
+          0.0,
+          223.0,
+          321.0
+        ],
+        "bbox_3d": {
+          "center": [
+            111.5,
+            160.5,
+            1.0
+          ],
+          "dimensions": [
+            0.223,
+            0.321,
+            0.1
+          ],
+          "min_bounds": [
+            0.0,
+            0.0,
+            0.95
+          ],
+          "max_bounds": [
+            223.0,
+            321.0,
+            1.05
+          ]
+        },
+        "center_2d": [
+          111.0,
+          160.0
+        ],
+        "center_3d": [
+          111.5,
+          160.5,
+          1.0
+        ],
+        "affordances": [
+          "graspable",
+          "holdable",
+          "drinkable"
+        ],
+        "description": "drinking vessel",
+        "num_grasps": 15,
+        "best_grasp_quality": 0.6840211303259031,
+        "graspable": true,
+        "best_grasp": {
+          "object_id": 3,
+          "object_label": "large_object",
+          "pose": {
+            "position": [
+              "0.3696589",
+              "-0.21533374",
+              "1.3156844"
+            ],
+            "approach_vector": [
+              0.5763708598541113,
+              0.7933064309896235,
+              -0.19611613513818407
+            ],
+            "rotation_matrix": "[[   -0.80902     0.58779           0]\n [   -0.58779    -0.80902           0]\n [          0           0           1]]",
+            "angle": 3.7699111843077517,
+            "quaternion": [
+              1.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "quality_score": 0.6840211303259031,
+          "gripper_width": 0.08,
+          "approach_vector": [
+            0.5763708598541113,
+            0.7933064309896235,
+            -0.19611613513818407
+          ],
+          "grasp_center": [
+            "0.34084034",
+            "-0.25499907",
+            "1.3254902"
+          ],
+          "confidence": 0.6498200738096078
+        },
+        "estimated_size": 1.0,
+        "estimated_weight": "medium",
+        "fragility": "moderate"
+      },
+      {
+        "id": "obj_2",
+        "label": "large_object",
+        "semantic_category": "container",
+        "confidence": 0.6048590341348687,
+        "semantic_confidence": 0.85,
+        "bbox_2d": [
+          171.0,
+          122.0,
+          192.0,
+          199.0
+        ],
+        "bbox_3d": {
+          "center": [
+            267.0,
+            221.5,
+            1.0
+          ],
+          "dimensions": [
+            0.192,
+            0.199,
+            0.1
+          ],
+          "min_bounds": [
+            171.0,
+            122.0,
+            0.95
+          ],
+          "max_bounds": [
+            363.0,
+            321.0,
+            1.05
+          ]
+        },
+        "center_2d": [
+          267.0,
+          221.0
+        ],
+        "center_3d": [
+          267.0,
+          221.5,
+          1.0
+        ],
+        "affordances": [
+          "graspable",
+          "holdable",
+          "drinkable"
+        ],
+        "description": "drinking vessel",
+        "num_grasps": 15,
+        "best_grasp_quality": 0.6840211303259031,
+        "graspable": true,
+        "best_grasp": {
+          "object_id": 3,
+          "object_label": "large_object",
+          "pose": {
+            "position": [
+              "0.3696589",
+              "-0.21533374",
+              "1.3156844"
+            ],
+            "approach_vector": [
+              0.5763708598541113,
+              0.7933064309896235,
+              -0.19611613513818407
+            ],
+            "rotation_matrix": "[[   -0.80902     0.58779           0]\n [   -0.58779    -0.80902           0]\n [          0           0           1]]",
+            "angle": 3.7699111843077517,
+            "quaternion": [
+              1.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "quality_score": 0.6840211303259031,
+          "gripper_width": 0.08,
+          "approach_vector": [
+            0.5763708598541113,
+            0.7933064309896235,
+            -0.19611613513818407
+          ],
+          "grasp_center": [
+            "0.34084034",
+            "-0.25499907",
+            "1.3254902"
+          ],
+          "confidence": 0.6498200738096078
+        },
+        "estimated_size": 1.0,
+        "estimated_weight": "medium",
+        "fragility": "moderate"
+      },
+      {
+        "id": "obj_3",
+        "label": "elongated_large_object",
+        "semantic_category": "document",
+        "confidence": 0.95,
+        "semantic_confidence": 0.85,
+        "bbox_2d": [
+          211.0,
+          0.0,
+          449.0,
+          121.0
+        ],
+        "bbox_3d": {
+          "center": [
+            435.5,
+            60.5,
+            1.0
+          ],
+          "dimensions": [
+            0.449,
+            0.121,
+            0.1
+          ],
+          "min_bounds": [
+            211.0,
+            0.0,
+            0.95
+          ],
+          "max_bounds": [
+            660.0,
+            121.0,
+            1.05
+          ]
+        },
+        "center_2d": [
+          435.0,
+          60.0
+        ],
+        "center_3d": [
+          435.5,
+          60.5,
+          1.0
+        ],
+        "affordances": [
+          "readable",
+          "openable",
+          "portable"
+        ],
+        "description": "printed publication",
+        "num_grasps": 15,
+        "best_grasp_quality": 0.6840211303259031,
+        "graspable": true,
+        "best_grasp": {
+          "object_id": 3,
+          "object_label": "elongated_large_object",
+          "pose": {
+            "position": [
+              "0.047104254",
+              "0.011698933",
+              "0.5549001"
+            ],
+            "approach_vector": [
+              0.5763708598541113,
+              0.7933064309896235,
+              -0.19611613513818407
+            ],
+            "rotation_matrix": "[[   -0.80902     0.58779           0]\n [   -0.58779    -0.80902           0]\n [          0           0           1]]",
+            "angle": 3.7699111843077517,
+            "quaternion": [
+              1.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "quality_score": 0.6840211303259031,
+          "gripper_width": 0.08,
+          "approach_vector": [
+            0.5763708598541113,
+            0.7933064309896235,
+            -0.19611613513818407
+          ],
+          "grasp_center": [
+            "0.018285714",
+            "-0.02796639",
+            "0.5647059"
+          ],
+          "confidence": 0.6498200738096078
+        },
+        "estimated_size": 1.0,
+        "estimated_weight": "medium",
+        "fragility": "moderate"
+      },
+      {
+        "id": "obj_4",
+        "label": "small_object",
+        "semantic_category": "electronics",
+        "confidence": 0.514914391122177,
+        "semantic_confidence": 0.85,
+        "bbox_2d": [
+          309.0,
+          92.0,
+          127.0,
+          62.0
+        ],
+        "bbox_3d": {
+          "center": [
+            372.5,
+            123.0,
+            1.0
+          ],
+          "dimensions": [
+            0.127,
+            0.062,
+            0.1
+          ],
+          "min_bounds": [
+            309.0,
+            92.0,
+            0.95
+          ],
+          "max_bounds": [
+            436.0,
+            154.0,
+            1.05
+          ]
+        },
+        "center_2d": [
+          372.0,
+          123.0
+        ],
+        "center_3d": [
+          372.5,
+          123.0,
+          1.0
+        ],
+        "affordances": [
+          "usable",
+          "pressable",
+          "typing"
+        ],
+        "description": "computer input device",
+        "num_grasps": 10,
+        "best_grasp_quality": 0.4040490959842078,
+        "graspable": true,
+        "best_grasp": {
+          "object_id": 3,
+          "object_label": "small_object",
+          "pose": {
+            "position": [
+              "-0.1907893",
+              "-0.009275854",
+              "0.64901775"
+            ],
+            "approach_vector": [
+              0.5763708598541113,
+              0.7933064309896235,
+              -0.19611613513818407
+            ],
+            "rotation_matrix": "[[   -0.80902     0.58779           0]\n [   -0.58779    -0.80902           0]\n [          0           0           1]]",
+            "angle": 3.7699111843077517,
+            "quaternion": [
+              1.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "quality_score": 0.4040490959842078,
+          "gripper_width": 0.08,
+          "approach_vector": [
+            0.5763708598541113,
+            0.7933064309896235,
+            -0.19611613513818407
+          ],
+          "grasp_center": [
+            "-0.21960784",
+            "-0.048941176",
+            "0.65882355"
+          ],
+          "confidence": 0.25437770134791865
+        },
+        "estimated_size": 0.25631510416666664,
+        "estimated_weight": "medium",
+        "fragility": "moderate"
+      },
+      {
+        "id": "obj_5",
+        "label": "large_object",
+        "semantic_category": "container",
+        "confidence": 0.95,
+        "semantic_confidence": 0.85,
+        "bbox_2d": [
+          250.0,
+          0.0,
+          410.0,
+          279.0
+        ],
+        "bbox_3d": {
+          "center": [
+            455.0,
+            139.5,
+            1.0
+          ],
+          "dimensions": [
+            0.41000000000000003,
+            0.279,
+            0.1
+          ],
+          "min_bounds": [
+            250.0,
+            0.0,
+            0.95
+          ],
+          "max_bounds": [
+            660.0,
+            279.0,
+            1.05
+          ]
+        },
+        "center_2d": [
+          455.0,
+          139.0
+        ],
+        "center_3d": [
+          455.0,
+          139.5,
+          1.0
+        ],
+        "affordances": [
+          "graspable",
+          "holdable",
+          "drinkable"
+        ],
+        "description": "drinking vessel",
+        "num_grasps": 15,
+        "best_grasp_quality": 0.6840211303259031,
+        "graspable": true,
+        "best_grasp": {
+          "object_id": 3,
+          "object_label": "large_object",
+          "pose": {
+            "position": [
+              "0.3696589",
+              "-0.21533374",
+              "1.3156844"
+            ],
+            "approach_vector": [
+              0.5763708598541113,
+              0.7933064309896235,
+              -0.19611613513818407
+            ],
+            "rotation_matrix": "[[   -0.80902     0.58779           0]\n [   -0.58779    -0.80902           0]\n [          0           0           1]]",
+            "angle": 3.7699111843077517,
+            "quaternion": [
+              1.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "quality_score": 0.6840211303259031,
+          "gripper_width": 0.08,
+          "approach_vector": [
+            0.5763708598541113,
+            0.7933064309896235,
+            -0.19611613513818407
+          ],
+          "grasp_center": [
+            "0.34084034",
+            "-0.25499907",
+            "1.3254902"
+          ],
+          "confidence": 0.6498200738096078
+        },
+        "estimated_size": 1.0,
+        "estimated_weight": "medium",
+        "fragility": "moderate"
+      },
+      {
+        "id": "obj_6",
+        "label": "elongated_large_object",
+        "semantic_category": "document",
+        "confidence": 0.95,
+        "semantic_confidence": 0.85,
+        "bbox_2d": [
+          178.0,
+          116.0,
+          482.0,
+          128.0
+        ],
+        "bbox_3d": {
+          "center": [
+            419.0,
+            180.0,
+            1.0
+          ],
+          "dimensions": [
+            0.482,
+            0.128,
+            0.1
+          ],
+          "min_bounds": [
+            178.0,
+            116.0,
+            0.95
+          ],
+          "max_bounds": [
+            660.0,
+            244.0,
+            1.05
+          ]
+        },
+        "center_2d": [
+          419.0,
+          180.0
+        ],
+        "center_3d": [
+          419.0,
+          180.0,
+          1.0
+        ],
+        "affordances": [
+          "readable",
+          "openable",
+          "portable"
+        ],
+        "description": "printed publication",
+        "num_grasps": 15,
+        "best_grasp_quality": 0.6840211303259031,
+        "graspable": true,
+        "best_grasp": {
+          "object_id": 3,
+          "object_label": "elongated_large_object",
+          "pose": {
+            "position": [
+              "0.047104254",
+              "0.011698933",
+              "0.5549001"
+            ],
+            "approach_vector": [
+              0.5763708598541113,
+              0.7933064309896235,
+              -0.19611613513818407
+            ],
+            "rotation_matrix": "[[   -0.80902     0.58779           0]\n [   -0.58779    -0.80902           0]\n [          0           0           1]]",
+            "angle": 3.7699111843077517,
+            "quaternion": [
+              1.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "quality_score": 0.6840211303259031,
+          "gripper_width": 0.08,
+          "approach_vector": [
+            0.5763708598541113,
+            0.7933064309896235,
+            -0.19611613513818407
+          ],
+          "grasp_center": [
+            "0.018285714",
+            "-0.02796639",
+            "0.5647059"
+          ],
+          "confidence": 0.6498200738096078
+        },
+        "estimated_size": 1.0,
+        "estimated_weight": "medium",
+        "fragility": "moderate"
+      },
+      {
+        "id": "obj_7",
+        "label": "medium_object",
+        "semantic_category": "container",
+        "confidence": 0.95,
+        "semantic_confidence": 0.85,
+        "bbox_2d": [
+          479.0,
+          127.0,
+          108.0,
+          154.0
+        ],
+        "bbox_3d": {
+          "center": [
+            533.0,
+            204.0,
+            1.0
+          ],
+          "dimensions": [
+            0.108,
+            0.154,
+            0.1
+          ],
+          "min_bounds": [
+            479.0,
+            127.0,
+            0.95
+          ],
+          "max_bounds": [
+            587.0,
+            281.0,
+            1.05
+          ]
+        },
+        "center_2d": [
+          533.0,
+          204.0
+        ],
+        "center_3d": [
+          533.0,
+          204.0,
+          1.0
+        ],
+        "affordances": [
+          "graspable",
+          "holdable",
+          "drinkable"
+        ],
+        "description": "drinking vessel",
+        "num_grasps": 5,
+        "best_grasp_quality": 0.6184485459675527,
+        "graspable": true,
+        "best_grasp": {
+          "object_id": 3,
+          "object_label": "medium_object",
+          "pose": {
+            "position": [
+              "0.1974684",
+              "0.011161121",
+              "0.40588048"
+            ],
+            "approach_vector": [
+              0.5763708598541113,
+              0.7933064309896235,
+              -0.19611613513818407
+            ],
+            "rotation_matrix": "[[   -0.80902     0.58779           0]\n [   -0.58779    -0.80902           0]\n [          0           0           1]]",
+            "angle": 3.7699111843077517,
+            "quaternion": [
+              1.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "quality_score": 0.6184485459675527,
+          "gripper_width": 0.08,
+          "approach_vector": [
+            0.5763708598541113,
+            0.7933064309896235,
+            -0.19611613513818407
+          ],
+          "grasp_center": [
+            "0.16864985",
+            "-0.028504202",
+            "0.41568628"
+          ],
+          "confidence": 0.587526118669175
+        },
+        "estimated_size": 0.54140625,
+        "estimated_weight": "medium",
+        "fragility": "moderate"
+      },
+      {
+        "id": "obj_8",
+        "label": "small_object",
+        "semantic_category": "electronics",
+        "confidence": 0.6295712671458643,
+        "semantic_confidence": 0.85,
+        "bbox_2d": [
+          111,
+          160,
+          69,
+          83
+        ],
+        "bbox_3d": {
+          "center": [
+            145.5,
+            201.5,
+            1.0
+          ],
+          "dimensions": [
+            0.069,
+            0.083,
+            0.1
+          ],
+          "min_bounds": [
+            111,
+            160,
+            0.95
+          ],
+          "max_bounds": [
+            180,
+            243,
+            1.05
+          ]
+        },
+        "center_2d": [
+          145,
+          201
+        ],
+        "center_3d": [
+          145.5,
+          201.5,
+          1.0
+        ],
+        "affordances": [
+          "usable",
+          "pressable",
+          "typing"
+        ],
+        "description": "computer input device",
+        "num_grasps": 10,
+        "best_grasp_quality": 0.4040490959842078,
+        "graspable": true,
+        "best_grasp": {
+          "object_id": 3,
+          "object_label": "small_object",
+          "pose": {
+            "position": [
+              "-0.1907893",
+              "-0.009275854",
+              "0.64901775"
+            ],
+            "approach_vector": [
+              0.5763708598541113,
+              0.7933064309896235,
+              -0.19611613513818407
+            ],
+            "rotation_matrix": "[[   -0.80902     0.58779           0]\n [   -0.58779    -0.80902           0]\n [          0           0           1]]",
+            "angle": 3.7699111843077517,
+            "quaternion": [
+              1.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "quality_score": 0.4040490959842078,
+          "gripper_width": 0.08,
+          "approach_vector": [
+            0.5763708598541113,
+            0.7933064309896235,
+            -0.19611613513818407
+          ],
+          "grasp_center": [
+            "-0.21960784",
+            "-0.048941176",
+            "0.65882355"
+          ],
+          "confidence": 0.25437770134791865
+        },
+        "estimated_size": 0.18642578125,
+        "estimated_weight": "medium",
+        "fragility": "moderate"
+      }
+    ],
+    "edges": [
+      {
+        "id": "rel_0",
+        "subject": {
+          "id": "obj_0",
+          "label": "elongated_large_object"
+        },
+        "object": {
+          "id": "obj_1",
+          "label": "large_object"
+        },
+        "relation": "right_of",
+        "confidence": 0.8,
+        "description": "elongated_large_object right_of large_object"
+      },
+      {
+        "id": "rel_1",
+        "subject": {
+          "id": "obj_0",
+          "label": "elongated_large_object"
+        },
+        "object": {
+          "id": "obj_1",
+          "label": "large_object"
+        },
+        "relation": "below",
+        "confidence": 0.8,
+        "description": "elongated_large_object below large_object"
+      },
+      {
+        "id": "rel_2",
+        "subject": {
+          "id": "obj_0",
+          "label": "elongated_large_object"
+        },
+        "object": {
+          "id": "obj_1",
+          "label": "large_object"
+        },
+        "relation": "overlapping",
+        "confidence": 0.5381139775542924,
+        "description": "elongated_large_object overlapping large_object"
+      },
+      {
+        "id": "rel_3",
+        "subject": {
+          "id": "obj_0",
+          "label": "elongated_large_object"
+        },
+        "object": {
+          "id": "obj_2",
+          "label": "large_object"
+        },
+        "relation": "right_of",
+        "confidence": 0.8,
+        "description": "elongated_large_object right_of large_object"
+      },
+      {
+        "id": "rel_4",
+        "subject": {
+          "id": "obj_0",
+          "label": "elongated_large_object"
+        },
+        "object": {
+          "id": "obj_2",
+          "label": "large_object"
+        },
+        "relation": "near",
+        "confidence": 0.9,
+        "description": "elongated_large_object near large_object"
+      },
+      {
+        "id": "rel_5",
+        "subject": {
+          "id": "obj_0",
+          "label": "elongated_large_object"
+        },
+        "object": {
+          "id": "obj_2",
+          "label": "large_object"
+        },
+        "relation": "overlapping",
+        "confidence": 0.5562179277213669,
+        "description": "elongated_large_object overlapping large_object"
+      },
+      {
+        "id": "rel_6",
+        "subject": {
+          "id": "obj_0",
+          "label": "elongated_large_object"
+        },
+        "object": {
+          "id": "obj_3",
+          "label": "elongated_large_object"
+        },
+        "relation": "left_of",
+        "confidence": 0.8,
+        "description": "elongated_large_object left_of elongated_large_object"
+      },
+      {
+        "id": "rel_7",
+        "subject": {
+          "id": "obj_0",
+          "label": "elongated_large_object"
+        },
+        "object": {
+          "id": "obj_3",
+          "label": "elongated_large_object"
+        },
+        "relation": "below",
+        "confidence": 0.8,
+        "description": "elongated_large_object below elongated_large_object"
+      },
+      {
+        "id": "rel_8",
+        "subject": {
+          "id": "obj_0",
+          "label": "elongated_large_object"
+        },
+        "object": {
+          "id": "obj_4",
+          "label": "small_object"
+        },
+        "relation": "left_of",
+        "confidence": 0.8,
+        "description": "elongated_large_object left_of small_object"
+      },
+      {
+        "id": "rel_9",
+        "subject": {
+          "id": "obj_0",
+          "label": "elongated_large_object"
+        },
+        "object": {
+          "id": "obj_4",
+          "label": "small_object"
+        },
+        "relation": "below",
+        "confidence": 0.8,
+        "description": "elongated_large_object below small_object"
+      },
+      {
+        "id": "rel_10",
+        "subject": {
+          "id": "obj_0",
+          "label": "elongated_large_object"
+        },
+        "object": {
+          "id": "obj_4",
+          "label": "small_object"
+        },
+        "relation": "near",
+        "confidence": 0.9,
+        "description": "elongated_large_object near small_object"
+      },
+      {
+        "id": "rel_11",
+        "subject": {
+          "id": "obj_0",
+          "label": "elongated_large_object"
+        },
+        "object": {
+          "id": "obj_5",
+          "label": "large_object"
+        },
+        "relation": "left_of",
+        "confidence": 0.8,
+        "description": "elongated_large_object left_of large_object"
+      },
+      {
+        "id": "rel_12",
+        "subject": {
+          "id": "obj_0",
+          "label": "elongated_large_object"
+        },
+        "object": {
+          "id": "obj_5",
+          "label": "large_object"
+        },
+        "relation": "below",
+        "confidence": 0.8,
+        "description": "elongated_large_object below large_object"
+      },
+      {
+        "id": "rel_13",
+        "subject": {
+          "id": "obj_0",
+          "label": "elongated_large_object"
+        },
+        "object": {
+          "id": "obj_5",
+          "label": "large_object"
+        },
+        "relation": "near",
+        "confidence": 0.9,
+        "description": "elongated_large_object near large_object"
+      },
+      {
+        "id": "rel_14",
+        "subject": {
+          "id": "obj_0",
+          "label": "elongated_large_object"
+        },
+        "object": {
+          "id": "obj_5",
+          "label": "large_object"
+        },
+        "relation": "overlapping",
+        "confidence": 0.7718602922962596,
+        "description": "elongated_large_object overlapping large_object"
+      },
+      {
+        "id": "rel_15",
+        "subject": {
+          "id": "obj_0",
+          "label": "elongated_large_object"
+        },
+        "object": {
+          "id": "obj_6",
+          "label": "elongated_large_object"
+        },
+        "relation": "left_of",
+        "confidence": 0.8,
+        "description": "elongated_large_object left_of elongated_large_object"
+      },
+      {
+        "id": "rel_16",
+        "subject": {
+          "id": "obj_0",
+          "label": "elongated_large_object"
+        },
+        "object": {
+          "id": "obj_6",
+          "label": "elongated_large_object"
+        },
+        "relation": "below",
+        "confidence": 0.8,
+        "description": "elongated_large_object below elongated_large_object"
+      },
+      {
+        "id": "rel_17",
+        "subject": {
+          "id": "obj_0",
+          "label": "elongated_large_object"
+        },
+        "object": {
+          "id": "obj_6",
+          "label": "elongated_large_object"
+        },
+        "relation": "near",
+        "confidence": 0.9,
+        "description": "elongated_large_object near elongated_large_object"
+      },
+      {
+        "id": "rel_18",
+        "subject": {
+          "id": "obj_0",
+          "label": "elongated_large_object"
+        },
+        "object": {
+          "id": "obj_6",
+          "label": "elongated_large_object"
+        },
+        "relation": "overlapping",
+        "confidence": 0.8981475415802307,
+        "description": "elongated_large_object overlapping elongated_large_object"
+      },
+      {
+        "id": "rel_19",
+        "subject": {
+          "id": "obj_0",
+          "label": "elongated_large_object"
+        },
+        "object": {
+          "id": "obj_7",
+          "label": "medium_object"
+        },
+        "relation": "left_of",
+        "confidence": 0.8,
+        "description": "elongated_large_object left_of medium_object"
+      },
+      {
+        "id": "rel_20",
+        "subject": {
+          "id": "obj_0",
+          "label": "elongated_large_object"
+        },
+        "object": {
+          "id": "obj_7",
+          "label": "medium_object"
+        },
+        "relation": "overlapping",
+        "confidence": 0.24212250245660005,
+        "description": "elongated_large_object overlapping medium_object"
+      },
+      {
+        "id": "rel_21",
+        "subject": {
+          "id": "obj_0",
+          "label": "elongated_large_object"
+        },
+        "object": {
+          "id": "obj_8",
+          "label": "small_object"
+        },
+        "relation": "right_of",
+        "confidence": 0.8,
+        "description": "elongated_large_object right_of small_object"
+      },
+      {
+        "id": "rel_22",
+        "subject": {
+          "id": "obj_1",
+          "label": "large_object"
+        },
+        "object": {
+          "id": "obj_2",
+          "label": "large_object"
+        },
+        "relation": "left_of",
+        "confidence": 0.8,
+        "description": "large_object left_of large_object"
+      },
+      {
+        "id": "rel_23",
+        "subject": {
+          "id": "obj_1",
+          "label": "large_object"
+        },
+        "object": {
+          "id": "obj_2",
+          "label": "large_object"
+        },
+        "relation": "above",
+        "confidence": 0.8,
+        "description": "large_object above large_object"
+      },
+      {
+        "id": "rel_24",
+        "subject": {
+          "id": "obj_1",
+          "label": "large_object"
+        },
+        "object": {
+          "id": "obj_2",
+          "label": "large_object"
+        },
+        "relation": "overlapping",
+        "confidence": 0.2081192240781151,
+        "description": "large_object overlapping large_object"
+      },
+      {
+        "id": "rel_25",
+        "subject": {
+          "id": "obj_1",
+          "label": "large_object"
+        },
+        "object": {
+          "id": "obj_3",
+          "label": "elongated_large_object"
+        },
+        "relation": "left_of",
+        "confidence": 0.8,
+        "description": "large_object left_of elongated_large_object"
+      },
+      {
+        "id": "rel_26",
+        "subject": {
+          "id": "obj_1",
+          "label": "large_object"
+        },
+        "object": {
+          "id": "obj_3",
+          "label": "elongated_large_object"
+        },
+        "relation": "below",
+        "confidence": 0.8,
+        "description": "large_object below elongated_large_object"
+      },
+      {
+        "id": "rel_27",
+        "subject": {
+          "id": "obj_1",
+          "label": "large_object"
+        },
+        "object": {
+          "id": "obj_4",
+          "label": "small_object"
+        },
+        "relation": "left_of",
+        "confidence": 0.8,
+        "description": "large_object left_of small_object"
+      },
+      {
+        "id": "rel_28",
+        "subject": {
+          "id": "obj_1",
+          "label": "large_object"
+        },
+        "object": {
+          "id": "obj_4",
+          "label": "small_object"
+        },
+        "relation": "below",
+        "confidence": 0.8,
+        "description": "large_object below small_object"
+      },
+      {
+        "id": "rel_29",
+        "subject": {
+          "id": "obj_1",
+          "label": "large_object"
+        },
+        "object": {
+          "id": "obj_5",
+          "label": "large_object"
+        },
+        "relation": "left_of",
+        "confidence": 0.8,
+        "description": "large_object left_of large_object"
+      },
+      {
+        "id": "rel_30",
+        "subject": {
+          "id": "obj_1",
+          "label": "large_object"
+        },
+        "object": {
+          "id": "obj_5",
+          "label": "large_object"
+        },
+        "relation": "below",
+        "confidence": 0.8,
+        "description": "large_object below large_object"
+      },
+      {
+        "id": "rel_31",
+        "subject": {
+          "id": "obj_1",
+          "label": "large_object"
+        },
+        "object": {
+          "id": "obj_6",
+          "label": "elongated_large_object"
+        },
+        "relation": "left_of",
+        "confidence": 0.8,
+        "description": "large_object left_of elongated_large_object"
+      },
+      {
+        "id": "rel_32",
+        "subject": {
+          "id": "obj_1",
+          "label": "large_object"
+        },
+        "object": {
+          "id": "obj_7",
+          "label": "medium_object"
+        },
+        "relation": "left_of",
+        "confidence": 0.8,
+        "description": "large_object left_of medium_object"
+      },
+      {
+        "id": "rel_33",
+        "subject": {
+          "id": "obj_1",
+          "label": "large_object"
+        },
+        "object": {
+          "id": "obj_7",
+          "label": "medium_object"
+        },
+        "relation": "above",
+        "confidence": 0.8,
+        "description": "large_object above medium_object"
+      },
+      {
+        "id": "rel_34",
+        "subject": {
+          "id": "obj_1",
+          "label": "large_object"
+        },
+        "object": {
+          "id": "obj_7",
+          "label": "medium_object"
+        },
+        "relation": "far_from",
+        "confidence": 0.7,
+        "description": "large_object far_from medium_object"
+      },
+      {
+        "id": "rel_35",
+        "subject": {
+          "id": "obj_1",
+          "label": "large_object"
+        },
+        "object": {
+          "id": "obj_8",
+          "label": "small_object"
+        },
+        "relation": "left_of",
+        "confidence": 0.8,
+        "description": "large_object left_of small_object"
+      },
+      {
+        "id": "rel_36",
+        "subject": {
+          "id": "obj_1",
+          "label": "large_object"
+        },
+        "object": {
+          "id": "obj_8",
+          "label": "small_object"
+        },
+        "relation": "above",
+        "confidence": 0.8,
+        "description": "large_object above small_object"
+      },
+      {
+        "id": "rel_37",
+        "subject": {
+          "id": "obj_1",
+          "label": "large_object"
+        },
+        "object": {
+          "id": "obj_8",
+          "label": "small_object"
+        },
+        "relation": "near",
+        "confidence": 0.9,
+        "description": "large_object near small_object"
+      },
+      {
+        "id": "rel_38",
+        "subject": {
+          "id": "obj_1",
+          "label": "large_object"
+        },
+        "object": {
+          "id": "obj_8",
+          "label": "small_object"
+        },
+        "relation": "touching",
+        "confidence": 0.6,
+        "description": "large_object touching small_object"
+      },
+      {
+        "id": "rel_39",
+        "subject": {
+          "id": "obj_2",
+          "label": "large_object"
+        },
+        "object": {
+          "id": "obj_3",
+          "label": "elongated_large_object"
+        },
+        "relation": "left_of",
+        "confidence": 0.8,
+        "description": "large_object left_of elongated_large_object"
+      },
+      {
+        "id": "rel_40",
+        "subject": {
+          "id": "obj_2",
+          "label": "large_object"
+        },
+        "object": {
+          "id": "obj_3",
+          "label": "elongated_large_object"
+        },
+        "relation": "below",
+        "confidence": 0.8,
+        "description": "large_object below elongated_large_object"
+      },
+      {
+        "id": "rel_41",
+        "subject": {
+          "id": "obj_2",
+          "label": "large_object"
+        },
+        "object": {
+          "id": "obj_4",
+          "label": "small_object"
+        },
+        "relation": "left_of",
+        "confidence": 0.8,
+        "description": "large_object left_of small_object"
+      },
+      {
+        "id": "rel_42",
+        "subject": {
+          "id": "obj_2",
+          "label": "large_object"
+        },
+        "object": {
+          "id": "obj_4",
+          "label": "small_object"
+        },
+        "relation": "below",
+        "confidence": 0.8,
+        "description": "large_object below small_object"
+      },
+      {
+        "id": "rel_43",
+        "subject": {
+          "id": "obj_2",
+          "label": "large_object"
+        },
+        "object": {
+          "id": "obj_4",
+          "label": "small_object"
+        },
+        "relation": "near",
+        "confidence": 0.9,
+        "description": "large_object near small_object"
+      },
+      {
+        "id": "rel_44",
+        "subject": {
+          "id": "obj_2",
+          "label": "large_object"
+        },
+        "object": {
+          "id": "obj_5",
+          "label": "large_object"
+        },
+        "relation": "left_of",
+        "confidence": 0.8,
+        "description": "large_object left_of large_object"
+      },
+      {
+        "id": "rel_45",
+        "subject": {
+          "id": "obj_2",
+          "label": "large_object"
+        },
+        "object": {
+          "id": "obj_5",
+          "label": "large_object"
+        },
+        "relation": "below",
+        "confidence": 0.8,
+        "description": "large_object below large_object"
+      },
+      {
+        "id": "rel_46",
+        "subject": {
+          "id": "obj_2",
+          "label": "large_object"
+        },
+        "object": {
+          "id": "obj_5",
+          "label": "large_object"
+        },
+        "relation": "overlapping",
+        "confidence": 0.26310832956390845,
+        "description": "large_object overlapping large_object"
+      },
+      {
+        "id": "rel_47",
+        "subject": {
+          "id": "obj_2",
+          "label": "large_object"
+        },
+        "object": {
+          "id": "obj_6",
+          "label": "elongated_large_object"
+        },
+        "relation": "left_of",
+        "confidence": 0.8,
+        "description": "large_object left_of elongated_large_object"
+      },
+      {
+        "id": "rel_48",
+        "subject": {
+          "id": "obj_2",
+          "label": "large_object"
+        },
+        "object": {
+          "id": "obj_6",
+          "label": "elongated_large_object"
+        },
+        "relation": "below",
+        "confidence": 0.8,
+        "description": "large_object below elongated_large_object"
+      },
+      {
+        "id": "rel_49",
+        "subject": {
+          "id": "obj_2",
+          "label": "large_object"
+        },
+        "object": {
+          "id": "obj_6",
+          "label": "elongated_large_object"
+        },
+        "relation": "overlapping",
+        "confidence": 0.5837018646390979,
+        "description": "large_object overlapping elongated_large_object"
+      },
+      {
+        "id": "rel_50",
+        "subject": {
+          "id": "obj_2",
+          "label": "large_object"
+        },
+        "object": {
+          "id": "obj_7",
+          "label": "medium_object"
+        },
+        "relation": "left_of",
+        "confidence": 0.8,
+        "description": "large_object left_of medium_object"
+      },
+      {
+        "id": "rel_51",
+        "subject": {
+          "id": "obj_2",
+          "label": "large_object"
+        },
+        "object": {
+          "id": "obj_8",
+          "label": "small_object"
+        },
+        "relation": "right_of",
+        "confidence": 0.8,
+        "description": "large_object right_of small_object"
+      },
+      {
+        "id": "rel_52",
+        "subject": {
+          "id": "obj_2",
+          "label": "large_object"
+        },
+        "object": {
+          "id": "obj_8",
+          "label": "small_object"
+        },
+        "relation": "near",
+        "confidence": 0.9,
+        "description": "large_object near small_object"
+      },
+      {
+        "id": "rel_53",
+        "subject": {
+          "id": "obj_3",
+          "label": "elongated_large_object"
+        },
+        "object": {
+          "id": "obj_4",
+          "label": "small_object"
+        },
+        "relation": "right_of",
+        "confidence": 0.8,
+        "description": "elongated_large_object right_of small_object"
+      },
+      {
+        "id": "rel_54",
+        "subject": {
+          "id": "obj_3",
+          "label": "elongated_large_object"
+        },
+        "object": {
+          "id": "obj_4",
+          "label": "small_object"
+        },
+        "relation": "above",
+        "confidence": 0.8,
+        "description": "elongated_large_object above small_object"
+      },
+      {
+        "id": "rel_55",
+        "subject": {
+          "id": "obj_3",
+          "label": "elongated_large_object"
+        },
+        "object": {
+          "id": "obj_4",
+          "label": "small_object"
+        },
+        "relation": "near",
+        "confidence": 0.9,
+        "description": "elongated_large_object near small_object"
+      },
+      {
+        "id": "rel_56",
+        "subject": {
+          "id": "obj_3",
+          "label": "elongated_large_object"
+        },
+        "object": {
+          "id": "obj_4",
+          "label": "small_object"
+        },
+        "relation": "touching",
+        "confidence": 0.6,
+        "description": "elongated_large_object touching small_object"
+      },
+      {
+        "id": "rel_57",
+        "subject": {
+          "id": "obj_3",
+          "label": "elongated_large_object"
+        },
+        "object": {
+          "id": "obj_5",
+          "label": "large_object"
+        },
+        "relation": "above",
+        "confidence": 0.8,
+        "description": "elongated_large_object above large_object"
+      },
+      {
+        "id": "rel_58",
+        "subject": {
+          "id": "obj_3",
+          "label": "elongated_large_object"
+        },
+        "object": {
+          "id": "obj_5",
+          "label": "large_object"
+        },
+        "relation": "near",
+        "confidence": 0.9,
+        "description": "elongated_large_object near large_object"
+      },
+      {
+        "id": "rel_59",
+        "subject": {
+          "id": "obj_3",
+          "label": "elongated_large_object"
+        },
+        "object": {
+          "id": "obj_5",
+          "label": "large_object"
+        },
+        "relation": "overlapping",
+        "confidence": 0.8330184956636358,
+        "description": "elongated_large_object overlapping large_object"
+      },
+      {
+        "id": "rel_60",
+        "subject": {
+          "id": "obj_3",
+          "label": "elongated_large_object"
+        },
+        "object": {
+          "id": "obj_6",
+          "label": "elongated_large_object"
+        },
+        "relation": "above",
+        "confidence": 0.8,
+        "description": "elongated_large_object above elongated_large_object"
+      },
+      {
+        "id": "rel_61",
+        "subject": {
+          "id": "obj_3",
+          "label": "elongated_large_object"
+        },
+        "object": {
+          "id": "obj_6",
+          "label": "elongated_large_object"
+        },
+        "relation": "near",
+        "confidence": 0.9,
+        "description": "elongated_large_object near elongated_large_object"
+      },
+      {
+        "id": "rel_62",
+        "subject": {
+          "id": "obj_3",
+          "label": "elongated_large_object"
+        },
+        "object": {
+          "id": "obj_7",
+          "label": "medium_object"
+        },
+        "relation": "left_of",
+        "confidence": 0.8,
+        "description": "elongated_large_object left_of medium_object"
+      },
+      {
+        "id": "rel_63",
+        "subject": {
+          "id": "obj_3",
+          "label": "elongated_large_object"
+        },
+        "object": {
+          "id": "obj_7",
+          "label": "medium_object"
+        },
+        "relation": "above",
+        "confidence": 0.8,
+        "description": "elongated_large_object above medium_object"
+      },
+      {
+        "id": "rel_64",
+        "subject": {
+          "id": "obj_3",
+          "label": "elongated_large_object"
+        },
+        "object": {
+          "id": "obj_8",
+          "label": "small_object"
+        },
+        "relation": "right_of",
+        "confidence": 0.8,
+        "description": "elongated_large_object right_of small_object"
+      },
+      {
+        "id": "rel_65",
+        "subject": {
+          "id": "obj_3",
+          "label": "elongated_large_object"
+        },
+        "object": {
+          "id": "obj_8",
+          "label": "small_object"
+        },
+        "relation": "above",
+        "confidence": 0.8,
+        "description": "elongated_large_object above small_object"
+      },
+      {
+        "id": "rel_66",
+        "subject": {
+          "id": "obj_4",
+          "label": "small_object"
+        },
+        "object": {
+          "id": "obj_5",
+          "label": "large_object"
+        },
+        "relation": "left_of",
+        "confidence": 0.8,
+        "description": "small_object left_of large_object"
+      },
+      {
+        "id": "rel_67",
+        "subject": {
+          "id": "obj_4",
+          "label": "small_object"
+        },
+        "object": {
+          "id": "obj_5",
+          "label": "large_object"
+        },
+        "relation": "near",
+        "confidence": 0.9,
+        "description": "small_object near large_object"
+      },
+      {
+        "id": "rel_68",
+        "subject": {
+          "id": "obj_4",
+          "label": "small_object"
+        },
+        "object": {
+          "id": "obj_5",
+          "label": "large_object"
+        },
+        "relation": "touching",
+        "confidence": 0.6,
+        "description": "small_object touching large_object"
+      },
+      {
+        "id": "rel_69",
+        "subject": {
+          "id": "obj_4",
+          "label": "small_object"
+        },
+        "object": {
+          "id": "obj_6",
+          "label": "elongated_large_object"
+        },
+        "relation": "left_of",
+        "confidence": 0.8,
+        "description": "small_object left_of elongated_large_object"
+      },
+      {
+        "id": "rel_70",
+        "subject": {
+          "id": "obj_4",
+          "label": "small_object"
+        },
+        "object": {
+          "id": "obj_6",
+          "label": "elongated_large_object"
+        },
+        "relation": "above",
+        "confidence": 0.8,
+        "description": "small_object above elongated_large_object"
+      },
+      {
+        "id": "rel_71",
+        "subject": {
+          "id": "obj_4",
+          "label": "small_object"
+        },
+        "object": {
+          "id": "obj_6",
+          "label": "elongated_large_object"
+        },
+        "relation": "near",
+        "confidence": 0.9,
+        "description": "small_object near elongated_large_object"
+      },
+      {
+        "id": "rel_72",
+        "subject": {
+          "id": "obj_4",
+          "label": "small_object"
+        },
+        "object": {
+          "id": "obj_6",
+          "label": "elongated_large_object"
+        },
+        "relation": "touching",
+        "confidence": 0.6,
+        "description": "small_object touching elongated_large_object"
+      },
+      {
+        "id": "rel_73",
+        "subject": {
+          "id": "obj_4",
+          "label": "small_object"
+        },
+        "object": {
+          "id": "obj_7",
+          "label": "medium_object"
+        },
+        "relation": "left_of",
+        "confidence": 0.8,
+        "description": "small_object left_of medium_object"
+      },
+      {
+        "id": "rel_74",
+        "subject": {
+          "id": "obj_4",
+          "label": "small_object"
+        },
+        "object": {
+          "id": "obj_7",
+          "label": "medium_object"
+        },
+        "relation": "above",
+        "confidence": 0.8,
+        "description": "small_object above medium_object"
+      },
+      {
+        "id": "rel_75",
+        "subject": {
+          "id": "obj_4",
+          "label": "small_object"
+        },
+        "object": {
+          "id": "obj_8",
+          "label": "small_object"
+        },
+        "relation": "right_of",
+        "confidence": 0.8,
+        "description": "small_object right_of small_object"
+      },
+      {
+        "id": "rel_76",
+        "subject": {
+          "id": "obj_4",
+          "label": "small_object"
+        },
+        "object": {
+          "id": "obj_8",
+          "label": "small_object"
+        },
+        "relation": "above",
+        "confidence": 0.8,
+        "description": "small_object above small_object"
+      },
+      {
+        "id": "rel_77",
+        "subject": {
+          "id": "obj_5",
+          "label": "large_object"
+        },
+        "object": {
+          "id": "obj_6",
+          "label": "elongated_large_object"
+        },
+        "relation": "right_of",
+        "confidence": 0.8,
+        "description": "large_object right_of elongated_large_object"
+      },
+      {
+        "id": "rel_78",
+        "subject": {
+          "id": "obj_5",
+          "label": "large_object"
+        },
+        "object": {
+          "id": "obj_6",
+          "label": "elongated_large_object"
+        },
+        "relation": "above",
+        "confidence": 0.8,
+        "description": "large_object above elongated_large_object"
+      },
+      {
+        "id": "rel_79",
+        "subject": {
+          "id": "obj_5",
+          "label": "large_object"
+        },
+        "object": {
+          "id": "obj_6",
+          "label": "elongated_large_object"
+        },
+        "relation": "near",
+        "confidence": 0.9,
+        "description": "large_object near elongated_large_object"
+      },
+      {
+        "id": "rel_80",
+        "subject": {
+          "id": "obj_5",
+          "label": "large_object"
+        },
+        "object": {
+          "id": "obj_6",
+          "label": "elongated_large_object"
+        },
+        "relation": "overlapping",
+        "confidence": 0.8491497176512467,
+        "description": "large_object overlapping elongated_large_object"
+      },
+      {
+        "id": "rel_81",
+        "subject": {
+          "id": "obj_5",
+          "label": "large_object"
+        },
+        "object": {
+          "id": "obj_7",
+          "label": "medium_object"
+        },
+        "relation": "left_of",
+        "confidence": 0.8,
+        "description": "large_object left_of medium_object"
+      },
+      {
+        "id": "rel_82",
+        "subject": {
+          "id": "obj_5",
+          "label": "large_object"
+        },
+        "object": {
+          "id": "obj_7",
+          "label": "medium_object"
+        },
+        "relation": "above",
+        "confidence": 0.8,
+        "description": "large_object above medium_object"
+      },
+      {
+        "id": "rel_83",
+        "subject": {
+          "id": "obj_5",
+          "label": "large_object"
+        },
+        "object": {
+          "id": "obj_7",
+          "label": "medium_object"
+        },
+        "relation": "near",
+        "confidence": 0.9,
+        "description": "large_object near medium_object"
+      },
+      {
+        "id": "rel_84",
+        "subject": {
+          "id": "obj_5",
+          "label": "large_object"
+        },
+        "object": {
+          "id": "obj_7",
+          "label": "medium_object"
+        },
+        "relation": "overlapping",
+        "confidence": 0.28647714779330924,
+        "description": "large_object overlapping medium_object"
+      },
+      {
+        "id": "rel_85",
+        "subject": {
+          "id": "obj_5",
+          "label": "large_object"
+        },
+        "object": {
+          "id": "obj_8",
+          "label": "small_object"
+        },
+        "relation": "right_of",
+        "confidence": 0.8,
+        "description": "large_object right_of small_object"
+      },
+      {
+        "id": "rel_86",
+        "subject": {
+          "id": "obj_5",
+          "label": "large_object"
+        },
+        "object": {
+          "id": "obj_8",
+          "label": "small_object"
+        },
+        "relation": "above",
+        "confidence": 0.8,
+        "description": "large_object above small_object"
+      },
+      {
+        "id": "rel_87",
+        "subject": {
+          "id": "obj_6",
+          "label": "elongated_large_object"
+        },
+        "object": {
+          "id": "obj_7",
+          "label": "medium_object"
+        },
+        "relation": "left_of",
+        "confidence": 0.8,
+        "description": "elongated_large_object left_of medium_object"
+      },
+      {
+        "id": "rel_88",
+        "subject": {
+          "id": "obj_6",
+          "label": "elongated_large_object"
+        },
+        "object": {
+          "id": "obj_7",
+          "label": "medium_object"
+        },
+        "relation": "above",
+        "confidence": 0.8,
+        "description": "elongated_large_object above medium_object"
+      },
+      {
+        "id": "rel_89",
+        "subject": {
+          "id": "obj_6",
+          "label": "elongated_large_object"
+        },
+        "object": {
+          "id": "obj_7",
+          "label": "medium_object"
+        },
+        "relation": "near",
+        "confidence": 0.9,
+        "description": "elongated_large_object near medium_object"
+      },
+      {
+        "id": "rel_90",
+        "subject": {
+          "id": "obj_6",
+          "label": "elongated_large_object"
+        },
+        "object": {
+          "id": "obj_7",
+          "label": "medium_object"
+        },
+        "relation": "overlapping",
+        "confidence": 0.38470437800645435,
+        "description": "elongated_large_object overlapping medium_object"
+      },
+      {
+        "id": "rel_91",
+        "subject": {
+          "id": "obj_6",
+          "label": "elongated_large_object"
+        },
+        "object": {
+          "id": "obj_8",
+          "label": "small_object"
+        },
+        "relation": "right_of",
+        "confidence": 0.8,
+        "description": "elongated_large_object right_of small_object"
+      },
+      {
+        "id": "rel_92",
+        "subject": {
+          "id": "obj_6",
+          "label": "elongated_large_object"
+        },
+        "object": {
+          "id": "obj_8",
+          "label": "small_object"
+        },
+        "relation": "above",
+        "confidence": 0.8,
+        "description": "elongated_large_object above small_object"
+      },
+      {
+        "id": "rel_93",
+        "subject": {
+          "id": "obj_7",
+          "label": "medium_object"
+        },
+        "object": {
+          "id": "obj_8",
+          "label": "small_object"
+        },
+        "relation": "right_of",
+        "confidence": 0.8,
+        "description": "medium_object right_of small_object"
+      },
+      {
+        "id": "rel_94",
+        "subject": {
+          "id": "obj_7",
+          "label": "medium_object"
+        },
+        "object": {
+          "id": "obj_8",
+          "label": "small_object"
+        },
+        "relation": "far_from",
+        "confidence": 0.7,
+        "description": "medium_object far_from small_object"
+      }
+    ],
+    "scene_properties": {
+      "object_statistics": {
+        "total_objects": 9,
+        "unique_labels": 4,
+        "object_counts": {
+          "elongated_large_object": 3,
+          "large_object": 3,
+          "small_object": 2,
+          "medium_object": 1
+        },
+        "category_counts": {
+          "document": 3,
+          "container": 4,
+          "electronics": 2
+        },
+        "affordance_counts": {
+          "readable": 3,
+          "openable": 3,
+          "portable": 3,
+          "graspable": 4,
+          "holdable": 4,
+          "drinkable": 4,
+          "usable": 2,
+          "pressable": 2,
+          "typing": 2
+        }
+      },
+      "grasp_statistics": {
+        "graspable_objects": 9,
+        "avg_grasp_quality": 0.6145192799879319,
+        "grasp_success_rate": 1.0
+      },
+      "relation_statistics": {
+        "total_relations": 95,
+        "relation_counts": {
+          "right_of": 11,
+          "below": 12,
+          "overlapping": 12,
+          "near": 15,
+          "left_of": 23,
+          "above": 16,
+          "far_from": 2,
+          "touching": 4
+        },
+        "relation_density": 10.555555555555555
+      },
+      "scene_complexity": {
+        "object_density": 0.29296875,
+        "relation_density": 10.555555555555555,
+        "complexity_score": 5.424262152777778
+      }
+    },
+    "semantic_groups": {
+      "by_category": {
+        "document": [
+          "obj_0",
+          "obj_3",
+          "obj_6"
+        ],
+        "container": [
+          "obj_1",
+          "obj_2",
+          "obj_5",
+          "obj_7"
+        ],
+        "electronics": [
+          "obj_4",
+          "obj_8"
+        ]
+      },
+      "by_affordance": {
+        "readable": [
+          "obj_0",
+          "obj_3",
+          "obj_6"
+        ],
+        "openable": [
+          "obj_0",
+          "obj_3",
+          "obj_6"
+        ],
+        "portable": [
+          "obj_0",
+          "obj_3",
+          "obj_6"
+        ],
+        "graspable": [
+          "obj_1",
+          "obj_2",
+          "obj_5",
+          "obj_7"
+        ],
+        "holdable": [
+          "obj_1",
+          "obj_2",
+          "obj_5",
+          "obj_7"
+        ],
+        "drinkable": [
+          "obj_1",
+          "obj_2",
+          "obj_5",
+          "obj_7"
+        ],
+        "usable": [
+          "obj_4",
+          "obj_8"
+        ],
+        "pressable": [
+          "obj_4",
+          "obj_8"
+        ],
+        "typing": [
+          "obj_4",
+          "obj_8"
+        ]
+      },
+      "by_graspability": {
+        "graspable": [
+          "obj_0",
+          "obj_1",
+          "obj_2",
+          "obj_3",
+          "obj_4",
+          "obj_5",
+          "obj_6",
+          "obj_7",
+          "obj_8"
+        ],
+        "not_graspable": []
+      },
+      "by_size": {
+        "small": [
+          "obj_4",
+          "obj_8"
+        ],
+        "medium": [
+          "obj_7"
+        ],
+        "large": [
+          "obj_0",
+          "obj_1",
+          "obj_2",
+          "obj_3",
+          "obj_5",
+          "obj_6"
+        ]
+      }
+    },
+    "task_insights": {
+      "manipulation_candidates": [
+        {
+          "object_id": "obj_0",
+          "label": "elongated_large_object",
+          "grasp_quality": 0.6840211303259031,
+          "reason": "High grasp quality (0.68) and good accessibility"
+        },
+        {
+          "object_id": "obj_1",
+          "label": "large_object",
+          "grasp_quality": 0.6840211303259031,
+          "reason": "High grasp quality (0.68) and good accessibility"
+        },
+        {
+          "object_id": "obj_2",
+          "label": "large_object",
+          "grasp_quality": 0.6840211303259031,
+          "reason": "High grasp quality (0.68) and good accessibility"
+        }
+      ],
+      "spatial_constraints": [
+        {
+          "constraint_type": "overlapping",
+          "description": "elongated_large_object overlapping large_object",
+          "impact": "Movement of one object affects the other"
+        },
+        {
+          "constraint_type": "overlapping",
+          "description": "elongated_large_object overlapping large_object",
+          "impact": "Movement of one object affects the other"
+        },
+        {
+          "constraint_type": "overlapping",
+          "description": "elongated_large_object overlapping large_object",
+          "impact": "Movement of one object affects the other"
+        },
+        {
+          "constraint_type": "overlapping",
+          "description": "elongated_large_object overlapping elongated_large_object",
+          "impact": "Movement of one object affects the other"
+        },
+        {
+          "constraint_type": "overlapping",
+          "description": "elongated_large_object overlapping medium_object",
+          "impact": "Movement of one object affects the other"
+        },
+        {
+          "constraint_type": "overlapping",
+          "description": "large_object overlapping large_object",
+          "impact": "Movement of one object affects the other"
+        },
+        {
+          "constraint_type": "touching",
+          "description": "large_object touching small_object",
+          "impact": "Movement of one object affects the other"
+        },
+        {
+          "constraint_type": "overlapping",
+          "description": "large_object overlapping large_object",
+          "impact": "Movement of one object affects the other"
+        },
+        {
+          "constraint_type": "overlapping",
+          "description": "large_object overlapping elongated_large_object",
+          "impact": "Movement of one object affects the other"
+        },
+        {
+          "constraint_type": "touching",
+          "description": "elongated_large_object touching small_object",
+          "impact": "Movement of one object affects the other"
+        },
+        {
+          "constraint_type": "overlapping",
+          "description": "elongated_large_object overlapping large_object",
+          "impact": "Movement of one object affects the other"
+        },
+        {
+          "constraint_type": "touching",
+          "description": "small_object touching large_object",
+          "impact": "Movement of one object affects the other"
+        },
+        {
+          "constraint_type": "touching",
+          "description": "small_object touching elongated_large_object",
+          "impact": "Movement of one object affects the other"
+        },
+        {
+          "constraint_type": "overlapping",
+          "description": "large_object overlapping elongated_large_object",
+          "impact": "Movement of one object affects the other"
+        },
+        {
+          "constraint_type": "overlapping",
+          "description": "large_object overlapping medium_object",
+          "impact": "Movement of one object affects the other"
+        },
+        {
+          "constraint_type": "overlapping",
+          "description": "elongated_large_object overlapping medium_object",
+          "impact": "Movement of one object affects the other"
+        }
+      ],
+      "task_recommendations": [
+        {
+          "task": "pouring",
+          "objects": [
+            "obj_1",
+            "obj_2",
+            "obj_5",
+            "obj_7"
+          ],
+          "feasibility": "high"
+        }
+      ],
+      "potential_actions": [
+        {
+          "object_id": "obj_0",
+          "label": "elongated_large_object",
+          "actions": [
+            "pick",
+            "move",
+            "open"
+          ]
+        },
+        {
+          "object_id": "obj_1",
+          "label": "large_object",
+          "actions": [
+            "pick",
+            "move"
+          ]
+        },
+        {
+          "object_id": "obj_2",
+          "label": "large_object",
+          "actions": [
+            "pick",
+            "move"
+          ]
+        },
+        {
+          "object_id": "obj_3",
+          "label": "elongated_large_object",
+          "actions": [
+            "pick",
+            "move",
+            "open"
+          ]
+        },
+        {
+          "object_id": "obj_5",
+          "label": "large_object",
+          "actions": [
+            "pick",
+            "move"
+          ]
+        },
+        {
+          "object_id": "obj_6",
+          "label": "elongated_large_object",
+          "actions": [
+            "pick",
+            "move",
+            "open"
+          ]
+        },
+        {
+          "object_id": "obj_7",
+          "label": "medium_object",
+          "actions": [
+            "pick",
+            "move"
+          ]
+        },
+        {
+          "object_id": "obj_4",
+          "label": "small_object",
+          "actions": [
+            "pick",
+            "move",
+            "use"
+          ]
+        },
+        {
+          "object_id": "obj_8",
+          "label": "small_object",
+          "actions": [
+            "pick",
+            "move",
+            "use"
+          ]
+        }
+      ]
+    },
+    "grasp_summary": {
+      "total_grasps": 45,
+      "avg_quality": 0.5645967936989321,
+      "max_quality": 0.6840211303259031,
+      "min_quality": 0.3264369214240707,
+      "high_quality_grasps": 0,
+      "objects_with_grasps": 4
+    }
+  },
+  "output_files": {
+    "input_visualization": "outputs\\dino_pipeline_20251003_070121\\1_input_rgbd.jpg",
+    "dino_detections": "outputs\\dino_pipeline_20251003_070121\\2_dino_detections.jpg",
+    "clip_semantic": "outputs\\dino_pipeline_20251003_070121\\3_clip_semantic_tags.jpg",
+    "graspnet_6d": "outputs\\dino_pipeline_20251003_070121\\4_graspnet_6d.jpg",
+    "scene_graph_vis": "outputs\\dino_pipeline_20251003_070121\\5_scene_graph.jpg",
+    "pipeline_summary": "outputs\\dino_pipeline_20251003_070121\\6_pipeline_summary.jpg",
+    "scene_graph_json": "outputs\\dino_pipeline_20251003_070121\\scene_graph.json",
+    "pipeline_results": "outputs\\dino_pipeline_20251003_070121\\pipeline_results.json"
+  }
+}
