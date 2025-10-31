@@ -8,7 +8,7 @@ Use the **Table of Contents** below to navigate to the specific guide you need.
 ## 📖 Table of Contents
 - [1. Connecting to ChulaWifi on Ubuntu 22.04](#1-connecting-to-chulawifi-on-ubuntu-2204)
 - [2. Running Gazebo Simulation for Testing](#2-running-gazebo-simulation-for-testing)
-- [3. ROS2 Node with Python Virtual Environment](#3-ros2-node-with-python-virtual-environment)
+- [3. ROS2 Node with Python Virtual Environment](#3-ros2-vision-node-with-python-virtual-environment)
 - [4. (More sections to be added...)](#3-more-sections-to-be-added)
 ---
 
@@ -49,29 +49,40 @@ Follow these steps to start up the **Gazebo simulation** environment with the co
      colcon build
      ```
 
-2. **Source the workspace**
+2. **Source the default virtual environment**
    - Open a **second terminal**.
    - Go to the same workspace:
      ```bash
      cd ~/final_project_ws
      ```
-   - Source the environment setup:
+   - Source the default virtual environment:
+     ```bash
+     source ./venv/bin/activate
+     ```
+   - Verify activation by checking that the terminal prompt begins with:
+
+     ```
+     (venv)
+     ```
+     
+3. **Source the workspace**
+   - In the same terminal, source the environment setup:
      ```bash
      source install/setup.bash
      ```
 
-3. **Launch Gazebo with the UR5 setup**
+4. **Launch Gazebo with the UR5 setup**
    - In the same terminal, run:
      ```bash
      ros2 launch ur_yt_sim spawn_ur5_camera_gripper_moveit.launch.py
      ```
    - This will start **Gazebo** with the appropriate world environment, UR5 robot arm, camera, gripper, and supporting utilities.
 
-4. **Verify simulation environment**
+5. **Verify simulation environment**
    - Wait for all models (robot arm, tables, items) to load successfully.
    - You can now begin testing.
 
-5. **Important ROS topics**
+6. **Important ROS topics**
    - The raw RGB image from the depth camera is published to:
      ```
      /camera/image_raw
@@ -81,7 +92,7 @@ Follow these steps to start up the **Gazebo simulation** environment with the co
      /camera/depth/image_raw
      ```
      
-## 3. ROS2 Node with Python Virtual Environment
+## 3. ROS2 Vision Node with Python Virtual Environment
 
 Follow these steps to create and run a **ROS2 Python node** inside a **virtual environment**:
 
@@ -122,18 +133,18 @@ Follow these steps to create and run a **ROS2 Python node** inside a **virtual e
      colcon build
      ```
 
-7. **Activate the virtual environment**
+7. **Activate the vision virtual environment**
 
    * Open another new terminal:
 
      ```bash
      cd ~/final_project_ws
-     source ./venv/bin/activate
+     source ./vision_venv/bin/activate
      ```
    * Verify activation by checking that the terminal prompt begins with:
 
      ```
-     (venv)
+     (vision_venv)
      ```
 
 8. **Source the ROS2 workspace**
@@ -163,4 +174,5 @@ Additional guides will be added here in the future, such as:
 
 
 ---
+
 
