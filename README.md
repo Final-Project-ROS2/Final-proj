@@ -1,15 +1,18 @@
-﻿# Project Setup and Troubleshooting Guide
+# Project Setup and Troubleshooting Guide
 
-This README provides detailed step-by-step procedures for various tasks related to the project.  
+This README provides detailed step-by-step procedures for various tasks related to the project.
 Use the **Table of Contents** below to navigate to the specific guide you need.
 
 ---
 
 ## 📖 Table of Contents
-- [1. Connecting to ChulaWifi on Ubuntu 22.04](#1-connecting-to-chulawifi-on-ubuntu-2204)
-- [2. Running Gazebo Simulation for Testing](#2-running-gazebo-simulation-for-testing)
-- [3. ROS2 Node with Python Virtual Environment](#3-ros2-vision-node-with-python-virtual-environment)
-- [4. (More sections to be added...)](#3-more-sections-to-be-added)
+
+* [1. Connecting to ChulaWifi on Ubuntu 22.04](#1-connecting-to-chulawifi-on-ubuntu-2204)
+* [2. Running Gazebo Simulation for Testing](#2-running-gazebo-simulation-for-testing)
+* [3. ROS2 Node with Python Virtual Environment](#3-ros2-vision-node-with-python-virtual-environment)
+* [4. Connecting to UR Arm](#4-connecting-to-ur-arm)
+* [5. (More sections to be added...)](#5-more-sections-to-be-added)
+
 ---
 
 ## 1. Connecting to ChulaWifi on Ubuntu 22.04
@@ -19,15 +22,16 @@ Follow these steps to connect your Ubuntu 22.04 system to **ChulaWifi**:
 1. Click the **set of icons** at the **top right corner** of the screen.
 2. Select **Wi-Fi / Network Settings**.
 3. Choose **ChulaWifi** from the list of available networks.
-4. If it **auto-connects**, you’re done! ✅  
+4. If it **auto-connects**, you’re done! ✅
    Otherwise, proceed with the following configuration:
-   - **Authentication:** Protected EAP (PEAP)  
-   - **Anonymous identity:** *(leave blank)*  
-   - **CA certificate:** Tick the **"No CA certificate required"** box  
-   - **PEAP version:** Automatic  
-   - **Inner authentication:** MSCHAPv2  
-   - **Username:** Your ChulaWifi username (default: your student ID)  
-   - **Password:** Your ChulaWifi password (default: same as REG Chula password)
+
+   * **Authentication:** Protected EAP (PEAP)
+   * **Anonymous identity:** *(leave blank)*
+   * **CA certificate:** Tick the **"No CA certificate required"** box
+   * **PEAP version:** Automatic
+   * **Inner authentication:** MSCHAPv2
+   * **Username:** Your ChulaWifi username (default: your student ID)
+   * **Password:** Your ChulaWifi password (default: same as REG Chula password)
 5. Click **Connect**.
 
 Once configured correctly, your Ubuntu system should automatically reconnect to **ChulaWifi** in the future.
@@ -39,64 +43,79 @@ Once configured correctly, your Ubuntu system should automatically reconnect to 
 Follow these steps to start up the **Gazebo simulation** environment with the correct world and utility nodes:
 
 1. **Build all packages**
-   - Open a terminal.
-   - Navigate to your workspace:
+
+   * Open a terminal.
+   * Navigate to your workspace:
+
      ```bash
      cd ~/final_project_ws
      ```
-   - Build all packages:
+   * Build all packages:
+
      ```bash
      colcon build
      ```
 
 2. **Source the default virtual environment**
-   - Open a **second terminal**.
-   - Go to the same workspace:
+
+   * Open a **second terminal**.
+   * Go to the same workspace:
+
      ```bash
      cd ~/final_project_ws
      ```
-   - Source the default virtual environment:
+   * Source the default virtual environment:
+
      ```bash
      source ./venv/bin/activate
      ```
-   - Verify activation by checking that the terminal prompt begins with:
+   * Verify activation by checking that the terminal prompt begins with:
 
      ```
      (venv)
      ```
-     
+
 3. **Source the workspace**
-   - In the same terminal, source the environment setup:
+
+   * In the same terminal, source the environment setup:
+
      ```bash
      source install/setup.bash
      ```
 
 4. **Launch Gazebo with the UR5 setup**
-   - In the same terminal, run:
+
+   * In the same terminal, run:
+
      ```bash
-     ros2 launch ur_yt_sim spawn_ur5_camera_gripper_moveit.launch.py
+     ros2 launch ur_yt_sim final_project.launch.py
      ```
-   - This will start **Gazebo** with the appropriate world environment, UR5 robot arm, camera, gripper, and supporting utilities.
+   * This will start **Gazebo** with the appropriate world environment, UR5 robot arm, camera, gripper, and supporting utilities.
 
 5. **Verify simulation environment**
-   - Wait for all models (robot arm, tables, items) to load successfully.
-   - You can now begin testing.
+
+   * Wait for all models (robot arm, tables, items) to load successfully.
+   * You can now begin testing.
 
 6. **Important ROS topics**
-   - The raw RGB image from the depth camera is published to:
+
+   * The raw RGB image from the depth camera is published to:
+
      ```
      /camera/image_raw
      ```
-   - The depth image data is published to:
+   * The depth image data is published to:
+
      ```
      /camera/depth/image_raw
      ```
-     
+
 ## 3. ROS2 Vision Node with Python Virtual Environment
 
 Follow these steps to create and run a **ROS2 Python node** inside a **virtual environment**:
 
 1. **Navigate to the source folder**
+
    ```bash
    cd ~/final_project_ws/src
    ```
@@ -159,11 +178,66 @@ Follow these steps to create and run a **ROS2 Python node** inside a **virtual e
    ros2 run <package-name> <executable-name>
    ```
 
-✅ You are now running your ROS2 Python node inside an isolated **virtual environment**, ensuring dependency consistency and easier package management.
+---
+
+## 4. Connecting to UR Arm
+
+Follow these steps to safely connect and control the **Universal Robots (UR) arm** using ROS2:
+
+### **Step 1 — Prepare the UR Arm**
+
+1. Plug the UR arm into a **wall socket** (avoid adapters with unstable power).
+2. Connect your **computer to the UR arm** using a LAN cable.
+3. On the teach pendant:
+
+   * Press the **silver start button** next to the **red e-stop**.
+   * Press the **power button** (bottom-left of the screen).
+   * Press **On**, then **Start**, then **Exit**.
+
+### **Step 2 — Configure Network & Verify Connectivity**
+
+1. On the teach pendant, open **Menu (top-right)** → **Settings** → **System** → **Network**.
+2. Ensure the following:
+
+   * **Network mode:** Static Address
+   * **IP address:** `10.10.0.60`
+   * **Subnet mask:** `255.255.0.0`
+3. Disable Ethernet/IP adapter:
+
+   * Go to: **Installation** → **Fieldbus** → **Ethernet/IP** → **Disable**
+4. Check expected host (computer) IP:
+
+   * **Installation** → **URCaps** → **External Control**
+   * Host IP: `10.10.0.5`
+   * Host name: `10.10.0.5`
+   * Custom port: `50002`
+5. On your computer, verify connectivity:
+
+   ```bash
+   ping 10.10.0.60
+   ```
+
+   You should see replies.
+
+### **Step 3 — Run the External Control Program (ROS2)**
+
+1. On your computer:
+
+   ```bash
+   cd ~/final_project_ws
+   source install/setup.bash
+   ros2 launch ur_yt_sim final_project.launch.py real_hardware:=true
+   ```
+2. On the UR teach pendant:
+
+   * Open **Program** → **URCaps** → **External Control**
+   * Press the **Run** button (lower-right corner)
+
+Your UR arm should now be controlled via ROS2.
 
 ---
 
-## 4. (More sections to be added)
+## 5. (More sections to be added)
 
 Additional guides will be added here in the future, such as:
 
@@ -172,7 +246,4 @@ Additional guides will be added here in the future, such as:
 * Dual boot setup for simulation and real hardware
 * And more...
 
-
 ---
-
-
