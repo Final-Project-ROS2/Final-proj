@@ -11,7 +11,8 @@ Use the **Table of Contents** below to navigate to the specific guide you need.
 * [2. Running Gazebo Simulation for Testing](#2-running-gazebo-simulation-for-testing)
 * [3. ROS2 Node with Python Virtual Environment](#3-ros2-vision-node-with-python-virtual-environment)
 * [4. Connecting to UR Arm](#4-connecting-to-ur-arm)
-* [5. (More sections to be added...)](#5-more-sections-to-be-added)
+* [5. Fixing Blocking Node (Nested Service/Action Calls)](#5-fixing-blocking-node-nested-serviceaction-calls)
+* [6. (More sections to be added...)](#6-more-sections-to-be-added)
 
 ---
 
@@ -237,7 +238,208 @@ Your UR arm should now be controlled via ROS2.
 
 ---
 
-## 5. (More sections to be added)
+## 5. Fixing Blocking Node (Nested Service/Action Calls)
+
+ROS2 developers often encounter a very common issue:
+A node provides a **service or action**, and inside its callback, that same node tries to call **other services or actions**.
+This leads to **deadlocks**, where:
+
+* The first request works
+* Every subsequent request hangs
+* The node becomes unresponsive
+* `spin_once()` loops inside callbacks make the problem worse
+
+This happens because ROS2 callbacks **cannot re-enter** unless explicitly configured.
+
+---
+
+### ⭐ **Root Cause**
+
+When a node:
+
+* handles a service callback **and**
+* inside that callback, calls another async service and waits with a loop
+
+The executor **cannot** run the nested service response callback, because the thread is stuck inside the parent callback.
+
+This results in complete deadlock.
+
+---
+
+## ✅ Correct Fix — Use Synchronous Calls + Reentrant Callback Group + MultiThreadedExecutor
+
+ROS2 provides a clean and safe pattern for handling nested service calls **without blocking the node**.
+
+### ✔️ Use a **ReentrantCallbackGroup**
+
+Allows callbacks in the same group to run concurrently.
+
+### ✔️ Use a **MultiThreadedExecutor**
+
+Allows simultaneous execution of nested callbacks in separate threads.
+
+### ✔️ Use **synchronous service calls** (`client.call()`)
+
+Not async calls inside callbacks.
+
+No `spin_once()`, no polling loops, no manual spinning.
+
+---
+
+## 📌 Code Pattern (Working Solution)
+
+```python
+from rclpy.callback_groups import ReentrantCallbackGroup
+from rclpy.executors import MultiThreadedExecutor
+import rclpy
+from rclpy.node import Node
+
+class MyServiceNode(Node):
+    def __init__(self):
+        super().__init__('my_service_node')
+
+        # Create callback group that allows reentrancy
+        self.callback_group = ReentrantCallbackGroup()
+
+        # Service server
+        self.my_service = self.create_service(
+            MyServiceType,
+            '/my_service',
+            self.service_callback,
+            callback_group=self.callback_group
+        )
+
+        # Service client
+        self.other_service_client = self.create_client(
+            OtherServiceType,
+            '/other_service',
+            callback_group=self.callback_group
+        )
+
+    def service_callback(self, request, response):
+        # ❌ Wrong: async call + manual spin loop → deadlock
+        # future = self.other_service_client.call_async(req)
+        # while not future.done():
+        #     rclpy.spin_once(self, timeout_sec=0.1)
+
+        # ✅ Correct: synchronous call (blocking + safe)
+        result = self.other_service_client.call(request)
+
+        # Process result
+        response.data = result.data
+        return response
+
+
+def main():
+    rclpy.init()
+
+    node = MyServiceNode()
+
+    # Use MultiThreadedExecutor to enable nested callbacks
+    executor = MultiThreadedExecutor()
+    executor.add_node(node)
+
+    try:
+        executor.spin()
+    finally:
+        node.destroy_node()
+        rclpy.shutdown()
+```
+
+---
+
+## 🧠 Fix Guide to use in Prompt for LLM to Fix Your Code
+
+# ROS2 Nested Service Calls - Deadlock Fix
+
+## Problem Description
+When a ROS2 service callback needs to call other services (nested service calls), using **async calls with manual spinning** creates a deadlock:
+- The service callback blocks while waiting for nested service responses
+- Calling `rclpy.spin_once(self, ...)` inside the callback fails because the main callback is already executing
+- Subsequent requests to the parent service are never processed
+
+## Solution: Use Synchronous Service Calls
+
+Replace async service calls (`call_async()`) with synchronous calls (`call()`) inside service callbacks.
+
+### Setup Requirements
+1. Use `ReentrantCallbackGroup` for services that make nested calls
+2. Use `MultiThreadedExecutor` to allow concurrent execution
+
+### Code Pattern
+
+```python
+from rclpy.callback_groups import ReentrantCallbackGroup
+from rclpy.executors import MultiThreadedExecutor
+
+class MyServiceNode(Node):
+    def __init__(self):
+        super().__init__('my_service_node')
+        
+        # Create reentrant callback group
+        self.callback_group = ReentrantCallbackGroup()
+        
+        # Create service server with callback group
+        self.my_service = self.create_service(
+            MyServiceType,
+            '/my_service',
+            self.service_callback,
+            callback_group=self.callback_group
+        )
+        
+        # Create service clients with same callback group
+        self.other_service_client = self.create_client(
+            OtherServiceType,
+            '/other_service',
+            callback_group=self.callback_group
+        )
+    
+    def service_callback(self, request, response):
+        # ❌ WRONG: Async call with manual spinning (causes deadlock)
+        # future = self.other_service_client.call_async(req)
+        # while not future.done():
+        #     rclpy.spin_once(self, timeout_sec=0.1)
+        # result = future.result()
+        
+        # ✅ CORRECT: Synchronous call
+        result = self.other_service_client.call(req)
+        
+        # Process result and return response
+        response.data = result.data
+        return response
+
+def main():
+    rclpy.init()
+    node = MyServiceNode()
+    
+    # Use MultiThreadedExecutor
+    executor = MultiThreadedExecutor()
+    executor.add_node(node)
+    
+    try:
+        executor.spin()
+    finally:
+        node.destroy_node()
+        rclpy.shutdown()
+```
+
+## Key Points
+- **Synchronous calls** (`client.call()`) block but work correctly with `ReentrantCallbackGroup` and `MultiThreadedExecutor`
+- The multi-threaded executor allows nested service calls to execute on different threads
+- No manual spinning needed - the executor handles everything
+- Service callbacks remain simple and readable
+
+## When to Use This Pattern
+- Service callbacks that need to call other services
+- Action callbacks that call services
+- Any callback that requires nested/chained service requests
+- Scenarios where service orchestration is needed
+
+
+
+---
+
+## 6. (More sections to be added)
 
 Additional guides will be added here in the future, such as:
 
@@ -247,3 +449,4 @@ Additional guides will be added here in the future, such as:
 * And more...
 
 ---
+
