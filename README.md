@@ -12,7 +12,8 @@ Use the **Table of Contents** below to navigate to the specific guide you need.
 * [3. ROS2 Node with Python Virtual Environment](#3-ros2-vision-node-with-python-virtual-environment)
 * [4. Connecting to UR Arm](#4-connecting-to-ur-arm)
 * [5. Fixing Blocking Node (Nested Service/Action Calls)](#5-fixing-blocking-node-nested-serviceaction-calls)
-* [6. (More sections to be added...)](#6-more-sections-to-be-added)
+* [6. Building and Running the Project](#6-building-and-running-the-project)
+* [7. (More sections to be added...)](#7-more-sections-to-be-added)
 
 ---
 
@@ -439,7 +440,169 @@ def main():
 
 ---
 
-## 6. (More sections to be added)
+## 6. Building and Running the Project
+
+This project requires **four separate terminals** to build and run all components properly:
+
+1. **Build terminal**
+2. **Main launch terminal**
+3. **Depth camera connector terminal**
+4. **Microphone connector terminal**
+
+> **Important:** All terminals should start in the same workspace:
+>
+> ```bash
+> cd ~/final_project_ws
+> ```
+
+---
+
+### 1. **Build the workspace**
+
+* Open the **first terminal**.
+* Navigate to the workspace:
+
+  ```bash
+  cd ~/final_project_ws
+  ```
+* Build the project:
+
+  ```bash
+  colcon build
+  ```
+* Wait for the build process to complete successfully before proceeding.
+
+---
+
+### 2. **Set up the depth camera environment**
+
+* Open a **second terminal**.
+* Go to the workspace:
+
+  ```bash
+  cd ~/final_project_ws
+  ```
+* Activate the vision virtual environment:
+
+  ```bash
+  source ./vision_venv/bin/activate
+  ```
+* Verify activation by checking that the terminal prompt begins with:
+
+  ```
+  (vision_venv)
+  ```
+
+---
+
+### 3. **Set up the microphone environment**
+
+* Open a **third terminal**.
+* Go to the workspace:
+
+  ```bash
+  cd ~/final_project_ws
+  ```
+* Activate the microphone virtual environment:
+
+  ```bash
+  source ./venv/bin/activate
+  ```
+* Verify activation by checking that the terminal prompt begins with:
+
+  ```
+  (venv)
+  ```
+
+---
+
+### 4. **Run the project**
+
+The project can be executed in **three different modes**, depending on whether simulation or real hardware is used.
+
+---
+
+#### **Mode 1: Fully in simulation**
+
+* In the **main launch terminal**, run:
+
+  ```bash
+  ros2 launch ur_yt_sim final_project.launch.py
+  ```
+
+* In the **microphone connector terminal**, run:
+
+  ```bash
+  ros2 launch asr asr.launch.py
+  ```
+
+> 💡 The project can still be used **without the microphone** by directly calling ROS 2 actions.
+
+---
+
+#### **Mode 2: Simulation world + real depth camera**
+
+* In the **depth camera connector terminal**, run:
+
+  ```bash
+  ros2 run depth_camera intel_pub
+  ```
+
+* In the **main launch terminal**, run:
+
+  ```bash
+  ros2 launch ur_yt_sim final_project.launch.py real_camera:=true
+  ```
+
+* Microphone setup remains the same as in **Mode 1**:
+
+  ```bash
+  ros2 launch asr asr.launch.py
+  ```
+
+---
+
+#### **Mode 3: Real hardware**
+
+* In the **depth camera connector terminal**, run:
+
+  ```bash
+  ros2 run depth_camera intel_pub
+  ```
+
+* In the **microphone connector terminal**, run:
+
+  ```bash
+  ros2 launch asr asr.launch.py
+  ```
+
+* In the **main launch terminal**, run:
+
+  ```bash
+  ros2 launch ur_yt_sim final_project.launch.py real_hardware:=true real_camera:=true
+  ```
+
+---
+
+### 5. **Main launch file arguments**
+
+The main launch file (`final_project.launch.py`) supports the following arguments:
+
+| Argument          | Type   | Default                        | Description                                                          |
+| ----------------- | ------ | ------------------------------ | -------------------------------------------------------------------- |
+| `pddl`            | bool   | `false`                        | Use PDDL-based planning when true; use LLM-based planning when false |
+| `world_file`      | string | `test_world_find_object.world` | Gazebo world file (must be located in `ur_yt_sim/worlds`)            |
+| `use_ollama`      | bool   | `false`                        | Use local Ollama LLM instead of Google Gemini                        |
+| `real_hardware`   | bool   | `false`                        | Use real robot hardware instead of Gazebo simulation                 |
+| `real_camera`     | bool   | `false`                        | Use a real depth camera instead of the simulated camera              |
+| `confirm`         | bool   | `true`                         | Require user confirmation before plan execution                      |
+| `is_home`         | bool   | `true`                         | Set initial robot state for PDDL mode                                |
+| `is_ready`        | bool   | `false`                        | Set initial robot state for PDDL mode                                |
+| `gripper_is_open` | bool   | `true`                         | Set initial gripper state for PDDL mode                              |
+
+---
+
+## 7. (More sections to be added)
 
 Additional guides will be added here in the future, such as:
 
@@ -449,4 +612,5 @@ Additional guides will be added here in the future, such as:
 * And more...
 
 ---
+
 
