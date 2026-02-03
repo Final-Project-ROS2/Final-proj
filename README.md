@@ -465,6 +465,11 @@ This project requires **four separate terminals** to build and run all component
   ```bash
   cd ~/final_project_ws
   ```
+* Activate the vision virtual environment:
+
+  ```bash
+  source ./vision_venv/bin/activate
+  ```
 * Build the project:
 
   ```bash
@@ -523,6 +528,11 @@ The project can be executed in **three different modes**, depending on whether s
 ---
 
 #### **Mode 1: Fully in simulation**
+* In the **main launch terminal**, activate the vision virtual environment:
+
+  ```bash
+  source ./vision_venv/bin/activate
+  ```
 
 * In the **main launch terminal**, run:
 
@@ -612,5 +622,6 @@ Additional guides will be added here in the future, such as:
 * And more...
 
 ---
+
 
 
