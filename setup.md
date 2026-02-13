@@ -14,9 +14,9 @@ All coordinates are relative to the origin point defined below.
 
 | Component | Coordinates (x, y, z) | Description |
 |-----------|----------------------|-------------|
-| **Origin** | (0, 0, 0) | Spot on the floor directly under the center of the base of the UR Arm |
-| **UR Arm Base** | (0, 0, 0.805) | Center of the base of the UR Arm, measured at the height of the table |
-| **Depth Camera** | (0, -0.5442, 1.4761) | Position of the Intel Realsense D435i Depth Camera |
+| **Origin/UR ARM Base** | (0, 0, 0) | Center of the base of the UR Arm
+| **Ground Origin** | (0, 0, -0.805) | Position on the ground directly under the center of the base of the UR Arm, measured from the top surface of the table
+| **Depth Camera** | (0, -0.5442, 0.6711) | Position of the Intel Realsense D435i Depth Camera |
 
 ## Key Measurements
 
