@@ -539,8 +539,8 @@ This project requires **four separate terminals** to build and run all component
 
 1. **Build terminal**
 2. **Main launch terminal**
-3. **Depth camera connector terminal**
-4. **Microphone connector terminal**
+3. **Microphone connector terminal (or Action calling terminal)**
+4. **Response monitoring terminal**
 
 > **Important:** All terminals should start in the same workspace:
 >
@@ -572,30 +572,9 @@ This project requires **four separate terminals** to build and run all component
 
 ---
 
-### 2. **Set up the depth camera environment**
+### 2. **Set up the microphone environment**
 
 * Open a **second terminal**.
-* Go to the workspace:
-
-  ```bash
-  cd ~/final_project_ws
-  ```
-* Activate the vision virtual environment:
-
-  ```bash
-  source ./vision_venv/bin/activate
-  ```
-* Verify activation by checking that the terminal prompt begins with:
-
-  ```
-  (vision_venv)
-  ```
-
----
-
-### 3. **Set up the microphone environment**
-
-* Open a **third terminal**.
 * Go to the workspace:
 
   ```bash
@@ -614,7 +593,7 @@ This project requires **four separate terminals** to build and run all component
 
 ---
 
-### 4. **Run the project**
+### 3. **Run the project**
 
 The project can be executed in **three different modes**, depending on whether simulation or real hardware is used. Select the mode by supplying the appropriate value to the `mode` launch argument.
 
@@ -688,7 +667,7 @@ The project can be executed in **three different modes**, depending on whether s
 
 ---
 
-### 5. **Main launch file arguments**
+### 4. **Main launch file arguments**
 
 The main launch file (`final_project.launch.py`) supports the following arguments:
 
@@ -707,6 +686,44 @@ The main launch file (`final_project.launch.py`) supports the following argument
 
 ---
 
+### 5. **Monitoring the response**
+
+* In the **response monitoring terminal**, run the following command:
+
+  ```bash
+  ros2 topic echo /response
+  ```
+
+The planning node responses will be printed in this terminal
+
+---
+
+### 6. **Using the project**
+
+There are **2** ways to send command to the UR Arm.
+
+#### **1. Vocal**
+
+Make sure that you've launch the ASR node (by running `ros2 launch asr asr.launch.py` in the **microphone terminal** if you haven't). Then simply speak your command.
+
+#### **2. Action Call**
+
+With this method, you do not need to launch the ASR node. Simply run the following command
+
+```bash
+ros2 action send_goal /prompt_high_level custom_interfaces/action/Prompt "{prompt: '<command>'}"
+```
+
+Replacing the \<command\> with your command. For example
+
+```bash
+ros2 action send_goal /prompt_high_level custom_interfaces/action/Prompt "{prompt: 'Move to ready'}"
+```
+
+Make sure the double-quotes and single-quotes are present.
+
+---
+
 ## 7. (More sections to be added)
 
 Additional guides will be added here in the future, such as:
@@ -717,6 +734,7 @@ Additional guides will be added here in the future, such as:
 * And more...
 
 ---
+
 
 
 
