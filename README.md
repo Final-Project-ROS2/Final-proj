@@ -52,13 +52,23 @@ Follow these steps to start up the **Gazebo simulation** environment with the co
      ```bash
      cd ~/final_project_ws
      ```
+   * Source the `vision_venv` virtual environment:
+
+     ```bash
+     source ./vision_venv/bin/activate
+     ```
+   * Verify activation by checking that the terminal prompt begins with:
+
+     ```
+     (vision_venv)
+     ```
    * Build all packages:
 
      ```bash
      colcon build
      ```
 
-2. **Source the default virtual environment**
+2. **Source the `vision_venv` virtual environment**
 
    * Open a **second terminal**.
    * Go to the same workspace:
@@ -66,15 +76,15 @@ Follow these steps to start up the **Gazebo simulation** environment with the co
      ```bash
      cd ~/final_project_ws
      ```
-   * Source the default virtual environment:
+   * Source the `vision_venv` virtual environment:
 
      ```bash
-     source ./venv/bin/activate
+     source ./vision_venv/bin/activate
      ```
    * Verify activation by checking that the terminal prompt begins with:
 
      ```
-     (venv)
+     (vision_venv)
      ```
 
 3. **Source the workspace**
@@ -350,19 +360,19 @@ This results in complete deadlock.
 
 ---
 
-## ✅ Correct Fix — Use Synchronous Calls + Reentrant Callback Group + MultiThreadedExecutor
+### ✅ Correct Fix — Use Synchronous Calls + Reentrant Callback Group + MultiThreadedExecutor
 
 ROS2 provides a clean and safe pattern for handling nested service calls **without blocking the node**.
 
-### ✔️ Use a **ReentrantCallbackGroup**
+#### ✔️ Use a **ReentrantCallbackGroup**
 
 Allows callbacks in the same group to run concurrently.
 
-### ✔️ Use a **MultiThreadedExecutor**
+#### ✔️ Use a **MultiThreadedExecutor**
 
 Allows simultaneous execution of nested callbacks in separate threads.
 
-### ✔️ Use **synchronous service calls** (`client.call()`)
+#### ✔️ Use **synchronous service calls** (`client.call()`)
 
 Not async calls inside callbacks.
 
@@ -370,7 +380,7 @@ No `spin_once()`, no polling loops, no manual spinning.
 
 ---
 
-## 📌 Code Pattern (Working Solution)
+### 📌 Code Pattern (Working Solution)
 
 ```python
 from rclpy.callback_groups import ReentrantCallbackGroup
@@ -432,8 +442,9 @@ def main():
 
 ---
 
-## 🧠 Fix Guide to use in Prompt for LLM to Fix Your Code
+### 🧠 Fix Guide to use in Prompt for LLM to Fix Your Code
 
+```markdown
 # ROS2 Nested Service Calls - Deadlock Fix
 
 ## Problem Description
@@ -452,7 +463,6 @@ Replace async service calls (`call_async()`) with synchronous calls (`call()`) i
 
 ### Code Pattern
 
-```python
 from rclpy.callback_groups import ReentrantCallbackGroup
 from rclpy.executors import MultiThreadedExecutor
 
@@ -507,19 +517,19 @@ def main():
         rclpy.shutdown()
 ```
 
-## Key Points
+### Key Points
+
 - **Synchronous calls** (`client.call()`) block but work correctly with `ReentrantCallbackGroup` and `MultiThreadedExecutor`
 - The multi-threaded executor allows nested service calls to execute on different threads
 - No manual spinning needed - the executor handles everything
 - Service callbacks remain simple and readable
 
-## When to Use This Pattern
+### When to Use This Pattern
+
 - Service callbacks that need to call other services
 - Action callbacks that call services
 - Any callback that requires nested/chained service requests
 - Scenarios where service orchestration is needed
-
-
 
 ---
 
@@ -606,11 +616,12 @@ This project requires **four separate terminals** to build and run all component
 
 ### 4. **Run the project**
 
-The project can be executed in **three different modes**, depending on whether simulation or real hardware is used.
+The project can be executed in **three different modes**, depending on whether simulation or real hardware is used. Select the mode by supplying the appropriate value to the `mode` launch argument.
 
 ---
 
-#### **Mode 1: Fully in simulation**
+#### **Mode 1 (sim): Fully in simulation**
+
 * In the **main launch terminal**, activate the vision virtual environment:
 
   ```bash
@@ -620,7 +631,7 @@ The project can be executed in **three different modes**, depending on whether s
 * In the **main launch terminal**, run:
 
   ```bash
-  ros2 launch ur_yt_sim final_project.launch.py
+  ros2 launch ur_yt_sim final_project.launch.py mode:=sim
   ```
 
 * In the **microphone connector terminal**, run:
@@ -633,18 +644,18 @@ The project can be executed in **three different modes**, depending on whether s
 
 ---
 
-#### **Mode 2: Simulation world + real depth camera**
+#### **Mode 2 (cam): Simulation world + real depth camera**
 
-* In the **depth camera connector terminal**, run:
+* In the **main launch terminal**, activate the vision virtual environment:
 
   ```bash
-  ros2 run depth_camera intel_pub
+  source ./vision_venv/bin/activate
   ```
 
 * In the **main launch terminal**, run:
 
   ```bash
-  ros2 launch ur_yt_sim final_project.launch.py real_camera:=true
+  ros2 launch ur_yt_sim final_project.launch.py mode:=cam
   ```
 
 * Microphone setup remains the same as in **Mode 1**:
@@ -655,24 +666,24 @@ The project can be executed in **three different modes**, depending on whether s
 
 ---
 
-#### **Mode 3: Real hardware**
+#### **Mode 3 (real): Real hardware**
 
-* In the **depth camera connector terminal**, run:
-
-  ```bash
-  ros2 run depth_camera intel_pub
-  ```
-
-* In the **microphone connector terminal**, run:
+* In the **main launch terminal**, activate the vision virtual environment:
 
   ```bash
-  ros2 launch asr asr.launch.py
+  source ./vision_venv/bin/activate
   ```
 
 * In the **main launch terminal**, run:
 
   ```bash
-  ros2 launch ur_yt_sim final_project.launch.py real_hardware:=true real_camera:=true
+  ros2 launch ur_yt_sim final_project.launch.py mode:=real
+  ```
+
+* Microphone setup remains the same as in **Mode 1**:
+
+  ```bash
+  ros2 launch asr asr.launch.py
   ```
 
 ---
@@ -683,6 +694,7 @@ The main launch file (`final_project.launch.py`) supports the following argument
 
 | Argument          | Type   | Default                        | Description                                                          |
 | ----------------- | ------ | ------------------------------ | -------------------------------------------------------------------- |
+| `mode`            | string | `sim`                          | Select launch mode from `sim`, `cam`, and `real`                     |
 | `pddl`            | bool   | `false`                        | Use PDDL-based planning when true; use LLM-based planning when false |
 | `world_file`      | string | `test_world_find_object.world` | Gazebo world file (must be located in `ur_yt_sim/worlds`)            |
 | `use_ollama`      | bool   | `false`                        | Use local Ollama LLM instead of Google Gemini                        |
