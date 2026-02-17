@@ -213,15 +213,98 @@ Follow these steps to safely connect and control the **Universal Robots (UR) arm
    * Host IP: `10.10.0.5`
    * Host name: `10.10.0.5`
    * Custom port: `50002`
-5. On your computer, verify connectivity:
 
-   ```bash
-   ping 10.10.0.60
-   ```
+## Step 3 — Configure Ubuntu Static IP (IMPORTANT)
 
-   You should see replies.
+If not configured correctly, Ubuntu may show:
 
-### **Step 3 — Run the External Control Program (ROS2)**
+```
+Activation of network connection failed
+```
+
+This usually means your PC is not in the same subnet as the robot.
+
+Since the robot IP is:
+
+```
+10.10.0.60
+Subnet: 255.255.0.0
+```
+
+Your computer must be:
+
+```
+10.10.X.X
+```
+
+Recommended:
+
+```
+10.10.0.5
+```
+
+---
+
+### Configure via Ubuntu GUI (20.04 / 22.04 / 24.04)
+
+1. Open **Settings**
+
+2. Go to **Network**
+
+3. Under **Wired**, click the ⚙ (gear icon)
+
+4. Go to the **IPv4** tab
+
+5. Change:
+
+```
+Automatic (DHCP)
+```
+
+to
+
+```
+Manual
+```
+
+6. Click **Add** and enter:
+
+| Field   | Value                         |
+| ------- | ----------------------------- |
+| Address | 10.10.0.5                     |
+| Netmask | 255.255.0.0                   |
+| Gateway | (leave blank if direct cable) |
+
+Leave **DNS blank**.
+
+7. Click **Apply**
+8. Turn the wired connection **Off → On**
+
+---
+
+### Verify Configuration
+
+Open terminal:
+
+```bash
+ip addr
+```
+
+You should see:
+
+```
+inet 10.10.0.5/16
+```
+
+Test connectivity:
+
+```bash
+ping 10.10.0.60
+```
+
+You should receive replies.
+
+### **Step 4 — Run the External Control Program (ROS2)**
 
 1. On your computer:
 
@@ -622,6 +705,7 @@ Additional guides will be added here in the future, such as:
 * And more...
 
 ---
+
 
 
 
