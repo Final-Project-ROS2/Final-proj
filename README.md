@@ -13,7 +13,8 @@ Use the **Table of Contents** below to navigate to the specific guide you need.
 * [4. Connecting to UR Arm](#4-connecting-to-ur-arm)
 * [5. Fixing Blocking Node (Nested Service/Action Calls)](#5-fixing-blocking-node-nested-serviceaction-calls)
 * [6. Building and Running the Project](#6-building-and-running-the-project)
-* [7. (More sections to be added...)](#7-more-sections-to-be-added)
+* [7. Checking Depth Camera Connection](#7-checking-depth-camera-connection)
+* [8. (More sections to be added...)](#8-more-sections-to-be-added)
 
 ---
 
@@ -724,7 +725,33 @@ Make sure the double-quotes and single-quotes are present.
 
 ---
 
-## 7. (More sections to be added)
+## 7. Checking Depth Camera Connection
+
+To check whether the depth camera is connected to the computer correctly or not, do the following
+
+* Open 3 terminals
+* For all 3 terminals, navigate to the final project workspace by running
+  ```bash
+  cd ~/final_project_ws/
+  ```
+* In the first terminal, build the project by running
+  ```bash
+  colcon build
+  ```
+* In the second terminal, source the project, then run the depth camera publisher by running
+  ```
+  source install/setup.bash
+  ros2 run depth_camera intel_pub
+  ```
+* In the third terminal, source the project, then run the depth camera subscriber by running
+  ```
+  source install/setup.bash
+  ros2 run depth_camera intel_sub
+  ```
+
+---
+
+## 8. (More sections to be added)
 
 Additional guides will be added here in the future, such as:
 
@@ -734,6 +761,7 @@ Additional guides will be added here in the future, such as:
 * And more...
 
 ---
+
 
 
 
