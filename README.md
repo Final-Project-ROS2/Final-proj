@@ -214,7 +214,7 @@ Follow these steps to safely connect and control the **Universal Robots (UR) arm
    * Host name: `10.10.0.5`
    * Custom port: `50002`
 
-## Step 3 — Configure Ubuntu Static IP (IMPORTANT)
+### **Step 3 — Configure Ubuntu Static IP (IMPORTANT)**
 
 If not configured correctly, Ubuntu may show:
 
@@ -245,7 +245,7 @@ Recommended:
 
 ---
 
-### Configure via Ubuntu GUI (20.04 / 22.04 / 24.04)
+#### Configure via Ubuntu GUI (20.04 / 22.04 / 24.04)
 
 1. Open **Settings**
 
@@ -282,7 +282,7 @@ Leave **DNS blank**.
 
 ---
 
-### Verify Configuration
+#### Verify Configuration
 
 Open terminal:
 
@@ -705,6 +705,7 @@ Additional guides will be added here in the future, such as:
 * And more...
 
 ---
+
 
 
 
