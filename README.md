@@ -675,6 +675,7 @@ The main launch file (`final_project.launch.py`) supports the following argument
 | Argument          | Type   | Default                        | Description                                                          |
 | ----------------- | ------ | ------------------------------ | -------------------------------------------------------------------- |
 | `mode`            | string | `sim`                          | Select launch mode from `sim`, `cam`, and `real`                     |
+| `tcp_offset`      | bool   | `false`                        | Apply tcp offset to z coordinate when true                           |
 | `pddl`            | bool   | `false`                        | Use PDDL-based planning when true; use LLM-based planning when false |
 | `world_file`      | string | `test_world_find_object.world` | Gazebo world file (must be located in `ur_yt_sim/worlds`)            |
 | `use_ollama`      | bool   | `false`                        | Use local Ollama LLM instead of Google Gemini                        |
@@ -761,10 +762,3 @@ Additional guides will be added here in the future, such as:
 * And more...
 
 ---
-
-
-
-
-
-
-
