@@ -753,6 +753,10 @@ To check whether the depth camera is connected to the computer correctly or not,
   ```bash
   cd ~/final_project_ws/
   ```
+* For all 3 terminals, activate the vision virtual environment by running
+  ```bash
+  source ./vision_venv/bin/activate
+  ```
 * In the first terminal, build the project by running
   ```bash
   colcon build
@@ -767,6 +771,16 @@ To check whether the depth camera is connected to the computer correctly or not,
   source install/setup.bash
   ros2 run depth_camera intel_sub
   ```
+
+### Usage guide for tmux camera check script
+
+You can launch a 3-pane tmux layout for the camera check with:
+
+```bash
+./camera_check.sh
+```
+
+This opens one build pane and two runtime panes, each starting in `~/final_project_ws` with the `vision_venv` activated.
 
 ---
 
