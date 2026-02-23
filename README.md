@@ -551,7 +551,7 @@ This project requires **four separate terminals** to build and run all component
 
 ### Usage guide for tmux setup script
 
-You can launch the 2x2 tmux layout with the setup script in this repository:
+You can launch the 2x2 tmux layout with the setup script by opening a terminal then running:
 
 ```bash
 ./project_setup.sh
