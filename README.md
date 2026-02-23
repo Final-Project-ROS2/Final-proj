@@ -672,19 +672,21 @@ The project can be executed in **three different modes**, depending on whether s
 
 The main launch file (`final_project.launch.py`) supports the following arguments:
 
-| Argument          | Type   | Default                        | Description                                                          |
-| ----------------- | ------ | ------------------------------ | -------------------------------------------------------------------- |
-| `mode`            | string | `sim`                          | Select launch mode from `sim`, `cam`, and `real`                     |
-| `tcp_offset`      | bool   | `false`                        | Apply tcp offset to z coordinate when true                           |
-| `pddl`            | bool   | `false`                        | Use PDDL-based planning when true; use LLM-based planning when false |
-| `world_file`      | string | `test_world_find_object.world` | Gazebo world file (must be located in `ur_yt_sim/worlds`)            |
-| `use_ollama`      | bool   | `false`                        | Use local Ollama LLM instead of Google Gemini                        |
-| `real_hardware`   | bool   | `false`                        | Use real robot hardware instead of Gazebo simulation                 |
-| `real_camera`     | bool   | `false`                        | Use a real depth camera instead of the simulated camera              |
-| `confirm`         | bool   | `true`                         | Require user confirmation before plan execution                      |
-| `is_home`         | bool   | `true`                         | Set initial robot state for PDDL mode                                |
-| `is_ready`        | bool   | `false`                        | Set initial robot state for PDDL mode                                |
-| `gripper_is_open` | bool   | `true`                         | Set initial gripper state for PDDL mode                              |
+| Argument                | Type     | Default                        | Description                                                          |
+| ----------------------- | -------- | ------------------------------ | -------------------------------------------------------------------- |
+| `mode`                  | string   | `sim`                          | Select launch mode from `sim`, `cam`, and `real`                     |
+| `tcp_offset`            | bool     | `false`                        | Apply tcp offset to z coordinate when true                           |
+| `pddl`                  | bool     | `false`                        | Use PDDL-based planning when true; use LLM-based planning when false |
+| `disable_unused_vision` | bool     | `false`                        | Disable currently unused vision nodes                                |
+| `disable_node`          | [string] | `[]`                           | List of node to disable (not launched)                               |
+| `world_file`            | string   | `test_world_find_object.world` | Gazebo world file (must be located in `ur_yt_sim/worlds`)            |
+| `use_ollama`            | bool     | `false`                        | Use local Ollama LLM instead of Google Gemini                        |
+| `real_hardware`         | bool     | `false`                        | Use real robot hardware instead of Gazebo simulation                 |
+| `real_camera`           | bool     | `false`                        | Use a real depth camera instead of the simulated camera              |
+| `confirm`               | bool     | `true`                         | Require user confirmation before plan execution                      |
+| `is_home`               | bool     | `true`                         | Set initial robot state for PDDL mode                                |
+| `is_ready`              | bool     | `false`                        | Set initial robot state for PDDL mode                                |
+| `gripper_is_open`       | bool     | `true`                         | Set initial gripper state for PDDL mode                              |
 
 ---
 
@@ -760,5 +762,6 @@ Additional guides will be added here in the future, such as:
 * Configuring MoveIt2 for UR robots
 * Dual boot setup for simulation and real hardware
 * And more...
+
 
 ---
