@@ -774,7 +774,7 @@ To check whether the depth camera is connected to the computer correctly or not,
 
 ### Usage guide for tmux camera check script
 
-You can launch a 3-pane tmux layout for the camera check with:
+You can launch a 3-pane tmux layout for the camera check by openning a terminal then running:
 
 ```bash
 ./camera_check.sh
