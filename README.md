@@ -549,6 +549,22 @@ This project requires **four separate terminals** to build and run all component
 > cd ~/final_project_ws
 > ```
 
+### Usage guide for tmux setup script
+
+You can launch the 2x2 tmux layout with the setup script by opening a terminal then running:
+
+```bash
+./project_setup.sh
+```
+
+Optional: pass a package or folder name under `~/final_project_ws/src` to open it directly in the bottom-right pane:
+
+```bash
+./project_setup.sh <package_or_folder_name>
+```
+
+If the directory does not exist, the bottom-right pane will open in `~/final_project_ws/src`.
+
 ---
 
 ### 1. **Build the workspace**
