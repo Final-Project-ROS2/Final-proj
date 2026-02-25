@@ -22,24 +22,31 @@ tmux new-session -d -s "$SESSION_NAME" -c "$WORKSPACE_DIR"
 tmux split-window -h -c "$WORKSPACE_DIR"
 tmux select-pane -t 0
 tmux split-window -v -c "$WORKSPACE_DIR"
-tmux select-pane -t 1
+tmux select-pane -t 2
 tmux split-window -v -c "$WORKSPACE_DIR"
 
+# Function to cd to WORKSPACE_DIR and activate vision_venv
+default_setup() {
+	tmux send-keys -t $1 "cd $WORKSPACE_DIR" C-m
+	tmux send-keys -t $1 "source ./vision_venv/bin/activate" C-m
+}
+
 # Top left: run project.
-tmux send-keys -t 0 "cd $WORKSPACE_DIR" C-m
-tmux send-keys -t 0 "source ./vision_venv/bin/activate" C-m
+default_setup 0
+tmux send-keys -t 0 "clear" C-m
 
 # Top right: call ros2 action.
-tmux send-keys -t 1 "cd $WORKSPACE_DIR" C-m
+default_setup 2
+tmux send-keys -t 2 "clear" C-m
 
 # Bottom left: colcon build.
-tmux send-keys -t 2 "cd $WORKSPACE_DIR" C-m
-tmux send-keys -t 2 "source ./vision_venv/bin/activate" C-m
+default_setup 1
+tmux send-keys -t 1 "clear" C-m
 
 # Bottom right: access code.
-tmux send-keys -t 3 "cd $WORKSPACE_DIR" C-m
-tmux send-keys -t 3 "source ./vision_venv/bin/activate" C-m
+default_setup 3
 tmux send-keys -t 3 "cd $TARGET_DIR" C-m
+tmux send-keys -t 3 "clear" C-m
 
-tmux select-pane -t 2
+tmux select-pane -t 3
 tmux attach -t "$SESSION_NAME"
