@@ -4,7 +4,7 @@
 
 ## System Diagram
 
-![Hardware Measurements Diagram](images/hardware_measurements.jpg)
+![Hardware Measurements Diagram](images/hardware_setup.jpg)
 
 ## Coordinate System
 
