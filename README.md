@@ -225,7 +225,15 @@ Follow these steps to safely connect and control the **Universal Robots (UR) arm
    * Host name: `10.10.0.5`
    * Custom port: `50002`
 
-### **Step 3 — Configure Ubuntu Static IP (IMPORTANT)**
+### **Step 3 — Ensure Remote Control is Enabled**
+
+Check if the `Remote Control` button is present on the top right corner of the teach pendant's screen (Either shows up as `Local` or `Remote`) and make sure to put it in `Remote` mode.
+
+If the `Remote Control` button is not present, enable it by
+* Go to: **Settings** -> **System** -> **Remote Control** -> **Enable**
+* Restart the controller if it asks
+
+### **Step 4 — Configure Ubuntu Static IP (IMPORTANT)**
 
 If not configured correctly, Ubuntu may show:
 
@@ -315,7 +323,7 @@ ping 10.10.0.60
 
 You should receive replies.
 
-### **Step 4 — Run the External Control Program (ROS2)**
+### **Step 5 — Run the External Control Program (ROS2)**
 
 1. On your computer:
 
@@ -326,8 +334,7 @@ You should receive replies.
    ```
 2. On the UR teach pendant:
 
-   * Open **Program** → **URCaps** → **External Control**
-   * Press the **Run** button (lower-right corner)
+   * Ensure that the `Remote Control` button in the top right corner of the teach pendant's screen is set to `Remote` and not `Local`
 
 Your UR arm should now be controlled via ROS2.
 
@@ -781,3 +788,4 @@ Additional guides will be added here in the future, such as:
 
 
 ---
+
