@@ -233,7 +233,13 @@ If the `Remote Control` button is not present, enable it by
 * Go to: **Settings** -> **System** -> **Remote Control** -> **Enable**
 * Restart the controller if it asks
 
-### **Step 4 — Configure Ubuntu Static IP (IMPORTANT)**
+### **Step 4 — Enable Control Using URScript via TCP/IP**
+
+Ensure that the TCP/IP communiation port is enabled and not blocked by
+* Go to: **Settings** -> **Security** -> **General** -> **Remove "restrict inbound network access to this subnet" and "disable inbound access to additional interfaces (by port)"**
+* Go to: **Settings** -> **Security** -> **Services** -> **Enable all services**
+
+### **Step 5 — Configure Ubuntu Static IP (IMPORTANT)**
 
 If not configured correctly, Ubuntu may show:
 
