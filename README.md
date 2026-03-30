@@ -588,10 +588,10 @@ If the directory does not exist, the bottom-right pane will open in `~/final_pro
   ```bash
   cd ~/final_project_ws
   ```
-* Activate the vision virtual environment:
+* Activate the virtual environment:
 
   ```bash
-  source ./vision_venv/bin/activate
+  source ./.venv/bin/activate
   ```
 * Build the project:
 
@@ -613,83 +613,31 @@ If the directory does not exist, the bottom-right pane will open in `~/final_pro
 * Activate the microphone virtual environment:
 
   ```bash
-  source ./venv/bin/activate
+  source ./venv/asr_venv/activate
   ```
 * Verify activation by checking that the terminal prompt begins with:
 
   ```
-  (venv)
+  (asr_venv)
   ```
 
 ---
 
 ### 3. **Run the project**
 
-The project can be executed in **three different modes**, depending on whether simulation or real hardware is used. Select the mode by supplying the appropriate value to the `mode` launch argument.
-
----
-
-#### **Mode 1 (sim): Fully in simulation**
-
 * In the **main launch terminal**, activate the vision virtual environment:
 
   ```bash
-  source ./vision_venv/bin/activate
+  source ./.venv/bin/activate
   ```
 
 * In the **main launch terminal**, run:
 
   ```bash
-  ros2 launch ur_yt_sim final_project.launch.py mode:=sim
+  ros2 launch project_launcher final_project.launch.py
   ```
 
-* In the **microphone connector terminal**, run:
-
-  ```bash
-  ros2 launch asr asr.launch.py
-  ```
-
-> 💡 The project can still be used **without the microphone** by directly calling ROS 2 actions.
-
----
-
-#### **Mode 2 (cam): Simulation world + real depth camera**
-
-* In the **main launch terminal**, activate the vision virtual environment:
-
-  ```bash
-  source ./vision_venv/bin/activate
-  ```
-
-* In the **main launch terminal**, run:
-
-  ```bash
-  ros2 launch ur_yt_sim final_project.launch.py mode:=cam
-  ```
-
-* Microphone setup remains the same as in **Mode 1**:
-
-  ```bash
-  ros2 launch asr asr.launch.py
-  ```
-
----
-
-#### **Mode 3 (real): Real hardware**
-
-* In the **main launch terminal**, activate the vision virtual environment:
-
-  ```bash
-  source ./vision_venv/bin/activate
-  ```
-
-* In the **main launch terminal**, run:
-
-  ```bash
-  ros2 launch ur_yt_sim final_project.launch.py mode:=real
-  ```
-
-* Microphone setup remains the same as in **Mode 1**:
+* In the **microphone terminal**, run:
 
   ```bash
   ros2 launch asr asr.launch.py
@@ -703,15 +651,10 @@ The main launch file (`final_project.launch.py`) supports the following argument
 
 | Argument                | Type     | Default                        | Description                                                          |
 | ----------------------- | -------- | ------------------------------ | -------------------------------------------------------------------- |
-| `mode`                  | string   | `sim`                          | Select launch mode from `sim`, `cam`, and `real`                     |
 | `tcp_offset`            | bool     | `false`                        | Apply tcp offset to z coordinate when true                           |
 | `pddl`                  | bool     | `false`                        | Use PDDL-based planning when true; use LLM-based planning when false |
-| `disable_unused_vision` | bool     | `false`                        | Disable currently unused vision nodes                                |
 | `disable_node`          | [string] | `[]`                           | List of node to disable (not launched)                               |
-| `world_file`            | string   | `test_world_find_object.world` | Gazebo world file (must be located in `ur_yt_sim/worlds`)            |
 | `use_ollama`            | bool     | `false`                        | Use local Ollama LLM instead of Google Gemini                        |
-| `real_hardware`         | bool     | `false`                        | Use real robot hardware instead of Gazebo simulation                 |
-| `real_camera`           | bool     | `false`                        | Use a real depth camera instead of the simulated camera              |
 | `confirm`               | bool     | `true`                         | Require user confirmation before plan execution                      |
 | `is_home`               | bool     | `true`                         | Set initial robot state for PDDL mode                                |
 | `is_ready`              | bool     | `false`                        | Set initial robot state for PDDL mode                                |
