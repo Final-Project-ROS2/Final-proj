@@ -14,7 +14,8 @@ Use the **Table of Contents** below to navigate to the specific guide you need.
 * [5. Fixing Blocking Node (Nested Service/Action Calls)](#5-fixing-blocking-node-nested-serviceaction-calls)
 * [6. Building and Running the Project](#6-building-and-running-the-project)
 * [7. Checking Depth Camera Connection](#7-checking-depth-camera-connection)
-* [8. (More sections to be added...)](#8-more-sections-to-be-added)
+* [8. Fixed for Common Problems](#8-fixes-for-common-problems)
+* [9. (More sections to be added...)](#8-more-sections-to-be-added)
 
 ---
 
@@ -726,7 +727,15 @@ To check whether the depth camera is connected to the computer correctly or not,
 
 ---
 
-## 8. (More sections to be added)
+## 8. Fixes for Common Problems
+
+| Problem                                            | Solution                                                                |
+| -------------------------------------------------- | ----------------------------------------------------------------------- |
+| Cannot move because joint limit reached            | Reset `wrist3` joint to 0 degrees to prevent near 360, -360 degrees     |
+
+---
+
+## 9. (More sections to be added)
 
 Additional guides will be added here in the future, such as:
 
